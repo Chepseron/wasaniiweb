@@ -1,0 +1,6 @@
+.col-md-12
+  .row#lightgallery
+    - @gallery_photos.each do |gallery_photo|
+      =link_to gallery_photo.image.url, class: 'col-md-1-5' do
+        =image_tag gallery_photo.image.url
+

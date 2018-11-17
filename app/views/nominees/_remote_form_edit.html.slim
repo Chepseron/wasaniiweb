@@ -1,0 +1,21 @@
+#nomineeModal
+  h4#modalTitle
+    | Nominee
+  hr
+  .row
+    .col-md-12
+      h3= @nominee.nominee_category
+  .row
+    .col-md-6
+      h3= @nominee.nominee_name
+    .col-md-6
+      h3= @nominee.year
+    .col-md-12
+      = simple_form_for([@award_category, @nominee], remote: true) do |f|
+        .form-inputs
+          .form-group
+            .row
+              .col-md-12
+                = f.association :rank, prompt: 'Enter Ranking', input_html:{class: 'form-control'}, label: false
+        .form-actions
+          = f.button :submit, class: 'btn site-btn-primary pull-right'

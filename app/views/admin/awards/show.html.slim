@@ -1,0 +1,35 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active user
+  /! /.row
+  .row
+    .col-md-12
+      h1.page-header User
+  /! /.row
+  .row
+    .col-md-3
+      =image_tag (@award.image_stored? ? @award.image.url : 'default-award-pic.png'), id: 'profile-pic'
+    .col-md-9
+      .row
+        .col-md-12
+          h1= @award.name
+
+          p Country: #{ISO3166::Country.find_country_by_alpha2(@award.country).name}
+          p Industry: #{@award.industry.name}
+          p State: #{@award.aasm_state}
+      .row
+        .col-md-2
+          =link_to 'unpublish', change_status_admin_award_path(@award, params:{status: 'unpublish'}), method: :patch, class: 'btn btn-primary'
+        .col-md-2
+          =link_to 'publish',change_status_admin_award_path(@award, params:{status: 'publish'}), method: :patch, class: 'btn btn-primary'
+
+  .row
+    .col-md-12.no-gutters
+      = @award.details.html_safe if @award.details
+
+

@@ -1,0 +1,5 @@
+$('#linksModal button.close-button').click();
+$('#add-links-modal').empty();
+$('#link-details').html("<%= escape_javascript render 'artists/link_details' %>")
+
+NProgress.done();

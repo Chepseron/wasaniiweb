@@ -1,0 +1,8 @@
+- unless entity.gallery_photos.empty?
+  .row
+    h4 Gallery
+  .trending-sect
+    .row.clr#lightgallery.blog-news-events-gallery
+      - entity.gallery_photos.each do |photo|
+         =link_to photo.image.url, class: 'col-md-3 reduced-padding' do
+           =image_tag photo.image.url

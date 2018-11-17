@@ -1,0 +1,98 @@
+.trending
+  .container
+    h3 TRENDING
+    .row
+      .col-md-1-5
+        - Artist.viewable.trending_in_music[0..4].each do |artist|
+          =link_to artist, class: 'linked-list-item' do
+            .list-panel.border-right
+              .row
+                .col-md-3.text-center.no-gutters.col-md-offset-1.col-xs-3
+                  =image_tag artist_image(artist).nil? ? 'default-profile-pic.png' : artist_image(artist), class: 'img-circle'
+                .col-md-6.text-center.no-gutters.col-xs-6
+                  .list-item-text-block.text-left
+                    .h5.list-item-heading= artist.profile_name
+                    .list-item-text= ISO3166::Country.find_country_by_alpha2(artist.country_of_birth).name
+
+        .list-panel-icon
+          .row
+            .col-md-offset-0.col-md-12.col-md-offset-0.text-center.trending-icon.col-xs-offset-4.col-xs-4.col-xs-offset-4
+              =link_to :music_dashboard do
+                =image_tag "Music.png"
+                .icon-text Music
+
+      .col-md-1-5.text-center
+        - Artist.viewable.trending_in_art[0..4].each do |artist|
+          =link_to artist, class: 'linked-list-item' do
+            .list-panel.border-right
+              .row
+                .col-md-3.no-gutters.col-md-offset-1.col-xs-3
+                  =image_tag artist_image(artist).nil? ? 'default-profile-pic.png' : artist_image(artist), class: 'img-circle'
+                .col-md-6.no-gutters.col-xs-6
+                  .list-item-text-block.text-left
+                    .h5.list-item-heading= artist.profile_name
+                    .list-item-text= ISO3166::Country.find_country_by_alpha2(artist.country_of_birth).name
+
+        .list-panel-icon
+          .row
+            .col-md-offset-0.col-md-12.col-md-offset-0.text-center.trending-icon.col-xs-offset-4.col-xs-4.col-xs-offset-4
+              =link_to :photo_arts_dashboard do
+                =image_tag "Arts.png"
+                .icon-text Arts
+
+      .col-md-1-5.text-center
+        - Artist.viewable.trending_in_fashion[0..4].each do |artist|
+          =link_to artist, class: 'linked-list-item' do
+            .list-panel.border-right
+              .row
+                .col-md-3.no-gutters.col-md-offset-1.col-xs-3
+                  =image_tag artist_image(artist).nil? ? 'default-profile-pic.png' : artist_image(artist), class: 'img-circle'
+                .col-md-6.no-gutters.col-xs-6
+                  .list-item-text-block.text-left
+                    .h5.list-item-heading= artist.profile_name
+                    .list-item-text= ISO3166::Country.find_country_by_alpha2(artist.country_of_birth).name
+
+        .list-panel-icon
+          .row
+            .col-md-offset-0.col-md-12.col-md-offset-0.text-center.trending-icon.col-xs-offset-4.col-xs-4.col-xs-offset-4
+              =link_to :photo_arts_dashboard do
+                =image_tag "Fashion.png"
+                .icon-text Fashion
+
+      .col-md-1-5.text-center
+        - Artist.viewable.trending_in_literature[0..4].each do |artist|
+          =link_to artist, class: 'linked-list-item' do
+            .list-panel.border-right
+              .row
+                .col-md-3.no-gutters.col-md-offset-1.col-xs-3
+                  =image_tag artist_image(artist).nil? ? 'default-profile-pic.png' : artist_image(artist), class: 'img-circle'
+                .col-md-6.no-gutters.col-xs-6
+                  .list-item-text-block.text-left
+                    .h5.list-item-heading= artist.profile_name
+                    .list-item-text= ISO3166::Country.find_country_by_alpha2(artist.country_of_birth).name
+
+        .list-panel-icon
+          .row
+            .col-md-offset-0.col-md-12.col-md-offset-0.text-center.trending-icon.col-xs-offset-4.col-xs-4.col-xs-offset-4
+              =link_to :photo_arts_dashboard do
+                =image_tag "Literature.png"
+                .icon-text Literature
+
+      .col-md-1-5.text-center
+        - Artist.viewable.trending_in_productions[0..4].each do |artist|
+          =link_to artist, class: 'linked-list-item' do
+            .list-panel.border-right
+              .row
+                .col-md-3.no-gutters.col-md-offset-1.col-xs-3
+                  =image_tag artist_image(artist).nil? ? 'default-profile-pic.png' : artist_image(artist), class: 'img-circle'
+                .col-md-6.no-gutters.col-xs-6
+                  .list-item-text-block.text-left
+                    .h5.list-item-heading= artist.profile_name
+                    .list-item-text= ISO3166::Country.find_country_by_alpha2(artist.country_of_birth).name
+
+        .list-panel-icon
+          .row
+            .col-md-offset-0.col-md-12.col-md-offset-0.text-center.trending-icon.col-xs-offset-4.col-xs-4.col-xs-offset-4
+              =link_to :productions_dashboard do
+                =image_tag "Film-&-Theatre.png"
+                .icon-text Film & Theater

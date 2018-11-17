@@ -1,0 +1,14 @@
+h1 Congratulations! Your submission #{entity_name(@entity)} has been approved with the following changes
+
+ul
+  - @changes.each do |change|
+    li= change
+
+p To publish this artist to be viewable to the public, please click the link below
+
+br
+
+= link_to "Publish #{entity_name(@entity)}", polymorphic_url([@entity,:publish])
+
+p
+  | If you would not like to publish this artist at this time, please ignore the link.

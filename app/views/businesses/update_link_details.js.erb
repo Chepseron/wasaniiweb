@@ -1,0 +1,3 @@
+$('#link-details').append("<%= escape_javascript render partial: 'links_partial', locals: {link: @link} %>")
+$.modal.close();
+$('#add-links-modal').empty();

@@ -1,0 +1,64 @@
+=title @production.title
+=meta_description @description
+.row.single-entity-page
+  .col-md-12
+    .section-container.padding-bottom-20
+      .row
+        .col-md-12.entity-page-entity-image
+          - if @video
+            = @video.embed_code.html_safe if @video
+          -else
+            = image_tag @production.cover_picture.url if @production.cover_picture_stored?
+      .row
+        .col-md-6.no-gutters
+          .row
+            .col-md-12
+              h3.no-margin-top.text-uppercase= @production.title
+          .row
+            .col-md-12
+              <b>Artist:</b> #{link_to @production.parent.profile_name, @production.parent}
+          .row
+            .col-md-12
+              <b>Cast:</b> #{@production.cast.pluck(:profile_name).join(', ')}
+          .row
+            .col-md-12
+              <b>Directors:</b> #{@production.directors.pluck(:profile_name).join(', ')}
+          .row
+            .col-md-12
+              <b>Category:</b> #{@production.production_category.name}
+          .row
+            .col-md-12
+              <b>Language:</b> #{@production.language.name}
+          .row
+            .col-md-12
+              <b>Running Time:</b> #{@production.running_time}
+          .row
+            .col-md-12
+              <b>Country:</b> #{ISO3166::Country.find_country_by_alpha2(@production.parent.country_of_birth).name}
+          .row
+            .col-md-12
+              <b>Release Date:</b> #{@production.release_date.strftime("#{@production.release_date.day.ordinalize} %B %Y") if @production.release_date}
+
+        .col-md-6.no-gutters
+          = @production.synopsis.html_safe
+
+    - unless @production.cast.empty?
+      .featured#featured
+        .row
+          .col-md-12
+            h5.text-uppercase cast
+        .row
+          .col-md-12
+            - @production.cast.each do |artist|
+              .col-md-1-5.reduced-padding
+                =render partial: 'shared/artist-card', locals:{artist: artist}
+
+    =render partial: 'shared/related_items', locals:{relatable_item: @production}
+
+    .row
+      .col-md-12.text-center.margin-top-20
+        .row
+          .col-md-3.col-md-offset-3#fan-button
+            = render partial: 'shared/fan_button', locals: {parent: @production.parent}
+          .col-md-2
+            = link_to 'Back', @production.parent, class: 'btn site-btn-primary'

@@ -1,0 +1,18 @@
+.row
+  .container
+    .row
+      .col-md-8.border-right
+        h3 Sign In
+        = simple_form_for :sessions, url: login_path, html:{class: 'form-login'} do |f|
+          .form-group
+            = f.input :email, label: false, placeholder: 'Email', type: 'email', input_html:{class: 'form-control'}
+          .form-group
+            = f.input :password, as: :password, label: false, placeholder: 'Password', type: 'pasword', input_html:{class: 'form-control'}
+          p
+            a href="/password_resets/new"  forgot your password?
+          = f.button :submit, "Login", class: 'btn site-btn-primary pull-right'
+
+        p not registered? #{link_to 'create an account', :signup}
+
+      .col-md-4
+        =render 'shared/social_login_buttons'

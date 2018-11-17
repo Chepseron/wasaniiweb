@@ -1,0 +1,260 @@
+-if result.searchable_type == "Artist"
+  .row.border-bottom.padding-bottom-20.business-listing
+    .col-md-2.business-logo
+      = link_to result.searchable do
+        =image_tag artist_image(result.searchable)
+    .col-md-7.border-right
+      .row
+        .col-md-10
+          h3= link_to result.searchable.profile_name, result.searchable
+        .col-md-2
+          -if result.searchable.verified?
+            .verification.margin-top-20
+              =image_tag "verified.svg"
+      .row
+        .col-md-12= truncate_html(result.searchable.introduction.html_safe, length: 120, omission: "#{link_to '...(continued)', result.searchable}")
+      .row
+        .col-md-4.col-md-offset-8
+          .pull-right[id="fan-section-artist-#{result.searchable.id}"]
+            = artist_fan_link(result.searchable)
+    .col-md-3.business-details
+      .row
+        .col-md-12
+          .example
+            strong Country:&nbsp;
+            | #{ISO3166::Country.find_country_by_alpha2(result.searchable.country_of_birth).name}
+          .example
+            strong Industry:&nbsp;
+            | #{result.searchable.industries.pluck(:name).join(', ')}
+          .example
+            strong Speciality:&nbsp;
+            = result.searchable.artist_specialities.pluck(:name).join(', ')
+
+-elsif result.searchable_type == "Business"
+  .row.border-bottom.padding-bottom-20.business-listing
+    .col-md-2.business-logo
+      = link_to result.searchable do
+        =image_tag artist_image(result.searchable)
+    .col-md-7.border-right
+      .row
+        .col-md-10
+          h3= link_to result.searchable.name, result.searchable
+
+        -if result.searchable.verified?
+          .col-md-2
+            .verification.margin-top-20
+              =image_tag "verified.svg"
+      .row
+        .col-md-12= truncate_html(result.searchable.company_info.html_safe, length: 150, omission: "#{link_to '...(continued)', result.searchable}")
+      .row
+        .col-md-5.col-md-offset-7
+          .pull-right[id="fan-section-business-#{result.searchable.id}"]
+            = business_fan_link(result.searchable)
+    .col-md-3.business-details
+      .row
+        .col-md-12
+          .example
+            strong Country:&nbsp;
+            | #{ISO3166::Country.find_country_by_alpha2(result.searchable.country).name}
+          .example
+            strong Industry:&nbsp;
+            | #{result.searchable.industries.pluck(:name).join(', ')}
+          .example
+            strong Type:&nbsp;
+            | #{result.searchable.business_category.name}
+
+-elsif result.searchable_type == "Award"
+  .row.border-bottom.padding-bottom-20.business-listing
+    .col-md-2.business-logo
+      =link_to result.searchable do
+        =image_tag (result.searchable.image_stored? ? result.searchable.image.url : 'default-award-pic.png')
+    .col-md-7.border-right
+      .row
+        .col-md-10
+          h3= link_to result.searchable.name, result.searchable
+
+      .row
+        .col-md-12= truncate_html(result.searchable.details.html_safe, length: 150, omission: "#{link_to '...(continued)', result.searchable}")
+      .row
+        .col-md-5.col-md-offset-7
+    .col-md-3.business-details
+      .row
+        .col-md-12
+          .example
+            strong Country:&nbsp;
+            | #{ISO3166::Country.find_country_by_alpha2(result.searchable.country).name}
+          .example
+            strong Industry:&nbsp;
+            | #{result.searchable.industry.name}
+
+
+
+-elsif result.searchable_type == "Book"
+  .row.border-bottom.padding-bottom-20.business-listing
+    .col-md-2.business-logo
+      =link_to result.searchable do
+        = image_tag entity_image(result.searchable)
+    .col-md-7.border-right
+      .row
+        .col-md-10
+          h3= link_to result.searchable.title, result.searchable
+      .row
+        .col-md-12= truncate_html(result.searchable.summary.html_safe, length: 350, omission: "#{link_to '...(continued)', result.searchable}")
+    .col-md-3.business-details
+      .row
+        .col-md-12
+          .example
+            strong Country:&nbsp;
+            | #{result.searchable.country}
+          .example
+            strong Title:&nbsp;
+            | #{result.searchable.title}
+          .example
+            strong Type:&nbsp;
+            | #{result.searchable_type}
+
+-elsif result.searchable_type == "PhotoArt"
+  .row.border-bottom.padding-bottom-20.business-listing
+    .col-md-2.business-logo
+      =link_to result.searchable do
+        =image_tag entity_image(result.searchable)
+    .col-md-7.border-right
+      .row
+        .col-md-10
+          h3= link_to result.searchable.title, result.searchable
+      .row
+        .col-md-12= truncate_html(result.searchable.description.html_safe, length: 150, omission: "#{link_to '...(continued)', result.searchable}")
+    .col-md-3.business-details
+      .row
+        .col-md-12
+          .example
+            strong Country:&nbsp;
+            | #{result.searchable.country}
+          .example
+            strong Name:&nbsp;
+            | #{result.searchable.title}
+          .example
+            strong Type:&nbsp;
+            | #{result.searchable_type}
+
+-elsif result.searchable_type == "Production"
+  .row.border-bottom.padding-bottom-20.business-listing
+    .col-md-2.business-logo
+      =link_to result.searchable do
+        =image_tag entity_image(result.searchable)
+    .col-md-7.border-right
+      .row
+        .col-md-10
+          h3= link_to result.searchable.title, result.searchable
+
+      .row
+        .col-md-12= truncate_html(result.searchable.synopsis.html_safe, length: 150, omission: "#{link_to '...(continued)', result.searchable}")
+    .col-md-3.business-details
+      .row
+        .col-md-12
+          .example
+            strong Country:&nbsp;
+            | #{result.searchable.country}
+          .example
+            strong Title:&nbsp;
+            | #{result.searchable.title}
+          .example
+            strong Type:&nbsp;
+            | #{result.searchable_type}
+
+-elsif result.searchable_type == "Song"
+  .row.border-bottom.padding-bottom-20.business-listing
+    .col-md-2.business-logo
+      =link_to result.searchable do
+        =image_tag entity_image(result.searchable)
+    .col-md-7.border-right
+      .row
+        .col-md-10
+          h3= link_to result.searchable.title, result.searchable
+      .row
+        .col-md-12= truncate_html(result.searchable.description.html_safe, length: 150, omission: "#{link_to '...(continued)', result.searchable}")
+    .col-md-3.business-details
+      .row
+        .col-md-12
+          .example
+            strong Country:&nbsp;
+            | #{result.searchable.country}
+          .example
+            strong Title:&nbsp;
+            | #{result.searchable.title}
+          .example
+            strong Type:&nbsp;
+            | #{result.searchable_type}
+
+-elsif result.searchable_type == "Blog"
+  .row.border-bottom.padding-bottom-20.business-listing
+    .col-md-2.business-logo
+      =link_to result.searchable do
+        =image_tag result.searchable.image.url if result.searchable.image_stored?
+    .col-md-7.border-right
+      .row
+        .col-md-10
+          h3= link_to result.searchable.title, result.searchable
+      .row
+        .col-md-12= truncate_html(result.searchable.content.html_safe, length: 150, omission: "#{link_to '...(continued)', result.searchable}")
+
+    .col-md-3.business-details
+      .row
+        .col-md-12
+          .example
+            strong Country:&nbsp;
+            | #{result.searchable.country}
+          .example
+            strong Title:&nbsp;
+            | #{result.searchable.title}
+          .example
+            strong Type:&nbsp;
+            | #{result.searchable_type}
+
+-elsif result.searchable_type == "Event"
+  .row.border-bottom.padding-bottom-20.business-listing
+    .col-md-2.business-logo
+      =link_to result.searchable do
+        =image_tag result.searchable.image.url if result.searchable.image_stored?
+    .col-md-7.border-right
+      .row
+        .col-md-10
+          h3= link_to result.searchable.name, result.searchable
+      .row
+        .col-md-12= truncate_html(result.searchable.description.html_safe, length: 150, omission: "#{link_to '...(continued)', result.searchable}")
+    .col-md-3.business-details
+      .row
+        .col-md-12
+          .example
+            strong Country:&nbsp;
+            | #{result.searchable.country}
+          .example
+            strong Name:&nbsp;
+            | #{result.searchable.name}
+          .example
+            strong Type:&nbsp;
+            | #{result.searchable_type}
+
+-elsif result.searchable_type == "NewsStory"
+  .row.border-bottom.padding-bottom-20.business-listing
+    .col-md-2.business-logo
+      =link_to result.searchable do
+        =image_tag result.searchable.image.url if result.searchable.image_stored?
+    .col-md-7.border-right
+      .row
+        .col-md-10
+          h3= link_to result.searchable.title, result.searchable
+      .row
+        .col-md-12= truncate_html(result.searchable.content.html_safe, length: 150, omission: "#{link_to '...(continued)', result.searchable}")
+    .col-md-3.business-details
+      .row
+        .col-md-12
+          .example
+            strong Country:&nbsp;
+            | #{result.searchable.country}
+          .example
+            strong Title:&nbsp;
+            | #{result.searchable.title}
+          .example
+            strong Type:&nbsp;
+            | #{result.searchable_type}

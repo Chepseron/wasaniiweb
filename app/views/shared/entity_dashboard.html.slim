@@ -1,0 +1,100 @@
+=meta_description @description
+.section-container.specialities.margin-bottom-20
+  .row
+    .col-md-12
+      h3.text-capitalize.no-margin-top= @industry_name
+      #locale-links #{link_to 'local', request.path, class: @locale == 'local' ? 'active-link':'' } | #{link_to 'international', request.path + '?locale=international', class: @locale == 'international' ? 'active-link':''}
+  .row
+    .col-md-12.text-center.alphabar
+      =render 'shared/alphabar'
+  .row
+    .col-md-12
+      - @specialities.each do |speciality|
+        -unless speciality_count(speciality, @locale) == 0
+          =link_to artist_listings_path(params:{industry: @industry_name, speciality: speciality, locale: @locale}) do
+            .col-md-2.speciality-box
+              .image-text.text-center #{speciality} (#{speciality_count(speciality, @locale)})
+              =image_tag "#{speciality.gsub(' ', '').gsub('/','').underscore}.jpg"
+  hr.hr.speciality-hr
+
+-unless @artists.empty?
+  .featured-section.margin-bottom-20
+    .section-container
+      .row
+        .col-md-12
+          h4.text-uppercase Featured #{@industry_name} profiles
+      .row.margin-bottom-20.dashboard-profile-pics
+        .col-md-4.reduced-padding.featured-profile-primary-pic.large-dashboard-profile-pic
+          =link_to @artists.first do
+            = image_tag artist_image(@artists.first)
+            .media-image-text
+              h4.text-uppercase= @artists.first.profile_name
+              div #{@artists.first.industries.pluck(:name).join(', ')} | #{ISO3166::Country.find_country_by_alpha2(@artists.first.country_of_birth).name}
+              btn.btn view
+        .col-md-8.reduced-padding.small-dashboard-profile-pics
+          - unless @artists[1..6].nil?
+            - @artists[1..6].each do |artist|
+              .col-md-3.reduced-padding.featured-profiles-grid
+                =link_to artist do
+                  = image_tag artist_image(artist)
+                  .media-image-text
+                    h4.text-uppercase= artist.profile_name
+                    div #{artist.industries.pluck(:name).join(', ')} | #{ISO3166::Country.find_country_by_alpha2(artist.country_of_birth).name}
+                    btn.btn view
+      hr.hr
+
+- unless @trending_artists.empty?
+  .dashboard-trending-section.trending
+    .section-container
+      .row
+        .col-md-12
+          h4.text-uppercase Trending #{@industry_name} profiles
+      .row.margin-bottom-20
+        .col-md-7
+          - @trending_artists[0..11].each do |artist|
+            .col-md-4.reduced-padding.no-top-bottom-padding
+              =link_to artist, class: 'linked-list-item' do
+                .list-panel.border-right
+                  .row
+                    .col-md-5.no-gutters
+                      =image_tag artist_image(artist).nil? ? 'default-profile-pic.png' : artist_image(artist), class: 'img-circle'
+                    .col-md-6.no-gutters
+                      .list-item-text-block.text-left
+                        .h5.list-item-heading= artist.profile_name
+                        .list-item-text= ISO3166::Country.find_country_by_alpha2(artist.country_of_birth).name
+
+        .col-md-5
+          - if get_ad("#{controller_name}_ad_1") && get_ad("#{controller_name}_ad_1").has_content?
+            .row.site-ad
+              .col-md-12.no-gutters
+                = get_ad("#{controller_name}_ad_1").get_content
+      hr.hr
+
+    .col-md-4
+.dashboard-image.margin-bottom-20
+  .row
+    .col-md-12
+      - if get_ad("#{controller_name}_ad_2") && get_ad("#{controller_name}_ad_2").has_content?
+        .row.site-ad
+          .col-md-12.no-gutters
+            = get_ad("#{controller_name}_ad_2").get_content
+
+- unless @events.empty?
+  .dashboard-events
+    .section-container
+      .row
+        .col-md-12
+          h4.text-uppercase #{@industry_name} events
+
+      .row
+        - @events[0..3].each do |event|
+          .col-md-3
+            =render partial: 'shared/event-card', locals: {event: event}
+h4
+  strong SHARE THIS PAGE
+  = social_share_button_tag("Events on Wasanii.com", :url => "#{request.original_url}", :image => "", desc: "#{@description}", via: "Wasanii.com") 
+
+javascript:
+  if($('.speciality-box').length ==0){
+    $('.speciality-hr').hide();
+  }

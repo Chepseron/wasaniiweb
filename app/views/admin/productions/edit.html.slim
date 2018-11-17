@@ -1,0 +1,109 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Production
+  .row
+    .col-md-12
+      .row
+        .col-md-12.entity-page-entity-image.margin-top-20
+          - if @video
+            = @video.embed_code.html_safe if @video
+          -else
+            = image_tag @production.cover_picture.url if @production.cover_picture_stored?
+      .row
+        .col-md-12
+          h1= @production.title
+  /! /.row
+  .row
+    .col-md-12
+      = simple_form_for([:admin, @production], html: {multipart: true}) do |f|
+        .form-inputs
+          .form-group
+            .row
+              .col-md-9
+                = f.input :title, label: false, placeholder: "Title", input_html:{class: 'form-control'}
+              .col-md-3
+                = f.input :release_date, as: :string, label: false, placeholder: "Release Date", input_html:{class: 'form-control'}
+        .form-inputs
+          .form-group
+            .row
+              .col-md-6
+                = f.association :production_category, label: false, prompt: "Production Category", input_html:{class: 'form-control'}
+              .col-md-6
+                = f.input :production_company_id_tags, :input_html => {class: 'form-control', "data-pre" => @production.production_companies.map(&:attributes).to_json }, label: false
+        .form-inputs
+          .form-group
+            .row
+              .col-md-12
+                = f.input :synopsis, input_html: {class: 'tinymce form-control'}, label: false, placeholder: "Synopsis"
+        .form-inputs
+          .form-group
+            .row
+              .col-md-6
+                = f.input :language_name, url: autocomplete_production_language_path,
+          :as => :autocomplete, label: false, placeholder: "Language", input_html:{class: 'form-control'}
+              .col-md-6
+                = f.input :running_time, label: false,
+          placeholder: "Running Time (minutes)", input_html:{class: 'form-control'}
+        .form-inputs
+          .form-group
+            .row
+              .col-md-6
+                = f.input :director_id_tags, :input_html => {class: 'form-control', "data-pre" => @production.directors.map(&:attributes).to_json }, label: false
+              .col-md-6
+                = f.input :cast_id_tags, :input_html => {class: 'form-control', "data-pre" => @production.cast.map(&:attributes).to_json }, label: false
+              .col-md-6
+                = f.input :trailer_url, label: false, placeholder: "Trailer URL", input_html:{class: 'form-control'}
+        .form-inputs
+          .form-group
+            .row
+              .col-md-6
+                = f.input :cover_picture, as: :file, label: false
+              .col-md-6.modal-image-text A cover photo will be automatically selected from the attached video if this optin is left blank
+
+        .form-actions
+          = f.button :submit, class: 'btn site-btn-primary pull-right', id: 'submit-form'
+
+
+javascript:
+  $(function(){
+    tinyMCE.init({
+      selector: 'textarea',
+      menubar: false,
+      // statusbar: false,
+      toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+      plugins: ['placeholder, link, wordcount']
+    });
+  });
+
+  $('#production_release_date').datepicker({
+    dateFormat: "dd-mm-yy",
+    maxDate: "#{Date.today}"
+  });
+
+  $('#production_production_company_id_tags').tokenInput('/businesses/token_inputs',{
+    theme: "facebook",
+    placeholder: 'Place holder text...',
+    hintText: 'Search for production company'
+  });
+
+  $('#production_director_id_tags').tokenInput('/artists/token_inputs',{
+    theme: "facebook",
+    placeholder: 'Place holder text...',
+    propertyToSearch: 'profile_name',
+    hintText: 'Search for director'
+  });
+
+  $('#production_cast_id_tags').tokenInput('/artists/token_inputs',{
+    theme: "facebook",
+    placeholder: 'Place holder text...',
+    propertyToSearch: 'profile_name',
+    hintText: 'Search for cast members'
+  });
+
+  $('#token-input-production_director_id_tags').attr("placeholder", "Directors")
+  $('#token-input-production_cast_id_tags').attr("placeholder", "Cast")

@@ -1,0 +1,53 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Event
+  .container
+    .row
+      .col-md-12.margin-top-20
+        h3.text-capitalize= @event.name
+    .row
+      .col-md-4
+        b Category:&nbsp;
+        = @event.type.name
+      .col-md-4
+        b Venue:&nbsp;
+        = link_to @event.venue.name, @event.venue
+      .col-md-4
+        b Start Date:&nbsp;
+        = @event.date.strftime("#{@event.date.day.ordinalize} %B %Y")
+    .row
+      .col-md-4
+        b Time:
+        = @event.time
+      .col-md-4
+        b Charges:
+        = @event.charges
+      - if @event.enddate?
+        .col-md-4
+          b End Date:&nbsp;
+          = @event.enddate.strftime("#{@event.enddate.day.ordinalize} %B %Y")
+
+    .row.event-image.entity-page-entity-image
+      .col-md-12
+        =image_tag @event.image.url if @event.image_stored?
+    .row
+      .col-md-12
+        h1 Summary
+        = @event.description.html_safe
+    .row
+      .col-md-12
+        <b>State</b> #{@event.aasm_state.humanize}
+    .row
+      .col-md-12
+        <b>Featured?:</b> #{@event.featured?} #{link_to 'change', change_featured_status_admin_event_path(@event), method: :patch}
+    .row
+      .col-md-2
+        =link_to 'unpublish', change_status_admin_event_path(@event, params:{status: 'unpublish'}), method: :patch, class: 'btn btn-primary'
+      .col-md-2
+        =link_to 'publish',change_status_admin_event_path(@event, params:{status: 'publish'}), method: :patch, class: 'btn btn-primary'
+

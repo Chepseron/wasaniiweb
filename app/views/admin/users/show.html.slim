@@ -1,0 +1,30 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active user
+  /! /.row
+  .row
+    .col-md-12
+      h1.page-header User
+  /! /.row
+  .row
+    .col-md-3
+      =image_tag (@user.profile_image_stored? ? @user.profile_image.url : 'default-profile-pic.png'), id: 'profile-pic'
+    .col-md-9
+      h1= @user.name
+      p Email: #{@user.email}
+      p Birthday: #{@user.birthday.strftime("%d-%b-%Y") unless @user.birthday.nil?}
+      p Country: #{ISO3166::Country.find_country_by_alpha2(@user.country).name unless @user.country.nil?}
+      p Newsletter?: #{@user.newsletter?}
+      p Banned?: #{@user.banned?}
+
+  - if current_admin.system_administrator?
+    .row.text-center
+      .col-md-2.col-md-offset-3
+        =link_to @user.banned? ? 'reinstate user' : 'ban user', ban_admin_user_path(@user), class: 'btn btn-primary', method: :patch
+
+

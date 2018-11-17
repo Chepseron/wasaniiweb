@@ -1,0 +1,33 @@
+h1 Listing awards
+
+table
+  thead
+    tr
+      th Name
+      th Business
+      th Details
+      th Image uid
+      th Country
+      th Start year
+      th Industry
+      th
+      th
+      th
+
+  tbody
+    - @awards.each do |award|
+      tr
+        td = award.name
+        td = award.business_id
+        td = award.details
+        td = award.image_uid
+        td = award.country
+        td = award.start_year
+        td = award.industry_id
+        td = link_to 'Show', award
+        td = link_to 'Edit', edit_award_path(award)
+        td = link_to 'Destroy', award, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Award', new_award_path

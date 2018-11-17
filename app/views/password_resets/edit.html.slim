@@ -1,0 +1,15 @@
+.row
+  .container
+    .row
+      .col-md-8.border-right
+        h3 Reset Password
+        = simple_form_for @user, :url => password_reset_path(params[:id]) do |f|
+          .form-group
+            = f.input :password, as: :password, label: false, placeholder: 'Password', input_html:{class: 'form-control'}
+          .form-group
+            = f.input :password_confirmation, as: :password, label: false, placeholder: 'Confirm Password', input_html:{class: 'form-control'}
+          .form-actions
+            = f.submit "Update Password",class: 'btn site-btn-primary pull-right'
+
+      .col-md-4
+        =render 'shared/social_login_buttons'

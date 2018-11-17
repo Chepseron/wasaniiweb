@@ -1,0 +1,33 @@
+= simple_form_for([@parent,@award]) do |f|
+  .row
+    .col-md-3
+      .image#image-box.box-border.editable
+        .edit-overlay
+          i.fi-camera
+          ' &nbsp; update profile picture
+          = f.input :image, as: :file, label: '&nbsp;'.html_safe
+          = f.input :retained_image, as: :hidden
+        =image_tag (@award.image_stored? ? @award.image.url : 'default-award-pic.png'), id: 'profile-pic'
+
+    .col-md-9
+      .form-inputs
+        .form-group
+          .row
+            .col-md-9
+              = f.input :name, label: false, placeholder: 'Award Name', input_html:{class: 'form-control'}
+            .col-md-3
+              = f.input :start_year, label: false, placeholder: 'Start Year', input_html:{class: 'form-control'}
+        .form-group
+          .row
+            .col-md-12
+              = f.input :details, label: false, placeholder: 'About the award.....', input_html:{class: 'form-control'}
+        .form-group
+          .row
+            .col-md-6
+              = f.input :country, label: false, prompt: 'Select a Country', input_html:{class: 'form-control'}
+
+            .col-md-6
+              = f.association :industry, label: false, prompt: 'Select an Industry', input_html:{class: 'form-control'}
+
+      .form-actions
+        = f.button :submit, class: 'btn site-btn-primary pull-right'

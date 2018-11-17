@@ -1,0 +1,72 @@
+.side-bar
+  - if get_ad('sidebar_ad_1') && get_ad('sidebar_ad_1').has_content?
+    .row.site-ad
+      .col-md-12.no-gutters
+        = get_ad('sidebar_ad_1').get_content
+    hr.hr
+
+  -if current_user && current_user.content_provider?
+    .row.clr
+      .col-md-12
+        h4 Control Panel
+    .row.sidbar-links
+      .col-md-12
+        ul
+          li= link_to 'Add an artist', new_user_artist_path(current_user)
+          li= link_to 'Add a business', new_user_business_path(current_user)
+          li= link_to 'View created items', entity_management_user_path(current_user)
+    hr.hr
+
+  -unless Event.where('date >= ?', Date.today).viewable.empty?
+    .row
+      .col-md-12
+        h4.no-margin-bottom Events
+    .row.sidbar-links
+      .col-md-12
+        - Event.where('date >= ?', Date.today).viewable.reverse.each do |event|
+          h6= link_to "#{event_date(event)}, <span>#{event.name.capitalize}</span> #{event.time}".html_safe, event
+    hr.hr
+
+  - unless Artist.featured.empty?
+    .row
+      .col-md-12
+        h4 Featured
+    .row
+      .col-md-12
+        -Artist.featured[0..4].each do |artist|
+          =link_to artist do
+            .row.side-bar-list.margin-bottom-10
+              .col-md-3.side-bar-list-image.nopadding
+                =image_tag artist_image(artist).nil? ? 'default-profile-pic.png' : artist_image(artist), class: 'img-circle'
+              .col-md-9.side-list-text
+                h5.no-margin-top.no-margin-bottom.text-capitalize= artist.profile_name
+                p.no-margin-top.no-margin-bottom.text-capitalize.list-item-text #{artist.industries.pluck(:name).join(', ')}, #{ISO3166::Country.find_country_by_alpha2(artist.country_of_birth).name}
+    hr.hr
+
+  - if get_ad('sidebar_ad_2') && get_ad('sidebar_ad_2').has_content?
+    .row.site-ad
+      .col-md-12.no-gutters
+        = get_ad('sidebar_ad_2').get_content
+    hr.hr
+
+  - unless Artist.trending.empty?
+    .row
+      .col-md-12
+        h4 Trending
+    .row
+      .col-md-12
+        -Artist.trending[0..4].each do |artist|
+          =link_to artist do
+            .row.side-bar-list.margin-bottom-10
+              .col-md-3.side-bar-list-image.nopadding
+                =image_tag artist_image(artist).nil? ? 'default-profile-pic.png' : artist_image(artist), class: 'img-circle'
+              .col-md-9.side-list-text
+                h5.no-margin-top.no-margin-bottom.text-capitalize= artist.profile_name
+                p.no-margin-top.no-margin-bottom.text-capitalize.list-item-text #{artist.industries.pluck(:name).join(', ')}, #{ISO3166::Country.find_country_by_alpha2(artist.country_of_birth).name}
+
+
+  - if get_ad('sidebar_ad_3') && get_ad('sidebar_ad_3').has_content?
+    .row.site-ad
+      .col-md-12.no-gutters
+        = get_ad('sidebar_ad_3').get_content
+    hr.hr

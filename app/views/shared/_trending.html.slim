@@ -1,0 +1,160 @@
+.row.align-center
+  .trending-content.medium-11.columns.text-left
+    .row.align-center.align-middle
+      /! Trending Music Section
+      .trending.columns
+        /! Trending List
+        -if Song.trending.empty?
+          | No music trending yet. #{link_to 'Join Now and make a difference', :new_user}
+        -else
+          - Song.trending.each do |song|
+            .user-list.align-center.row.align-middle
+              /! Trending Profile Image
+              .medium-4.columns.trending-image
+                =image_tag(song.image_stored? ? song.image.url : 'default-profile-pic.png')
+              /! Trending Profile Details
+              .medium-7.columns
+                /! Trending Profile Name
+                .row
+                  p.trending-name.text-left= link_to song.title, song
+                /! Trending Profile Industry
+                .row
+                  p.trending-industry.text-left= link_to song.parent.profile_name, song.parent
+                /! Trending Profile Country
+                .row
+                  p.trending-country.text-left= ISO3166::Country.find_country_by_alpha2(song.parent.country_of_birth).name
+
+      /! Trending Arts Section
+      .trending.columns
+        /! Trending List
+        -if PhotoArt.trending.empty?
+          | No Arts trending yet. #{link_to 'Join Now and make a difference', :new_user}
+        -else
+          - PhotoArt.trending.each do |photo_art|
+            .user-list.align-center.row.align-middle
+              /! Trending Profile Image
+              .medium-4.columns.trending-image
+                =image_tag(photo_art.image_stored? ? photo_art.image.url : 'default-profile-pic.png')
+              /! Trending Profile Details
+              .medium-7.columns
+                /! Trending Profile Name
+                .row
+                  p.trending-name.text-left= link_to photo_art.title, photo_art
+                /! Trending Profile Industry
+                .row
+                  p.trending-industry.text-left= link_to photo_art.parent.profile_name, photo_art.parent
+                /! Trending Profile Country
+                .row
+                  p.trending-country.text-left= ISO3166::Country.find_country_by_alpha2(photo_art.parent.country_of_birth).name
+
+      /! Trending Fashion Section
+      .trending.columns
+        /! Trending List
+        -if Artist.trending_in_fashion.empty?
+          | No Artists trending yet. #{link_to 'Join Now and make a difference', :new_user}
+        -else
+          - Artist.trending_in_fashion.each do |artist|
+            .user-list.align-center.row.align-middle
+              /! Trending Profile Image
+              .medium-4.columns.trending-image
+                =image_tag artist_image(artist)
+              /! Trending Profile Details
+              .medium-7.columns
+                /! Trending Profile Name
+                .row
+                  p.trending-name.text-left= link_to artist.profile_name, artist
+                /! Trending Profile Industry
+                .row
+                  p.trending-industry.text-left= artist.artist_specialities.pluck(:name).join(',')
+                /! Trending Profile Country
+                .row
+                  p.trending-country.text-left= ISO3166::Country.find_country_by_alpha2(artist.country_of_birth).name
+
+      /! Trending Literature Section
+      .trending.columns
+        /! Trending List
+        -if Book.trending.empty?
+          | No Books trending yet. #{link_to 'Join Now and make a difference', :new_user}
+        -else
+          - Book.trending.each do |book|
+            .user-list.align-center.row.align-middle
+              /! Trending Profile Image
+              .medium-4.columns.trending-image
+                =image_tag(book.cover_pic_stored? ? book.cover_pic.url : 'default-profile-pic.png')
+              /! Trending Profile Details
+              .medium-7.columns
+                /! Trending Profile Name
+                .row
+                  p.trending-name.text-left= link_to book.title, book
+                /! Trending Profile Industry
+                .row
+                  p.trending-industry.text-left= link_to book.parent.profile_name, book.parent
+                /! Trending Profile Country
+                .row
+                  p.trending-country.text-left= ISO3166::Country.find_country_by_alpha2(book.parent.country_of_birth).name
+
+      /! Trending Fim &amp; Theatre Section
+      .trending.columns
+        /! Trending List
+        -if Production.trending.empty?
+          | No Productions trending yet. #{link_to 'Join Now and make a difference', :new_user}
+        -else
+          - Production.trending.each do |production|
+            .user-list.align-center.row.align-middle
+              /! Trending Profile Image
+              .medium-4.columns.trending-image
+                =image_tag(production.cover_picture_stored? ? production.cover_picture.url : 'default-profile-pic.png')
+              /! Trending Profile Details
+              .medium-7.columns
+                /! Trending Profile Name
+                .row
+                  p.trending-name.text-left= link_to production.title, production
+                /! Trending Profile Industry
+                .row
+                  p.trending-industry.text-left= link_to production.parent.profile_name, production.parent
+                /! Trending Profile Country
+                .row
+                  p.trending-country.text-left= ISO3166::Country.find_country_by_alpha2(production.parent.country_of_birth).name
+
+    /! Trending Icon Section
+    .user-list-icons.row.align-center.align-middle
+      /! Music Icon
+      .column
+        .industry-icons.row.align-middle.align-center
+          a.medium-6.column.text-center href="#"
+            =image_tag "Music.png"
+        /! Film &amp; Theatre Name
+        .industry-name.row.align-middle.align-center
+          p.medium-6.column.text-center href="#" Music
+      /! Arts Icon
+      .column
+        .industry-icons.row.align-middle.align-center
+          a.medium-6.column.text-center href="#"
+            =image_tag "Arts.png"
+        /! Arts Name
+        .industry-name.row.align-middle.align-center
+          p.medium-6.column.text-center href="#" Arts
+      /! Fashion
+      .column
+        .industry-icons.row.align-middle.align-center
+          a.medium-6.column.text-center href="#"
+            =image_tag "Fashion.png"
+        /! Fashion
+        .industry-name.row.align-middle.align-center
+          p.medium-6.column.text-center href="#" Fashion
+      /! Literature Icon
+      .column
+        .industry-icons.row.align-middle.align-center
+          a.medium-6.column.text-center href="#"
+            =image_tag "Literature.png"
+        /! Literature Name
+        .industry-name.row.align-middle.align-center
+          p.medium-6.column.text-center href="#" Literature
+      /! Film &amp; Theatre Icon
+      .column
+        .industry-icons.row.align-middle.align-center
+          a.medium-6.column.text-center href="#"
+            =image_tag "Film-&-Theatre.png"
+        /! Film &amp; Theatre Name
+        .industry-name.row.align-middle.align-center
+          p.medium-6.column.text-center href="#" Film & Theatre

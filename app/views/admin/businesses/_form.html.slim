@@ -1,0 +1,67 @@
+= simple_form_for([:admin, @business]) do |f|
+  .row
+    .col-md-3
+      .image#image-box.box-border.editable
+        .edit-overlay
+          i.fi-camera
+          ' &nbsp; update profile picture
+          = f.input :logo, as: :file, label: '&nbsp;'.html_safe
+          = f.input :retained_logo, as: :hidden
+        =image_tag (@business.logo_stored? ? @business.logo.url : 'default-business-pic.png'), id: 'profile-pic'
+    .col-md-9
+      .form-inputs
+        .form-group
+          .row
+            .col-md-12= f.input :name, label: false, placeholder: 'Name', input_html:{class: 'form-control'}
+      .form-inputs
+        .form-group
+          .row
+            .col-md-4
+              = f.input :phone_number, label: false, placeholder: 'Phone Number', input_html:{class: 'form-control'}
+            .col-md-4
+              = f.input :email, label: false, placeholder: 'Email', input_html:{class: 'form-control'}
+            .col-md-4
+              = f.input :working_hours, label: false, placeholder: 'Working Hours', input_html:{class: 'form-control'}
+      .form-inputs
+        .form-group
+          .row
+            .col-md-6
+              = f.association :business_category, label: false, prompt: 'Business Type', input_html:{class: 'form-control'}
+            .col-md-6
+              = f.input :country, label: false, prompt: 'Country', input_html:{class: 'form-control'}
+      .form-inputs
+        .form-group
+          .row
+            .col-md-12
+              = f.association :industries, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline'
+      .form-inputs
+        .form-group
+          .row
+            .col-md-12
+              = f.input :company_info, as: :text, label: false, placeholder: 'Company Info', input_html:{class: 'form-control'}
+      .form-inputs
+        .form-group
+          .row
+            .col-md-12
+              =render 'shared/dynamic_map'
+      .form-inputs
+        .form-group
+          .row
+            .col-md-12
+              = f.input :physical_location, label: false, placeholder: 'Physical Location', input_html:{class: 'form-control'}
+              = f.input :latitude, as: :hidden
+              = f.input :longitude, as: :hidden
+
+      .form-actions
+        = f.button :submit, class: 'btn site-btn-primary pull-right'
+
+javascript:
+  $(function(){
+    tinyMCE.init({
+      selector: 'textarea',
+      menubar: false,
+      // statusbar: false,
+      toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+      plugins: ['placeholder, link, wordcount']
+    });
+  });

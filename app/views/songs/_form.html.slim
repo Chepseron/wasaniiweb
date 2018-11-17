@@ -1,0 +1,16 @@
+= simple_form_for [@parent, @song] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :description
+    = f.input :lyrics
+    = f.input :audio_url
+    = f.input :video_url
+    = f.input :image, as: :file
+    = f.input :release_date, as: :date, start_year: Date.today.year - 90,
+    order: [:day, :month, :year], html5: true
+    = f.input :country
+
+  .form-actions
+    = f.button :submit

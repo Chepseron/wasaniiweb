@@ -1,0 +1,72 @@
+=simple_form_for([@parent, @artist], html: {multipart: true}) do |f|
+  .row
+    .col-md-3
+      .image#image-box.box-border.editable
+        .edit-overlay
+          i.fi-camera
+          ' &nbsp; update profile picture
+          = f.input :profile_pic, as: :file, label: '&nbsp;'.html_safe
+          = f.input :retained_profile_pic, as: :hidden
+        = image_tag (@artist.profile_pic_stored? ? @artist.profile_pic.url : 'default-profile-pic.png'), id: 'profile-pic'
+    .col-md-9
+      .form-inputs
+        .form-group
+          .row
+            .col-md-12= f.input :profile_name, label: false, placeholder: 'Profile Name', input_html:{class: 'form-control'}
+      .form-inputs
+        .form-group
+          .row
+            .col-md-4= f.input :name, label: false, placeholder: 'Name', input_html:{class: 'form-control'}
+            .col-md-4= f.input :gender, label: false, collection: ['Male','Female','Group'], prompt: 'Gender', input_html:{class: 'form-control'}
+            .col-md-4= f.input :country_of_birth, label: false, prompt: 'Birth County', input_html:{class: 'form-control'}
+      .form-inputs
+        .form-group
+          .row
+            .col-md-6= f.input :birthday, as: :string, placeholder: 'Date of Birth', label: false, input_html:{class: 'form-control'}
+            .col-md-6.checkbox-inline= f.association :industries, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline'
+      .form-inputs
+        .form-group
+          #artist_specialities
+            = f.association :artist_specialities, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline' unless @artist.artist_specialities.empty?
+      .form-inputs#model-details.model-details
+        .form-group
+          .row
+             .col-md-12 Model Details
+          .row
+            .col-md-3= f.input :height, input_html:{class: 'form-control'}
+            .col-md-3= f.input :weight, input_html:{class: 'form-control'}
+            .col-md-3= f.input :bust, input_html:{class: 'form-control'}
+            .col-md-3= f.input :hips, input_html:{class: 'form-control'}
+      .form-inputs
+        .form-group
+          .row
+            .col-md-12= f.input :introduction, label: false, placeholder: 'Introduction'
+      .row
+        / =label_tag :draft do
+          / = check_box_tag :draft
+          / ' Save as draft
+      .form-actions
+        = f.button :submit, class: 'btn site-btn-primary pull-right'
+
+javascript:
+  $(document).ready(function(){
+    $('.artist_industries input').on('change', function(){
+      var industries_array = $('.artist_industries').find(":checked").map(function(){return this.value}).toArray();
+      $.get('/load_specialities.js',{"industries[]": industries_array});
+    });
+
+    $('#model-details').hide();
+
+    $('#artist_specialities').on('change', $('label.model').children('input'), function(){
+      if($('label.model').children('input').prop('checked')){
+        $('#model-details').show();
+      }else{
+        $('#model-details').hide();
+      }
+    });
+
+    $('#artist_birthday').datepicker({
+      dateFormat: "dd-mm-yy",
+      maxDate: new Date()
+    });
+  });

@@ -1,0 +1,15 @@
+#SuggestedUpdateModal
+  h4#modalTitle Suggest an Update
+  p
+  hr
+  .row
+    .col-md-12
+      = simple_form_for([@parent,@suggested_update], remote: true) do |f|
+        .form-inputs
+          .form-group
+            .row
+              .col-md-12
+                = f.input :content, input_html:{class: 'input-1'}, label: false, placeholder: 'Suggest an update'
+
+        .form-actions
+          = f.button :submit, class: 'btn site-btn-primary pull-right'

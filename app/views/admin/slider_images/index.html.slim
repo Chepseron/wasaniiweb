@@ -1,0 +1,43 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.home
+            use xlink:href="#stroked-home"
+      li.active slider images
+  .row
+    .col-md-2.col-md-offset-8
+      = link_to 'New Slider image', new_admin_slider_image_path, class: 'btn btn-primary'
+  .row
+    .col-lg-12
+      h1.page-header Listing Slider Images
+
+  .row
+    .col-lg-12
+      table.table
+        thead
+          tr
+            th Image
+            th Left Content
+            th Right Content
+            th Centered Content
+            th Position
+            th Active
+            th[colspan=3]
+
+        tbody
+          - @slider_images.each do |slider_image|
+            tr
+              td =image_tag slider_image.image.url, width: '120px'
+              td
+                = slider_image.left_content.html_safe unless slider_image.left_content.nil?
+              td
+                = slider_image.right_content.html_safe unless slider_image.right_content.nil?
+              td
+                = slider_image.centered_content.html_safe unless slider_image.centered_content.nil?
+              td= slider_image.position
+              td= slider_image.active?
+              td = link_to 'Show', admin_slider_image_path(slider_image)
+              td = link_to 'Edit', edit_admin_slider_image_path(slider_image)
+

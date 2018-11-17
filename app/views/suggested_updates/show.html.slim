@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Content:
+  = @suggested_update.content
+p
+  strong Parent:
+  = @suggested_update.parent_id
+p
+  strong Parent type:
+  = @suggested_update.parent_type
+
+= link_to 'Edit', edit_suggested_update_path(@suggested_update)
+'|
+= link_to 'Back', suggested_updates_path

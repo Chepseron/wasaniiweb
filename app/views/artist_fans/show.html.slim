@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Artist:
+  = @artist_fan.artist_id
+p
+  strong User:
+  = @artist_fan.user_id
+
+= link_to 'Edit', edit_artist_fan_path(@artist_fan)
+'|
+= link_to 'Back', artist_fans_path

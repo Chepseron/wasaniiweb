@@ -1,0 +1,9 @@
+= simple_form_for([@business, @award_category]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :award_id
+
+  .form-actions
+    = f.button :submit

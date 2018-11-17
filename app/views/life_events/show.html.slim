@@ -1,0 +1,48 @@
+.row
+  .col-md-12
+    .section-container.padding-bottom-20
+      .row
+        .col-md-12
+          h3.text-capitalize.no-margin-top.no-margin-bottom= @life_event.title
+      .row
+        .col-md-6
+          b Date:&nbsp;
+          = @life_event.date.strftime("#{@life_event.date.day.ordinalize} %B %Y")
+        .col-md-6
+          b Category:&nbsp;
+          = @life_event.life_event_category.name
+
+      .row
+        .col-md-12.entity-page-entity-image
+          =image_tag @life_event.image.url if @life_event.image_stored?
+      .row.margin-bottom-20.margin-top-20
+        .col-md-12
+          = @life_event.description.html_safe
+      hr.hr
+      -unless @life_event.entities.empty?
+        .row
+          .col-md-12
+            h4 Entities
+        .row.margin-bottom-20
+          - @life_event.entities.each do |entity|
+            .col-md-4.reduced-padding
+              = render partial: 'artists/artist-work-entity', locals: {entity: entity}
+        hr.hr
+      .row
+        .col-md-12
+          h4 Related Items
+      .row
+        .col-md-12#life-event-wrapper
+          section#cd-timeline
+            .timeline_container
+              .timeline
+                .plus
+            = render partial: 'artists/life_event_tree'
+
+    .row
+      .col-md-12.text-center.margin-top-20
+        .row
+          .col-md-3.col-md-offset-3#fan-button
+            = render partial: 'shared/fan_button', locals: {parent: @life_event.parent}
+          .col-md-2
+            = link_to 'Back', @life_event.parent, class: 'btn site-btn-primary'

@@ -1,0 +1,8 @@
+.media-image
+  =link_to entity do
+    =image_tag entity_image(entity), class: 'work-tile-image'
+    .media-image-text
+      h3= entity.title
+      p= entity.parent.profile_name
+      btn.btn view
+      p= entity.class.name

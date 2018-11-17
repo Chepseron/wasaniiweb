@@ -1,0 +1,5 @@
+.row
+  section.col-md-12.photos#lightgallery
+    - artist.gallery_photos.each do |gallery_photo|
+      =link_to gallery_photo.image.url do
+        =image_tag gallery_photo.image.url

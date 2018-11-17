@@ -1,0 +1,48 @@
+= simple_form_for([@parent, @collection_album]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :collection_type
+    = f.input :name
+    = f.input :description
+    section#entities
+      h3 Please select your items below
+      #books.entity-class
+        = f.association :books, as: :check_boxes
+      #songs.entity-class
+        = f.association :songs, as: :check_boxes
+      #photo_arts.entity-class
+        = f.association :photo_arts, as: :check_boxes
+      #productions.entity-class
+        = f.association :productions, as: :check_boxes
+
+  .form-actions
+    = f.button :submit
+
+
+javascript:
+  $(function(){
+    $('#collection_album_collection_type_id').on('change', function(){
+      $('.entity-class').hide();
+      $('#entities').show();
+
+      switch($("#collection_album_collection_type_id option:selected").text()){
+        case("Books"):
+          $('#books').show();
+          break;
+        case("Music"):
+          $('#songs').show();
+          break;
+        case("Photos/Art"):
+          $('#photo_arts').show();
+          break;
+        case("Productions"):
+          $('#productions').show();
+          break;
+        default:
+          $('#entities').hide();
+          $('.entity-class').hide();
+        }
+    });
+    $('#entities').hide();
+  })

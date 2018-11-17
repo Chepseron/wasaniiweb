@@ -1,0 +1,13 @@
+p#notice = notice
+
+p
+  strong Url:
+  = @link.url
+p
+  strong Parent:
+  = @link.parent_id
+p
+  strong Parent type:
+  = @link.parent_type
+
+= link_to 'Edit', edit_link_path(@link)

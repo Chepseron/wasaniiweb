@@ -1,0 +1,11 @@
+- unless relatable_item.parent.works.collect{|work| work if work != relatable_item}.compact.empty?
+  .section-container.padding-bottom-20
+    .row
+      .col-md-12
+        h5.text-uppercase related
+    .row
+      .col-md-12
+        .row#related-items
+          - relatable_item.parent.works.collect{|work| work if work != relatable_item}.compact.each do |entity|
+            .col-md-1-5.reduced-gutters
+              = render partial: 'shared/entity-image-tiles', locals:{entity: entity}

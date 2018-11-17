@@ -1,0 +1,77 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  type_id     :integer
+#  description :text
+#  charges     :string
+#  venue_id    :integer
+#  date        :date
+#  aasm_state  :string
+#  parent_id   :integer
+#  parent_type :string
+#  image_uid   :string
+#  slug        :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  time        :string
+#  featured    :boolean
+#  enddate     :date
+#  url         :string
+#
+# Indexes
+#
+#  index_events_on_slug  (slug)
+#
+
+vidcon:
+  name: Vidcon
+  type: film
+  description: This a conference that is held anually for online video
+    enthusiasts creators all related parties. It also serves as a platform
+    for content creators to meet with their fans. Online video advancements
+    and news are also announced during the event by various stakeholders in
+    the online video community.
+  charges: 500
+  date: <%= 1.week.from_now %>
+  parent: daredevil(Artist)
+  venue: oscorp
+  aasm_state: unpublished
+
+comicon2016:
+  name: San Diego Comic-Con 2016
+  type: book
+  description: We’re live at San Diego Comic-Con! Join us right here at Marvel’s
+    online destination for the latest con coverage, news, galleries, schedules,
+    panels, live events and so much more!
+  charges: 500
+  date: <%= 1.week.from_now %>
+  parent: daredevil(Artist)
+  venue: marvel_studios
+  aasm_state: rejected
+
+comicon2017:
+  name: Chicago Comic-Con 2017
+  type: book
+  description: We’re live at Chicago Comic-Con! Join us right here at Marvel’s
+    online destination for the latest con coverage, news, galleries, schedules,
+    panels, live events and so much more!
+  charges: 500
+  date: <%= 1.week.from_now %>
+  parent: daredevil(Artist)
+  venue: marvel_studios
+  aasm_state: edited
+
+comicon2018:
+  name: New York Comic-Con 2018
+  type: book
+  description: We’re live at New York Comic-Con! Join us right here at Marvel’s
+    online destination for the latest con coverage, news, galleries, schedules,
+    panels, live events and so much more!
+  charges: 500
+  date: <%= 1.week.from_now %>
+  parent: marvel_studios(Business)
+  venue: marvel_studios
+  aasm_state: edited

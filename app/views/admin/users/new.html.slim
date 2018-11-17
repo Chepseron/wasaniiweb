@@ -1,0 +1,17 @@
+section.dashboard-body.row.align-center
+  .medium-5.columns.dashboard-content
+    .row.align-center
+      .medium-10.column.login-area
+        .row
+          .page-heading
+            h2 New User
+
+        .row
+          .form-area
+            == render 'form'
+        .row
+          .columns
+            p Already have an account? <a href="/login">Log in here &raquo</a></p>
+
+  =render 'shared/social_login_buttons'
+

@@ -1,0 +1,90 @@
+<%- if @entity_type == 'book' %>
+  $('#add-work-entity-modal').html("<%= escape_javascript render 'books/remote_form' %>");
+<%- elsif @entity_type == 'song' %>
+  $('#add-work-entity-modal').html("<%= escape_javascript render 'songs/remote_form' %>");
+<%- elsif @entity_type == 'photo_art' %>
+  $('#add-work-entity-modal').html("<%= escape_javascript render 'photo_arts/remote_form' %>");
+<%- elsif @entity_type == 'production' %>
+  $('#add-work-entity-modal').html("<%= escape_javascript render 'productions/remote_form' %>");
+<%- elsif @entity_type == 'collection_album' %>
+  $('#add-work-entity-modal').html("<%= escape_javascript render 'collection_albums/remote_form' %>");
+<% end %>
+
+$('#entityModal').modal();
+
+tinyMCE.init({
+  selector: 'textarea',
+  menubar: false,
+  statusbar: false,
+  toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  plugins: ['placeholder, link']
+});
+
+$('#book_publishing_date, #song_release_date, #photo_art_date, #production_release_date, #collection_album_album_date').datepicker({
+  dateFormat: "dd-mm-yy",
+  maxDate: "#{Date.today}"
+});
+
+$('#production_production_company_id_tags').tokenInput('/businesses/token_inputs',{
+  theme: "facebook",
+  placeholder: 'Place holder text...',
+  hintText: 'Search for production company'
+});
+
+$('#song_featured_artists_id_tags').tokenInput('/artists/token_inputs',{
+  theme: "facebook",
+  placeholder: 'Place holder text...',
+  propertyToSearch: 'profile_name',
+  hintText: 'Search for artists'
+});
+
+$('#production_director_id_tags').tokenInput('/artists/token_inputs',{
+  theme: "facebook",
+  placeholder: 'Place holder text...',
+  propertyToSearch: 'profile_name',
+  hintText: 'Search for director'
+});
+
+$('#production_cast_id_tags').tokenInput('/artists/token_inputs',{
+  theme: "facebook",
+  placeholder: 'Place holder text...',
+  propertyToSearch: 'profile_name',
+  hintText: 'Search for cast members'
+});
+
+$('#collection_album_song_id_tags').tokenInput("/songs/token_inputs?artist_id=<%= @parent.id %>",{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Songs'
+});
+
+$('#collection_album_book_id_tags').tokenInput('/books/token_inputs?artist_id=<%= @parent.id %>',{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Books'
+});
+
+$('#collection_album_photo_art_id_tags').tokenInput('/photo_arts/token_inputs?artist_id=<%= @parent.id %>',{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Photos or Art'
+});
+
+$('#collection_album_production_id_tags').tokenInput('/productions/token_inputs?artist_id=<%= @parent.id %>',{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Productions'
+});
+
+$('#token-input-production_director_id_tags').attr("placeholder", "Directors")
+$('#token-input-production_cast_id_tags').attr("placeholder", "Cast")
+$('#token-input-production_production_company_id_tags').attr("placeholder", "Production Companies")
+$('#token-input-collection_album_song_id_tags').attr("placeholder", "Link Songs")
+$('#token-input-collection_album_book_id_tags').attr("placeholder", "Link Books")
+$('#token-input-collection_album_production_id_tags').attr("placeholder", "Link Productions")
+$('#token-input-collection_album_photo_art_id_tags').attr("placeholder", "Link Photos/Art")
+$('#token-input-song_featured_artists_id_tags').attr("placeholder", "Featured Artists")
+
+$('.modal').on('click','input[type=submit]', function(){
+  NProgress.start();
+});

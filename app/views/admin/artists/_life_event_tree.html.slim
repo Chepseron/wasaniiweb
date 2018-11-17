@@ -1,0 +1,52 @@
+.timeline_container
+  .timeline
+    .plus
+- @artist.life_events.each do |life_event|
+  =link_to life_event do
+    .cd-timeline-block
+      .cd-timeline-content.tl-shadow
+        .row
+          .col-md-4
+            =image_tag life_event.image.url if life_event.image_stored?
+          .col-md-8
+            h5.no-margin-top.no-margin-bottom.text-uppercase= life_event.title
+            div= life_event.date.strftime("#{life_event.date.day.ordinalize} %B %Y") if life_event.date
+
+            = ActionView::Base.full_sanitizer.sanitize(life_event.try(:description))[0..100]
+
+        .row
+          .col-md-12.no-padding.text-right
+            .row
+              .col-md-12= life_event.aasm_state.humanize
+            .row
+              .col-md-12
+                =link_to 'unpublish', polymorphic_url([:change_status, :admin, life_event], params:{status: 'unpublish'}), remote: true, method: :patch
+                | &nbsp;|&nbsp;
+                =link_to 'publish', polymorphic_url([:change_status, :admin, life_event], params:{status: 'publish'}), remote: true, method: :patch
+
+javascript:
+  $(function(){
+    $('#cd-timeline').masonry('destroy')
+    $('#cd-timeline').masonry({itemSelector : '.cd-timeline-block',});
+    Arrow_Points();
+
+    function Arrow_Points(){
+      var s = $('#cd-timeline').find('.cd-timeline-block');
+      $.each(s,function(i,obj){
+        var posLeft = $(obj).css("left");
+        $(obj).addClass('borderclass');
+
+        if(posLeft == "28px"){
+          html = "<span class='rightCorner'></span>";
+          $(obj).prepend(html);
+        }
+        else{
+          html = "<span class='leftCorner'></span>";
+          $(obj).prepend(html);
+        }
+      });
+    }
+  });
+
+
+

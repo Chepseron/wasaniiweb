@@ -1,0 +1,45 @@
+h1 Listing productions
+
+table
+  thead
+    tr
+      th Cover picture uid
+      th Type
+      th Name
+      th Country
+      th Language
+      th Running time
+      th Release date
+      th Synopsis
+      th Director
+      th Production company
+      th Trailer url
+      th Parent
+      th Parent type
+      th
+      th
+      th
+
+  tbody
+    - @productions.each do |production|
+      tr
+        td = production.cover_picture_uid
+        td = production.type_id
+        td = production.name
+        td = production.country
+        td = production.language_id
+        td = production.running_time
+        td = production.release_date
+        td = production.synopsis
+        td = production.director_id
+        td = production.production_company_id
+        td = production.trailer_url
+        td = production.parent_id
+        td = production.parent_type
+        td = link_to 'Show', production
+        td = link_to 'Edit', edit_production_path(production)
+        td = link_to 'Destroy', production, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Production', new_production_path

@@ -1,0 +1,16 @@
+- @businesses.each do |business|
+  tr
+    td = business.name
+    td 
+      - if business.physical_location.present?
+        = business.physical_location.gsub('<p>','').gsub('</p>','')
+    td
+      - if business.business_category.present?
+         = business.business_category.name
+    td = business.verified?
+    td #{business.featured?} #{link_to 'change', change_featured_status_admin_business_path(business), method: :patch, remote: true}
+    td = business.created_at.strftime("#{business.created_at.day.ordinalize} %B %Y")
+    td = link_to 'Show', admin_business_path(business)
+    td = link_to 'Edit', edit_admin_business_path(business)
+    td #{business.verified?} #{link_to 'verify', verify_admin_business_path(business), method: :patch}
+    

@@ -1,0 +1,45 @@
+.container
+  .row.footer-links
+    .col-md-12.text-center
+      ul.list-inline
+        li=link_to 'music', :music_dashboard
+        | |
+        li=link_to 'art', :photo_arts_dashboard
+        | |
+        li=link_to 'fashion', :fashion_dashboard
+        | |
+        li=link_to 'literature', :literature_dashboard
+        | |
+        li=link_to 'film', :productions_dashboard
+        | |
+        li=link_to 'news', item_listings_path(params:{type: 'NewsStory'})
+        | |
+        li=link_to 'events', :events_dashboard
+        | |
+        li=link_to 'media', :media_dashboard
+        | |
+        li=link_to 'business', :businesses_dashboard
+        ||
+        li=link_to 'awards', :awards_dashboard
+
+  .row.footer-socials
+    .col-md-12.text-center
+      ul.list-inline
+        li= link_to image_tag('facebook.svg'), '//facebook.com/wasaniimedia ', target: '_blank'
+        li= link_to image_tag('twitter.svg'), '//twitter.com/wasaniimedia' , target: '_blank'
+        li= link_to image_tag('youtube.png'), '//www.youtube.com/user/WasaniiTV' , target: '_blank'
+
+  .row.footer-salute
+    .col-md-12.text-center
+      ul.list-inline
+        li Copyright 2016 Wasanii
+        | |
+        li= link_to 'About Us', :about        
+        | |
+        li= link_to 'Privacy Policy', :privacy
+        | |
+        li= link_to 'Terms of Use', :terms_and_conditions
+        
+        | |
+        li= link_to 'Help', :help
+

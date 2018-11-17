@@ -1,0 +1,31 @@
+<% if @gallery_photo.new_record? %>
+  alert("Failed to upload: <%= j @gallery_photo.errors.full_messages.join(', ').html_safe %>");
+<% else %>
+  $('#empty-image-holder').replaceWith('<section id="lightgallery"></section>')
+  $("#lightgallery").append("<%= j render partial: 'gallery_photo', locals: {gallery_photo: @gallery_photo} %>");
+<% end %>
+
+$("#lightgallery").lightGallery({
+  download: false,
+  getCaptionFromTitleOrAlt: false,
+  thumbMargin: 20,
+  thumbnail:true
+});
+
+<%- flash.each do |name, msg| %>
+  <%- if msg.is_a?(String) %>
+    var n = noty({
+      layout: 'topRight',
+      text: "<%= msg %>",
+      type: "<%= name.to_s %>",
+      theme: 'relax',
+      timeout: 3000,
+      animation: {
+        open: 'animated bounceInRight',
+        close: 'animated bounceOutRight',
+        easing: 'swing',
+        speed: 300
+      }
+    });
+  <% end %>
+<% end %>

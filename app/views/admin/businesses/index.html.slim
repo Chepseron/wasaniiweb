@@ -1,0 +1,44 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="/admin"
+          i.fa.fa-building
+      li.active Businesses
+  /! /.row
+  .row
+    .col-lg-12
+      h1.page-header Businesses
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          .row
+            .col-md-9 Businesses
+            .col-md-3
+              .form-group.pull-right
+                input.search.form-control placeholder=("What you looking for?") type="text" /
+              span.counter.pull-right
+
+        .panel-body
+          table.table.sortable
+            thead
+              tr
+                th Name
+                th Location
+                th Category
+                th Verified?
+                th Featured?
+                th Created At
+                th
+                th
+
+
+            tbody#business-table
+              = render 'business-table'
+
+
+  .row
+    .col-md-12
+      = link_to 'New Business', new_admin_business_path

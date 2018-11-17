@@ -1,0 +1,43 @@
+# == Schema Information
+#
+# Table name: news_stories
+#
+#  id          :integer          not null, primary key
+#  title       :string
+#  date        :date
+#  content     :text
+#  parent_type :string
+#  parent_id   :integer
+#  aasm_state  :string
+#  slug        :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  image_uid   :string
+#
+# Indexes
+#
+#  index_news_stories_on_slug  (slug)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+born:
+  title: Birthday
+  date: <%= 25.years.ago %>
+  content: DareDevil is BORN
+  aasm_state: unpublished
+  parent: daredevil(Artist)
+
+first_single:
+  title: First Single
+  date: <%= 5.years.ago %>
+  content: Dare Devil releases first single
+  aasm_state: rejected
+  parent: daredevil(Artist)
+
+second_single:
+  title: Second Single
+  date: <%= 4.years.ago %>
+  content: Dare Devil releases second single
+  aasm_state: edited
+  parent: daredevil(Artist)

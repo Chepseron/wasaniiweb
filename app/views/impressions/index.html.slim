@@ -1,0 +1,25 @@
+h1 Listing impressions
+
+table
+  thead
+    tr
+      th Entity
+      th Entity type
+      th Impression count
+      th
+      th
+      th
+
+  tbody
+    - @impressions.each do |impression|
+      tr
+        td = impression.entity_id
+        td = impression.entity_type
+        td = impression.impression_count
+        td = link_to 'Show', impression
+        td = link_to 'Edit', edit_impression_path(impression)
+        td = link_to 'Destroy', impression, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Impression', new_impression_path

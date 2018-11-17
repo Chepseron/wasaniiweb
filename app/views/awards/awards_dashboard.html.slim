@@ -1,0 +1,53 @@
+.section-container.specialities.margin-bottom-20
+  .row
+    .col-md-12
+      h3.text-capitalize.no-margin-top Awards
+      #locale-links #{link_to 'local', request.path, class: @locale == 'local' ? 'active-link':'' } | #{link_to 'international', request.path + '?locale=international', class: @locale == 'international' ? 'active-link':''}
+  .row
+    .col-md-12.text-center.alphabar
+      =render partial: 'alphabar'
+  .row
+    .col-md-12.text-center
+      - if @category_count.present?
+        - @category_count.each do |key, count|
+          - if(count > 0)
+            = link_to awards_listings_path({type: key, industry: key, locale: @locale})
+              .col-md-2.speciality-box
+                =image_tag "/images/#{key.downcase.gsub(',','').gsub(' ', '_')}.jpg"
+                .image-text
+                   strong #{key.capitalize} (#{count})
+  .row
+    - if !@arts.empty?
+      .col-md-12
+        h3 Arts
+        - @arts.each do |art|
+          .col-md-1-5
+              =render partial: 'card', locals: {media: art}
+    - if !@fashion.empty?
+     .col-md-12
+      h3 Fashion
+      - @fashion.each do |fashion|
+        .col-md-1-5
+            =render partial: 'card', locals: {media: fashion}
+    - if !@films.empty?
+     .col-md-12
+      h3 Films
+      - @films.each do |film|
+        .col-md-1-5
+            =render partial: 'card', locals: {media: film}
+    - if !@literatures.empty?
+     .col-md-12
+      h3 Literature
+      - @litratures.each do |litrature|
+        .col-md-1-5
+            =render partial: 'card', locals: {media: litrature}
+    - if !@musics.empty?
+     .col-md-12
+      h3 Music
+      - @musics.each do |music|
+        .col-md-1-5
+            =render partial: 'card', locals: {media: music}
+javascript:
+  if($('.speciality-box').length ==0){
+    $('.speciality-hr').hide();
+  }

@@ -1,0 +1,64 @@
+.section-container
+  .row.profile-details.margin-bottom-20.margin
+    .col-md-3
+      -if policy(@award.business).update?
+        .pro-image#image-box.box-border.editable
+          =simple_form_for @award do |f|
+            .edit-overlay
+              i.fi-camera
+              ' &nbsp; update award image
+              = f.input :image, as: :file, label: '&nbsp;'.html_safe
+              = f.input :retained_image, as: :hidden
+            =f.submit 'Save Image', id: 'save-btn', class:'button btn site-btn-primary'
+          =image_tag (@award.image_stored? ? @award.image.url : 'default-award-pic.png'), id: 'profile-pic'
+      -else
+        .pro-image
+          =image_tag (@award.image_stored? ? @award.image.url : 'default-award-pic.png'), id: 'profile-pic'
+
+    .col-md-9
+      .row
+        h3.no-margin-top.text-uppercase.text-primary= @award.name
+      .row
+        .col-md-12.no-gutters
+          b Country:&nbsp;
+          = ISO3166::Country.find_country_by_alpha2(@award.country).name
+      .row
+        .col-md-12.no-gutters
+          b Industry:&nbsp;
+          = @award.industry.name
+      .row
+        .col-md-12.no-gutters
+          = @award.details.html_safe if @award.details
+      .row
+        .col-md-1.col-md-offset-11.no-gutters
+          =link_to 'Edit', edit_award_path(@award) if policy(@award.business).update?
+      -if policy(@award.business).update?
+        .row
+          .col-md-12
+            h4=link_to 'Add/Edit Award Categories', award_categories_path(@award), class: 'btn site-btn-primary'
+
+.section-container
+  hr.hr
+  .row
+    .col-md-12.text-center.prof-nav
+      ul.list-inline
+        li
+          h4
+            = link_to 'Winners', award_path(@award)
+        li
+          h4
+            =link_to 'Categories', show_awards_categories_award_path(@award), class: 'active-link'
+  hr.hr
+
+.section-container
+  .row
+    .col-md-12.text-center.prof-nav
+      ul.list-inline#years
+        - (@award.start_year..Date.today.year).to_a.reverse[0..5].each do |year|
+          li
+            h5.no-top-margin= link_to year, show_awards_categories_award_path(@award, params:{year: year}), class: year == @year ? "active-link" : "", remote: true
+  hr.hr
+  #nominee-section
+    = render partial: 'category-nominee-section'
+
+

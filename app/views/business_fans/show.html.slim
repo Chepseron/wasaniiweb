@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Business:
+  = @business_fan.business_id
+p
+  strong User:
+  = @business_fan.user_id
+
+= link_to 'Edit', edit_business_fan_path(@business_fan)
+'|
+= link_to 'Back', business_fans_path

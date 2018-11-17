@@ -1,0 +1,47 @@
+=title @collection_album.title
+=meta_description @description
+.row.single-entity-page
+  .col-md-12
+    .section-container.padding-bottom-20
+      .row
+        .col-md-12.entity-page-entity-image
+          =image_tag entity_image(@collection_album)
+      .row
+        .col-md-6.no-gutters
+          .row
+            .col-md-12
+              h3.no-margin-top.text-uppercase= @collection_album.title
+          .row
+            .col-md-12
+              <b>Owner:</b> #{link_to @collection_album.parent.profile_name, @collection_album.parent}
+          .row
+            .col-md-12
+              <b>Country:</b> #{ISO3166::Country.find_country_by_alpha2(@collection_album.parent.country_of_birth).name}
+          .row
+            .col-md-12
+              <b>Date Created:</b> #{@collection_album.album_date.strftime("#{@collection_album.album_date.day.ordinalize} %B %Y") if @collection_album.album_date }
+        .col-md-6.no-gutters
+          = @collection_album.description.html_safe
+
+    .section-container.padding-bottom-20
+      .row
+        .col-md-12
+          h3.text-uppercase collection items
+      .row
+        .col-md-12
+          .row#collection-entities
+            - @collection_album.collection_entities.each do |entity|
+              .col-md-1-5.reduced-gutters
+                = render partial: 'shared/entity-image-tiles', locals: {entity: entity.entity}
+
+    =render partial: 'shared/related_items', locals:{relatable_item: @collection_album}
+
+    .row
+      .col-md-12.text-center.margin-top-20
+        .row
+          .col-md-3.col-md-offset-3#fan-button
+            = render partial: 'shared/fan_button', locals: {parent: @collection_album.parent}
+          .col-md-2
+            = link_to 'Back', @collection_album.parent, class: 'btn site-btn-primary'
+
+

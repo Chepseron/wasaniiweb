@@ -1,0 +1,10 @@
+.row
+  .col-md-12.deletable
+    b Phone Number:&nbsp;
+    = @artist.contact_phone_number
+    <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+.row
+  .col-md-12.deletable
+    b Email:&nbsp;
+    = @artist.contact_email
+    <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>

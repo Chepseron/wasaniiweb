@@ -1,0 +1,108 @@
+#lifeEventModal
+  - if @life_event.new_record?
+    h4#modalTitle
+      | Add a New Life Event
+    p
+    hr
+    .row
+      .col-md-12
+        = simple_form_for([@parent, @life_event], html: {multipart: true}, remote: true, url: create_life_event_artist_path(@parent)) do |f|
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :title, label: false, placeholder: 'Title', input_html:{class: 'form-control'}
+                .col-md-3
+                  = f.input :date, as: :string, label: false, placeholder: 'Date', input_html:{class: 'form-control'}
+                .col-md-3
+                  = f.association :life_event_category, label: false, prompt: 'Life Event Category', input_html:{class: 'form-control'}
+
+          .form-inputs
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :description, label: false, placeholder: 'Description'
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :image, as: :file, label: false
+                .col-md-6.modal-image-text Please select an appropriate image for this life event.
+
+
+          .form-inputs
+            .form-group
+              .row
+                - unless Book.where(parent: @artist).empty?
+                  .col-md-6
+                    = f.input :book_id_tags, :input_html => {class: 'form-control', "data-pre" => @life_event.books.map(&:attributes).to_json }, label: 'Select the books linked to this life event:'
+                -unless Production.where(parent: @artist).empty?
+                  .col-md-6
+                    = f.input :production_id_tags, :input_html => {class: 'form-control', "data-pre" => @life_event.productions.map(&:attributes).to_json }, label: 'Select the productions linked to this life event:'
+                -unless Song.where(parent: @artist).empty?
+                  .col-md-6
+                    = f.input :song_id_tags, :input_html => {class: 'form-control', "data-pre" => @life_event.songs.map(&:attributes).to_json }, label: 'Select the songs linked to this life event:'
+                -unless PhotoArt.where(parent: @artist).empty?
+                  .col-md-6
+                    = f.input :photo_art_id_tags, :input_html => {class: 'form-control', "data-pre" => @life_event.photo_arts.map(&:attributes).to_json }, label: 'Select the photos/Art linked to this life event:'
+
+                -unless CollectionAlbum.where(parent: @artist).empty?
+                  .col-md-6
+                    = f.input :collection_album_id_tags, :input_html => {class: 'form-control', "data-pre" => @life_event.collection_albums.map(&:attributes).to_json }, label: 'Select the Collection Albums linked to this life event:'
+                -unless @artist.awards.empty?
+                  .col-md-6
+                    = f.input :award_id_tags, :input_html => {class: 'form-control', "data-pre" => @life_event.awards.map(&:attributes).to_json }, label: 'Select the Awards linked to this life event:'
+
+          .form-actions
+            = f.button :submit, class: 'btn site-btn-primary pull-right'
+
+  - else
+    h4#modalTitle
+      | Edit Life Event
+    .row
+      .col-md-12
+        = simple_form_for(@life_event, html: {multipart: true}, remote: true) do |f|
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :title, label: false, placeholder: 'Title', input_html:{class: 'form-control'}
+                .col-md-3
+                  = f.input :date, as: :string, label: false, placeholder: 'Date', input_html:{class: 'form-control'}
+                .col-md-3
+                  = f.association :life_event_category, label: false, prompt: 'Life Event Category', input_html:{class: 'form-control'}
+
+          .form-inputs
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :description, label: false, placeholder: 'Description'
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :image, as: :file, label: false
+                .col-md-6.modal-image-text Please select an appropriate image for this life event.
+          .form-inputs
+            .form-group
+              .row
+                - unless Book.where(parent: @artist).empty?
+                  .col-md-6
+                    = f.input :book_id_tags, :input_html => {class: 'form-control', "data-pre" => @life_event.books.map(&:attributes).to_json }, label: 'Select the books linked to this life event:'
+                -unless Production.where(parent: @artist).empty?
+                  .col-md-6
+                    = f.input :production_id_tags, :input_html => {class: 'form-control', "data-pre" => @life_event.productions.map(&:attributes).to_json }, label: 'Select the productions linked to this life event:'
+                -unless Song.where(parent: @artist).empty?
+                  .col-md-6
+                    = f.input :song_id_tags, :input_html => {class: 'form-control', "data-pre" => @life_event.songs.map(&:attributes).to_json }, label: 'Select the songs linked to this life event:'
+                -unless PhotoArt.where(parent: @artist).empty?
+                  .col-md-6
+                    = f.input :photo_art_id_tags, :input_html => {class: 'form-control', "data-pre" => @life_event.photo_arts.map(&:attributes).to_json }, label: 'Select the photos/Art linked to this life event:'
+                -unless CollectionAlbum.where(parent: @artist).empty?
+                  .col-md-6
+                    = f.input :collection_album_id_tags, :input_html => {class: 'form-control', "data-pre" => @life_event.collection_albums.map(&:attributes).to_json }, label: 'Select the Collection Albums linked to this life event:'
+                -unless @artist.awards.empty?
+                  .col-md-6
+                    = f.input :award_id_tags, :input_html => {class: 'form-control', "data-pre" => @life_event.awards.map(&:attributes).to_json }, label: 'Select the Awards linked to this life event:'
+          .form-actions
+            = f.button :submit, class: 'btn site-btn-primary pull-right'

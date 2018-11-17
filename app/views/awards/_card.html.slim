@@ -1,0 +1,16 @@
+=link_to media, class: 'linked-card' do
+  .card.shadow
+    .image-block
+      =image_tag (media.image.nil? ? 'event.png' : media.image.url )
+    .card-block
+      /! Title
+      .card-text.text-center= media.name
+      .card-text.text-center= media.start_year
+      .row
+        .col-md-10.col-md-offset-1
+          hr.title-underline
+
+      .row.artist-info
+        .col-md-8.no-gutters
+          h5.no-margin-bottom.card-artist.card-title
+          p.card-text

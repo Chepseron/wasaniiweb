@@ -1,0 +1,36 @@
+$('#add-news-event-blog-modal').html("<%= escape_javascript render 'news_stories/remote_form' %>");
+
+$('#entityModal').modal()
+
+tinyMCE.init({
+  selector: 'textarea',
+  menubar: false,
+  statusbar: false,
+  toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  plugins: ['placeholder, link']
+});
+
+$('#news_story_date').datepicker({
+  dateFormat: "dd-mm-yy",
+  maxDate: "#{Date.today}"
+});
+
+$('#news_story_artist_id_tags').tokenInput("/artists/token_inputs",{
+  theme: "facebook",
+  propertyToSearch: 'profile_name',
+  hintText: 'Search for Artists'
+});
+
+$('#news_story_business_id_tags').tokenInput("/businesses/token_inputs",{
+  theme: "facebook",
+  hintText: 'Search for Business'
+});
+
+$('#news_story_event_id_tags').tokenInput("/events/token_inputs",{
+  theme: "facebook",
+  hintText: 'Search for Events'
+});
+
+$('#token-input-news_story_artist_id_tags').attr("placeholder", "Link Artists")
+$('#token-input-news_story_event_id_tags').attr("placeholder", "Link Events")
+$('#token-input-news_story_business_id_tags').attr("placeholder", "Link Businesses")

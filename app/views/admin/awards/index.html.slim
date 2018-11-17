@@ -1,0 +1,44 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="/admin"
+          svg.glyph.stroked.home
+            use xlink:href="#stroked-home"
+      li.active Users
+  /! /.row
+  .row
+    .col-md-9
+      h1.page-header Awards
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          .row
+            .col-md-9 Awards
+            .col-md-3
+              .form-group.pull-right
+                input.search.form-control placeholder=("What you looking for?") type="text" /
+              span.counter.pull-right
+
+        .panel-body
+          table.table.sortable
+            thead
+              tr
+                th Name
+                th Business
+                th Country
+                th Start Year
+                th Industry
+                th
+            tbody
+              -@awards.each do |award|
+                tr
+                  td= award.name
+                  td= award.business.name
+                  td= ISO3166::Country.find_country_by_alpha2(award.country).name if award.country
+                  td= award.start_year
+                  td= award.industry.name
+                  td= link_to 'view', admin_award_path(award)
+

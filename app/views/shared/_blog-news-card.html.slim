@@ -1,0 +1,23 @@
+=link_to card, class: 'linked-card' do
+  .card.shadow
+    .image-block
+      =image_tag card_image(card)
+    .card-block
+      /! Title
+      .card-text.text-center= card.title
+      .card-text.text-center= card.date.strftime("#{card.date.day.ordinalize} %B %Y")
+      .row
+        .col-md-10.col-md-offset-1
+          hr.title-underline
+      .row.artist-info
+        .col-md-4.no-gutters
+          =image_tag artist_image(card.parent), class: 'img-circle shadow'
+        .col-md-8.no-gutters
+          h5.no-margin-bottom.card-artist.card-title.marquee= card_owner(card).titleize
+          p.card-text= card.model_name.human
+- if policy(card.parent).update?
+  - if (controller_name == 'artists' && action_name == 'show' ) || (controller_name == 'businesses' && action_name == 'show' ) || (action_name == 'update')
+    .row
+      .col-md-12=link_to 'edit', edit_polymorphic_path(card), class: 'edit-link'
+
+

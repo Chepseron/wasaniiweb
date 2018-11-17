@@ -1,0 +1,19 @@
+=link_to media, class: 'linked-card' do
+  .card.shadow
+    .image-block
+      =image_tag (media.image.nil? ? 'event.png' : media.image.url )
+    .card-block
+      /! Title
+      .card-text.text-center
+        h5
+          = media.title
+      .card-text.text-center= media.date.nil? ? '' : media.date.strftime("#{media.date.day.ordinalize} %B %Y")
+      .row
+        .col-md-12.card-text.text-center
+          | By : #{media.parent.name}
+          hr.title-underline
+
+      .row.artist-info
+        .col-md-8.no-gutters
+          h5.no-margin-bottom.card-artist.card-title
+          p.card-text

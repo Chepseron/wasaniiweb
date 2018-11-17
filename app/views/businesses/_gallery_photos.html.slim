@@ -1,0 +1,9 @@
+.row
+  .col-md-4.reduced-padding.featured-profile-primary-pic
+    =link_to business.gallery_photos.first do
+      = image_tag business.gallery_photos.first.image.url if business.gallery_photos.first
+  .col-md-8.reduced-padding
+    - unless business.gallery_photos[1..6].nil?
+      - business.gallery_photos[1..6].each do |photo|
+        .col-md-3.reduced-padding.featured-profiles-grid.speciality-box
+          = image_tag photo.image.url

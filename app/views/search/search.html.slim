@@ -1,0 +1,13 @@
+.section-container.specialities.margin-bottom-20
+  .row
+    .col-md-12
+      h3.text-capitalize Search Results
+
+  .row#item-listing
+    .col-md-12
+      - if @results.present?
+       - @results.each do |result|
+        =render partial: 'search_result', locals:{result: result}
+       = will_paginate @results
+      - else
+        | No results found

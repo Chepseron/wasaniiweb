@@ -1,0 +1,28 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .panel.panel-default
+   .panel-heading
+     .row
+        .col-md-12
+          h1 Listing sites
+          <hr>
+   .panel-body
+    table.table.sortable
+      thead
+        tr
+          th Name
+          th Title
+          th
+          th
+          th
+
+      tbody
+        - @sites.each do |site|
+          tr
+            td = site.name
+            td = site.title
+            td = link_to 'Show', admin_site_path(site)
+            td = link_to 'Edit', edit_admin_site_path(site)
+
+  br
+
+  = link_to 'New Site', new_admin_site_path, class: 'btn btn-primary'

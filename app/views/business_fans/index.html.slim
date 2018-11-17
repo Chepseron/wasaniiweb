@@ -1,0 +1,23 @@
+h1 Listing business_fans
+
+table
+  thead
+    tr
+      th Business
+      th User
+      th
+      th
+      th
+
+  tbody
+    - @business_fans.each do |business_fan|
+      tr
+        td = business_fan.business_id
+        td = business_fan.user_id
+        td = link_to 'Show', business_fan
+        td = link_to 'Edit', edit_business_fan_path(business_fan)
+        td = link_to 'Destroy', business_fan, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Business fan', new_business_fan_path

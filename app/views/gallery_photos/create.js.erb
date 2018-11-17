@@ -1,0 +1,7 @@
+<%- if @gallery_photo.parent.is_a? Artist %>
+  $('#gallery-photos').html("<%= escape_javascript render partial: 'artists/gallery_photos', locals: {artist: @gallery_photo.parent} %>")
+<%- elsif @gallery_photo.parent.is_a? Business %>
+  $('#gallery-photos').html("<%= escape_javascript render partial: 'businesses/gallery_photos', locals: {business: @gallery_photo.parent} %>")
+<%- elsif @gallery_photo.parent.is_a? Award %>
+  $('#award-gallery-photos').html("<%= escape_javascript render partial: 'awards/gallery_photos', locals: {award: @gallery_photo.parent} %>")
+<%- end %>

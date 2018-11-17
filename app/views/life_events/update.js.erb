@@ -1,0 +1,9 @@
+<%- if @life_event.errors.empty? %>
+  $.modal.close();
+  $('#add-life-event-modal').empty();
+  $('#cd-timeline').html("<%= escape_javascript render 'artists/life_event_tree' %>")
+<%- else %>
+  alert(<%= @life_event.errors.full_messages %>)
+<% end %>
+
+NProgress.done();

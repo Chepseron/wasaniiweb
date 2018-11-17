@@ -1,0 +1,50 @@
+$('#add-work-entity-modal').html("<%= escape_javascript render 'collection_albums/remote_form' %>");
+
+$('#entityModal').modal()
+
+tinyMCE.init({
+  selector: 'textarea',
+  menubar: false,
+  statusbar: false,
+  toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  plugins: ['placeholder, link']
+});
+
+$('#collection_album_album_date').datepicker({
+  dateFormat: "dd-mm-yy",
+  maxDate: "#{Date.today}"
+});
+
+
+$('#collection_album_song_id_tags').tokenInput('/songs/token_inputs',{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Songs'
+});
+
+$('#collection_album_book_id_tags').tokenInput('/books/token_inputs',{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Books'
+});
+
+$('#collection_album_photo_art_id_tags').tokenInput('/photo_arts/token_inputs',{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Photos or Art'
+});
+
+$('#collection_album_production_id_tags').tokenInput('/productions/token_inputs',{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Productions'
+});
+
+$('#token-input-collection_album_song_id_tags').attr("placeholder", "Link Songs")
+$('#token-input-collection_album_book_id_tags').attr("placeholder", "Link Books")
+$('#token-input-collection_album_production_id_tags').attr("placeholder", "Link Productions")
+$('#token-input-collection_album_photo_art_id_tags').attr("placeholder", "Link Photos/Art")
+
+$('.modal').on('click','input[type=submit]', function(){
+  NProgress.start();
+});

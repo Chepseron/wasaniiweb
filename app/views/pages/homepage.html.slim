@@ -1,0 +1,183 @@
+doctype html
+html.no-js[lang="en" dir="ltr"]
+  head
+    meta[charset="utf-8"]
+    meta[http-equiv="x-ua-compatible" content="ie=edge"]
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+    = favicon_link_tag "favicon.png"
+    title == content_for?(:title) ? yield(:title) : "Wasanii Media"
+    meta name="description" content= "Wasanii, is a project that intends to provide a platform for artists in the theater, music, film, arts and fashion industries to express themselves, share experiences and skills while nurturing raw talent"
+
+    = stylesheet_link_tag "application", "https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900", "http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css"
+    = javascript_include_tag "application"
+    = csrf_meta_tag
+  body
+    nav.navbar.navbar-wrapper.navbar-default
+      .container
+        /! Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle.collapsed aria-expanded="false" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button"
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          =link_to :root, class: 'navbar-brand' do
+            =image_tag 'logo.png'
+        /! Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            - if current_user.nil?
+              li= link_to 'login', :login, class: 'btn btn-md homepage-btn-primary login-btn'
+            - else
+              li.home =link_to dashboard_user_path(current_user) do
+                  =image_tag 'home.svg'
+              li.user-image
+                =link_to '#' do
+                  =image_tag current_user.profile_image_stored? ? current_user.profile_image.url : 'default-profile-pic.png', class: "dropdown-toggle", 'data-toggle':"dropdown", role:"button", 'aria-haspopup':"true"
+                  span.caret
+                ul.dropdown-menu
+                  li= link_to 'My Profile', user_path(current_user)
+                  li= link_to 'Add an artist', new_user_artist_path(current_user)
+                  li= link_to 'Add a business', new_user_business_path(current_user)
+                  li= link_to 'View created items', entity_management_user_path(current_user)
+                  li= link_to 'Logout', :logout, method: :delete
+          =simple_form_for :search, method: 'get', url: search_path, html:{class: 'navbar-form navbar-right', id: 'search-box'} do |f|
+            .form-group
+              =f.input :term, placeholder: "Search", input_html: {class: 'form-control'}, label: false
+            = f.button :button, class: 'btn btn-default', id: 'search-btn' do
+              i.fa.fa-search aria-hidden="true"
+
+          ul.nav.navbar-nav.navbar-right.text-capitalize#menu-items
+            li=link_to 'music', :music_dashboard
+            li=link_to 'film', :productions_dashboard
+            li=link_to 'fashion', :fashion_dashboard
+            li=link_to 'literature', :literature_dashboard
+            li=link_to 'arts', :photo_arts_dashboard            
+            li=link_to 'media', :media_dashboard
+            li=link_to 'business', :businesses_dashboard
+            li=link_to 'events', :events_dashboard
+            
+    = render 'layouts/messages'
+    section#full-page
+      .content
+        div.hidden-sm
+          - unless SliderImage.active.empty?
+            #myCarousel.carousel.slide data-ride="carousel"
+              ol.carousel-indicators
+                - SliderImage.active.each_with_index do |image, i|
+                  li data-slide-to=(i+1) data-target="#myCarousel"
+              .carousel-inner role="listbox"
+                - SliderImage.active.each do |image|
+                  .carousel-item
+                    =image_tag image.image.url, class: 'bg-img'
+                    .container
+                      .carousel-caption
+                        .row
+                          .slider-text-holder
+                            -unless image.centered_content.blank?
+                              .slider-text
+                                =image.centered_content.html_safe if image.centered_content
+                            -else
+                              .slider-text-half
+                                =image.left_content.html_safe if image.left_content
+                              .slider-text-half
+                                =image.right_content.html_safe if image.right_content
+
+              a.left.carousel-control data-slide="prev" href="#myCarousel" role="button"
+                span.glyphicon.glyphicon-chevron-left aria-hidden="true"
+                span.sr-only Previous
+              a.right.carousel-control data-slide="next" href="#myCarousel" role="button"
+                span.glyphicon.glyphicon-chevron-right aria-hidden="true"
+                span.sr-only Next
+            javascript:
+              $(function(){
+                $('.carousel-item').first().addClass('active')
+                $('ol.carousel-indicators li').first().addClass('active')
+                $('#myCarousel').carousel({
+                  interval: 3000
+                })
+              });
+
+          -else
+            #myCarousel.carousel.slide data-ride="carousel"
+              =image_tag "background.jpg"
+              .container
+                .carousel-caption
+                  .row
+                    .col-md-6.border-right
+                      h3.font-weight-400
+                        <span class='text-default'>Wasanii</span> is a platform that showcases the wide and diverse talent in music, fashion, film, art and literature.
+                        p Join us today as we celebrate <span class='text-default'>African</span> artists
+                    .col-md-6
+                      h2.text-uppercase Become a fan
+                      =link_to 'register', :signup, class: 'btn btn-lg homepage-btn-primary text-uppercase'
+        - unless @artists.empty?
+         .featured#featured
+          .container
+            h3 FEATURED
+            .row
+              -@artists[1..10].each do |artist|
+                .col-md-1-5.reduced-padding
+                  =render partial: 'shared/artist-card', locals:{artist: artist}
+
+        #trending
+        =render 'shared/trending_section'
+
+        .mid-page-banner
+          .container
+            .row
+              .col-md-5.text-center.text-white
+                .h3.text-uppercase Like what you see so far?
+                .h5 Join the <span class='text-default'>Wasanii</span> Community today
+                = link_to 'become a fan', :signup, class: 'btn btn-lg homepage-btn-primary text-uppercase', role: "button"
+              .col-md-1.col-md-offset-1.vertical-line-left
+              .col-md-5.text-center.text-white
+                .h3.text-uppercase join the millions of <span class='text-default'>ARTISTS</span>
+                .h5 By creating your profile today
+                = link_to 'register', :signup, class: 'btn btn-lg homepage-btn-primary text-uppercase', role: "button"
+
+        .new-media#new
+          .container
+            h3 NEW MEDIA
+            .row
+              - @new_media[0..9].each do |entity|
+                .col-md-1-5.reduced-padding
+                  = render partial: 'shared/entity-image-tiles', locals:{entity: entity}
+
+        - unless @events.empty?
+          .container
+            h3 Events
+            .row
+              - @events[0..9].each do |event|
+                .col-md-1-5
+                  =render partial: 'shared/event_card_homepage', locals: {event: event}
+
+        - unless @trending_news_blogs.empty?
+          .container
+            h3 New Stories
+            .row
+              - @trending_news_blogs[0..9].each do |card|
+                .col-md-1-5
+                  =render partial: 'shared/blog-news-card', locals: {card: card}
+
+    footer.footer-info
+      = render 'shared/footer'
+
+= javascript_tag do
+  |  window.opener.location = '
+  = @page
+  | '; window.close();
+
+javascript:
+  $(function(){
+    $("#lightgallery").lightGallery({
+      download: false,
+      getCaptionFromTitleOrAlt: false,
+      thumbMargin: 20,
+      thumbnail:true
+    });
+
+    $('body').on('click','#search-btn', function(){
+      NProgress.start();
+    });
+  });

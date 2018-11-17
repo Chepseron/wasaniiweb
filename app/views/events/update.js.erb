@@ -1,0 +1,6 @@
+var id = "#<%= @event.class.name.downcase %>-<%= @event.id %>"
+$(id).html("<%= escape_javascript render partial: 'artists/news-event-blog-card', locals:{card: @event} %>")
+$.modal.close();
+$('#add-work-entity-modal').empty();
+
+NProgress.done();

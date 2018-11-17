@@ -1,0 +1,10 @@
+= simple_form_for(@impression) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :entity_id
+    = f.input :entity_type
+    = f.input :impression_count
+
+  .form-actions
+    = f.button :submit

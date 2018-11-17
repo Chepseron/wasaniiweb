@@ -1,0 +1,4 @@
+var id = "#<%= @id %>"
+$(id).replaceWith("<%= escape_javascript render partial: 'artists/news-event-blog-card', locals:{card: @news_story} %>")
+$.modal.close();
+$('#add-work-entity-modal').empty();

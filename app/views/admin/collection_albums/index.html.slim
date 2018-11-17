@@ -1,0 +1,42 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="/admin"
+          i.fa.fa-book
+      li.active Collection Albums
+  /! /.row
+  .row
+    .col-lg-12
+      h1.page-header Collection Albums
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          .row
+            .col-md-9 Collection Albums
+            .col-md-3
+              .form-group.pull-right
+                input.search.form-control placeholder=("What you looking for?") type="text" /
+              span.counter.pull-right
+
+        .panel-body
+          table.table.sortable
+            thead
+              tr
+                th Title
+                th Artist
+                th State
+                th Created At
+                th
+
+            tbody
+              - @collection_albums.each do |collection_album|
+                tr
+                  td = collection_album.title
+                  td = collection_album.parent.profile_name
+                  td = collection_album.aasm_state.humanize
+                  td = collection_album.created_at.strftime("#{collection_album.created_at.day.ordinalize} %B %Y")
+                  td = link_to 'Show', polymorphic_path([:admin, collection_album])
+

@@ -1,0 +1,13 @@
+#pageAdminModal
+  h4#modalTitle Transfer Ownership of #{@business.name}
+  hr
+  .row
+    .col-md-12
+      = simple_form_for(:transfer_ownership, method: :patch, url: transfer_ownership_admin_business_path(@business)) do |f|
+        .form-inputs
+          .form-group
+            .row
+              .col-md-9
+                = f.input :new_owner, collection: @business.managing_users, prompt: 'Choose new owner', label: false, input_html:{class: 'form-control'}
+        .form-actions
+          = f.button :submit, "Transfer Ownership", class: 'btn site-btn-primary pull-right'

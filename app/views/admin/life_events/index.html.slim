@@ -1,0 +1,42 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="/admin"
+          i.fa.fa-book
+      li.active Life Events
+  /! /.row
+  .row
+    .col-lg-12
+      h1.page-header Life Events
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          .row
+            .col-md-9 Life Events
+            .col-md-3
+              .form-group.pull-right
+                input.search.form-control placeholder=("What you looking for?") type="text" /
+              span.counter.pull-right
+
+        .panel-body
+          table.table.sortable
+            thead
+              tr
+                th Title
+                th Artist
+                th State
+                th Created At
+                th
+
+            tbody
+              - @life_events.each do |life_event|
+                tr
+                  td = life_event.title
+                  td = life_event.parent.profile_name
+                  td = life_event.aasm_state.humanize
+                  td = life_event.created_at.strftime("#{life_event.created_at.day.ordinalize} %B %Y")
+                  td = link_to 'Show', polymorphic_path([:admin, life_event])
+

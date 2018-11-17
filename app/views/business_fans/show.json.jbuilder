@@ -1,0 +1,1 @@
+json.partial! "business_fans/business_fan", business_fan: @business_fan

@@ -1,0 +1,12 @@
+= simple_form_for([@parent,@gallery_photo]) do |f|
+  = f.error_notification
+
+  .form-inputs
+
+    = f.input :image, as: :file
+
+    = f.input :caption
+
+
+  .form-actions
+    = f.button :submit

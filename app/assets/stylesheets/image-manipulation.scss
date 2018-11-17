@@ -1,0 +1,50 @@
+.box-border.editable, .profile-picture.editable{
+  position: relative;
+
+  img#profile-pic{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  input[type="file"] {
+    position: fixed;
+    top: -1000px;
+  }
+
+  #save-btn{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: -30px;
+    height: 30px;
+    padding: 7px;
+  }
+  .edit-overlay{
+    background:rgba(0,0,0,.75);
+    text-align:center;
+    opacity:1;
+    position: absolute;
+    width: 100%;
+    height: 30%;
+    bottom: 0;
+    left: 0;
+    display: none;
+    color: white;
+    label{
+      position: absolute;
+      height: 100%;
+      cursor: pointer;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+  }
+}
+
+.profile{
+  .checkbox{
+    float:left;
+    margin-left: 15px;
+  }
+}

@@ -1,0 +1,1 @@
+json.array! @site_ads, partial: 'site_ads/site_ad', as: :site_ad

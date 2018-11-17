@@ -1,0 +1,24 @@
+.col-md-4[id = "#{entity.class.name.downcase}-#{entity.id}"]
+  =link_to entity, class: 'linked-card' do
+    .card.shadow
+      -unless entity_image(entity).nil?
+       .image-block
+          =image_tag entity_image(entity)
+      .card-block
+        /! Title
+        .card-text.text-center= entity.title
+        .card-text.text-center= entity_date(entity)
+        .row
+          .col-md-10.col-md-offset-1
+            hr.title-underline
+
+        .row.artist-info
+          .col-md-3.no-gutters
+            =image_tag artist_image(entity.parent), class: 'img-circle shadow'
+          .col-md-8.no-gutters
+            h5.no-margin-bottom.card-artist.card-title= card_owner(entity).upcase
+            p.card-text= entity.model_name.human
+  - if policy(entity.parent).update?
+    - if (controller_name == 'artists' && action_name == 'show' ) || (controller_name == 'businesses' && action_name == 'show' ) || (action_name == 'edit')
+      .row
+        .col-md-12=link_to 'edit', edit_polymorphic_path(entity), remote: true, class: 'edit-link'

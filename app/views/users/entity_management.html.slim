@@ -1,0 +1,53 @@
+.row.single-entity-page
+  .col-md-12
+    .section-container.padding-bottom-20
+      .row.margin-top-20
+        .col-md-12.text-center.prof-nav
+          hr.hr
+          ul.list-inline
+            li
+              h4=link_to 'Add an artist', new_user_artist_path(current_user)
+            li
+              h4=link_to 'Add a business', new_user_business_path(current_user)
+          hr.hr
+      .row
+        .col-md-12
+          - unless @artists.empty?
+            h4.p1.table-header My Artists
+            table.table
+              tr
+                th.cell Name
+                th.cell Owner
+                th.cell Admin
+                th.cell Transfer Ownership
+                th.cell Status
+                th.cell Verified
+              -@artists.each do |artist|
+                tr.r-back
+                  td.cell=link_to artist.profile_name, artist
+                  td.cell=link_to artist_owner(artist), artist.parent
+                  td.cell=link_to 'Invite Page Admin', invite_page_admin_artist_path(artist), remote: true
+                  td.cell=link_to(artist.managing_users.empty? ? "" :  'Transfer Ownership', request_ownership_transfer_artist_path(artist), remote: true)
+                  td.cell= artist.aasm_state
+                  td.cell= artist.verified?
+      .row
+        .col-md-12
+          -unless @businesses.empty?
+            h4.bs.table-header My Businesses
+            table.table
+              tr
+                th.cell Name
+                th.cell Owner
+                th.cell Admin
+                th.cell Transfer Ownership
+                th.cell Verified
+              -@businesses.each do |business|
+                tr.r-back
+                  td.cell=link_to business.name, business
+                  td.cell=link_to business.parent.name, business.parent
+                  td.cell=link_to 'Invite Page Admin', invite_page_admin_business_path(business), remote: true
+                  td.cell=link_to(business.managing_users.empty? ? "" : 'Transfer Ownership', request_ownership_transfer_business_path(business), remote: true)
+                  td.cell= business.verified?
+
+
+#manage-pages-modal

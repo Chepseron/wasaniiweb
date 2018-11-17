@@ -1,0 +1,15 @@
+.row
+  .container
+    .row
+      .col-md-8.border-right
+        .row
+          .col-md-12
+            h3 Sign Up
+        == render 'form'
+        .row
+          .col-md-12
+            | have an account? &nbsp;
+            =link_to 'login here', :login
+
+      .col-md-4
+        =render 'shared/social_login_buttons'

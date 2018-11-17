@@ -1,0 +1,81 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                       :integer          not null, primary key
+#  first_name               :string
+#  last_name                :string
+#  email                    :string
+#  password_digest          :string
+#  profile_image_uid        :string
+#  birthday                 :date
+#  country                  :string
+#  slug                     :string
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  email_confirmed          :boolean
+#  email_confirmation_token :string
+#  sign_in_count            :integer          default(0)
+#  last_signed_in           :datetime
+#  authentication_token     :string
+#  provider                 :string
+#  uid                      :string
+#  provider_image_url       :string
+#  password_reset_token     :string
+#  password_reset_sent_at   :datetime
+#  invitation_token         :string
+#  user_role_id             :integer
+#  content_provider         :boolean
+#  newsletter               :boolean
+#  banned                   :boolean
+#  privacy_accepted         :boolean
+#
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#  index_users_on_slug   (slug) UNIQUE
+#
+
+spiderman:
+  first_name: Peter
+  last_name: Parker
+  email: spiderman@marvelcomics.com
+  password_digest: <%= BCrypt::Password.create("password") %>
+  birthday: 1945-06-08
+  country: kenya
+  email_confirmed: true
+
+hulk:
+  first_name: Bruce
+  last_name: Banner
+  email: hulk@marvelcomics.com
+  password_digest: <%= BCrypt::Password.create("password") %>
+  birthday: 1946-06-08
+  country: uganda
+  email_confirmed: false
+  email_confirmation_token: '12abcd345fgh'
+  password_reset_token: 'jhj12345ghf'
+  password_reset_sent_at: <%= 1.hour.ago %>
+
+ironman:
+  last_name: Stark
+  email: ironman@marvelcomics.com
+  password_digest: <%= BCrypt::Password.create("password") %>
+  birthday: 1946-06-08
+  country: uganda
+  email_confirmed: true
+  invitation_token: 'jbasjdbjhbdsf'
+
+wolverine:
+  first_name: James
+  last_name: Howlett
+  email: wolverine@marvelcomics.com
+  password_digest: <%= BCrypt::Password.create("password") %>
+  birthday: 1946-06-08
+  country: uganda
+  email_confirmed: true
+  invitation_token: 'jbasjsddbjhbdsf'
+
+lukecage:
+  email: lukecage@marvelcomics.com
+  invitation_token: 'jbasjsdbdsf'

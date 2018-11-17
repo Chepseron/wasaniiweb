@@ -1,0 +1,33 @@
+h1 Listing photo_arts
+
+table
+  thead
+    tr
+      th Name
+      th Date
+      th Description
+      th Image uid
+      th Parent
+      th Parent type
+      th Country
+      th
+      th
+      th
+
+  tbody
+    - @photo_arts.each do |photo_art|
+      tr
+        td = photo_art.name
+        td = photo_art.date
+        td = photo_art.description
+        td = photo_art.image_uid
+        td = photo_art.parent_id
+        td = photo_art.parent_type
+        td = photo_art.country
+        td = link_to 'Show', photo_art
+        td = link_to 'Edit', edit_photo_art_path(photo_art)
+        td = link_to 'Destroy', photo_art, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Photo art', new_photo_art_path

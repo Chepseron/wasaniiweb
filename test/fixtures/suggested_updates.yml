@@ -1,0 +1,24 @@
+# == Schema Information
+#
+# Table name: suggested_updates
+#
+#  id          :integer          not null, primary key
+#  content     :text
+#  parent_id   :integer
+#  parent_type :string
+#  closed      :boolean
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  parent_id: 1
+  parent_type: MyString
+
+two:
+  content: MyText
+  parent_id: 1
+  parent_type: MyString

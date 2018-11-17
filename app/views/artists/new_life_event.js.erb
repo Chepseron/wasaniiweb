@@ -1,0 +1,64 @@
+$('#add-life-event-modal').html("<%= escape_javascript render 'life_events/remote_form' %>");
+
+$('#lifeEventModal').modal();
+
+tinyMCE.init({
+  selector: 'textarea',
+  menubar: false,
+  statusbar: false,
+  toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  plugins: ['placeholder, link']
+});
+
+$('#life_event_date').datepicker({
+  dateFormat: "dd-mm-yy",
+  maxDate: "#{Date.today}"
+});
+
+$('#life_event_book_id_tags').tokenInput("/artists/<%= @artist.id %>/book_token_inputs",{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Books'
+});
+
+$('#life_event_production_id_tags').tokenInput("/artists/<%= @artist.id %>/production_token_inputs",{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Productions'
+});
+
+$('#life_event_song_id_tags').tokenInput("/artists/<%= @artist.id %>/song_token_inputs",{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Songs'
+});
+
+$('#life_event_photo_art_id_tags').tokenInput("/artists/<%= @artist.id %>/photo_art_token_inputs",{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Photo/Arts'
+});
+
+$('#life_event_collection_album_id_tags').tokenInput("/artists/<%= @artist.id %>/collection_album_token_inputs",{
+  theme: "facebook",
+  propertyToSearch: 'title',
+  hintText: 'Search for Collection Albums'
+});
+
+$('#life_event_award_id_tags').tokenInput("/artists/<%= @artist.id %>/award_token_inputs",{
+  theme: "facebook",
+  propertyToSearch: 'name',
+  hintText: 'Search for Awards'
+});
+
+$('#token-input-life_event_collection_album_id_tags').attr("placeholder", "Link Collection Albums")
+$('#token-input-life_event_award_id_tags').attr("placeholder", "Link Awards")
+
+$('#token-input-life_event_book_id_tags').attr("placeholder", "Link Books")
+$('#token-input-life_event_production_id_tags').attr("placeholder", "Link Productions")
+$('#token-input-life_event_song_id_tags').attr("placeholder", "Link Songs")
+$('#token-input-life_event_photo_art_id_tags').attr("placeholder", "Link Photos/Art")
+
+$('.modal').on('click','input[type=submit]', function(){
+  NProgress.start();
+});

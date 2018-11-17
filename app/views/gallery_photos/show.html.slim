@@ -1,0 +1,11 @@
+p#notice = notice
+h1 Gallery Photo....
+
+p
+  =image_tag @gallery_photo.image.url
+p
+  strong Caption:
+  = @gallery_photo.caption
+
+
+= link_to 'Edit', edit_polymorphic_url(@gallery_photo)

@@ -1,0 +1,13 @@
+=link_to artist, class: 'linked-card' do
+  .card.shadow
+    /! Card image
+    .image-block
+      = image_tag artist_image(artist)
+    /img.img-fluid alt=("Card image cap") src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg" /
+    /! /.Card image
+    /! Card content
+    .card-block
+      /! Title
+      .h5.card-title.no-margin-bottom= artist.profile_name.titleize
+      /! Text
+      .card-text= artist.industries.pluck(:name).join(', ')

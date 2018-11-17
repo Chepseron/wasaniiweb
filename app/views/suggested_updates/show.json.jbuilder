@@ -1,0 +1,1 @@
+json.partial! "suggested_updates/suggested_update", suggested_update: @suggested_update

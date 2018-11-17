@@ -1,0 +1,43 @@
+= simple_form_for([:admin,@admin]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    .form-group
+      .row
+        .col-md-6
+          =f.input :name, label: false, placeholder: 'Name', input_html:{class: 'form-control'}
+        .col-md-6
+          =f.input :email, label: false, placeholder: 'Email', input_html:{class: 'form-control'}
+    -unless action_name=='new'
+      .form-group
+        .row
+          .col-md-6
+            =f.input :password, label: false, placeholder: 'Password', input_html:{class: 'form-control'}
+          .col-md-6
+            =f.input :password_confirmation, label: false, placeholder: 'Confirm Password', input_html:{class: 'form-control'}
+    -if current_admin.system_administrator?
+      .form-group
+        .row
+          .col-md-6
+            =f.association :admin_role, label: false, include_blank: 'Select an admin role', input_html:{class: 'form-control'}
+          .col-md-6#industries.hide
+            =f.association :industries, as: :check_boxes, label: 'Which industries shall the content administrator be responsible for?' , item_wrapper_class: 'checkbox-inline'
+
+
+
+  .form-actions
+    = f.button :submit, class: 'btn site-btn-primary pull-right'
+
+
+javascript:
+  if($('#admin_admin_role_id option:selected').text() == "Content Administrator"){
+    $('#industries').removeClass('hide');
+  }
+  $('#admin_admin_role_id').on('change', function(){
+    if($('#admin_admin_role_id option:selected').text() == "Content Administrator"){
+      $('#industries').removeClass('hide');
+    }else{
+      $('#industries').addClass('hide');
+      $('input:checkbox').removeAttr('checked');
+    }
+  });

@@ -1,0 +1,591 @@
+
+/! Top Section
+section.home-section
+  /! Background overlay
+  .overlay
+  /! Top Section Wrapper
+  .background
+    /! Slogan
+    .row.align-center.slogan-container
+      .medium-10.large-8.columns
+        .row.align-center.align-middle
+          /! Slogan Section
+          p.slogan.small-10.medium-5.columns.text-center
+            <span>Wasanii</span> is a platform that showcases the wide and diverse talent in music, fashion, film, art and literature.
+            br/
+            | Join us today as we celebrate <span>African</span> artists.
+          /! Vertical Line
+          .medium-1.columns.hide-for-small-only
+            .vertical-line
+          /! Horizontal Line
+          .horizontal-line.small-6.columns.show-for-small-only
+            hr/
+          /! Register Section
+          .register-section.small-10.medium-5.columns.text-center
+            h1 BECOME A FAN
+            =link_to 'REGISTER', :signup, class: 'button'
+    /! Background Image
+    = image_tag "", data: {interchange: "[#{image_path('background-medium.png')}, small],[#{image_path('background-medium.png')}, medium],[#{image_path('background.jpg')}, large]"}
+/! Featured Section
+section.featured-section
+  /! Featured Heading
+  .row.align-center
+    .featured-heading.small-11.medium-11.columns.text-left
+      h1 FEATURED
+  /! Featured Content
+  .row.align-center.hide-for-small-only
+    .featured-content.medium-11.columns
+      .row
+        /! Featured
+        .featured.columns
+          .featured-image
+            =image_tag "snow.png"
+          .featured-details
+            p.name.text-left John Snow
+            p.industry.text-left Film
+        /! Featured
+        .featured.columns
+          .featured-image
+            =image_tag "keys.png"
+          .featured-details
+            p.name.text-left Alicia Keys
+            p.industry.text-left Music
+        /! Featured
+        .featured.columns
+          .featured-image
+            =image_tag "batman.png"
+          .featured-details
+            p.name.text-left Batman
+            p.industry.text-left Film
+        /! Featured
+        .featured.columns
+          .featured-image
+            =image_tag "lamar.jpg"
+          .featured-details
+            p.name.text-left Kendrick Lamar
+            p.industry.text-left Music
+        /! Featured
+        .featured.columns
+          .featured-image
+            =image_tag "mila_kunis.png"
+          .featured-details
+            p.name.text-left Mila Kunis
+            p.industry.text-left Film
+/! Trending Section
+section.Trending
+  /! Trending Heading
+  .row.align-center
+    .trending-heading.medium-11.columns.text-left
+      h1 TRENDING
+  /! Trending Content
+  .row.align-center
+    .trending-content.medium-11.columns.text-left
+      .row.align-center.align-middle
+        /! Trending Music Section
+        .trending.columns
+          /! Trending List
+          .user-list.align-center.row.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "keys.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Alicia Keys
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Music
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 2
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "snow.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left John Snow
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Music
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 3
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "batman.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Batman
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Music
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 4
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "mila_kunis.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Mila Kunis
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Music
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left Russia
+        /! Trending Arts Section
+        .trending.columns
+          /! Trending List
+          .user-list.align-center.row.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "keys.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Alicia Keys
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Arts
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 2
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "snow.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left John Snow
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Arts
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 3
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "batman.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Batman
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Arts
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 4
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "mila_kunis.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Mila Kunis
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Arts
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left Russia
+        /! Trending Fashion Section
+        .trending.columns
+          /! Trending List
+          .user-list.align-center.row.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "keys.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Alicia Keys
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Fashion
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 2
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "snow.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left John Snow
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Fashion
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 3
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "batman.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Batman
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Fashion
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 4
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "mila_kunis.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Mila Kunis
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Fashion
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left Russia
+        /! Trending Literature Section
+        .trending.columns
+          /! Trending List
+          .user-list.align-center.row.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "keys.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Alicia Keys
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Literature
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 2
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "snow.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left John Snow
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Literature
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 3
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "batman.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Batman
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Literature
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 4
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "mila_kunis.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Mila Kunis
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Literature
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left Russia
+        /! Trending Fim &amp; Theatre Section
+        .trending.columns
+          /! Trending List
+          .user-list.align-center.row.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "keys.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Alicia Keys
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Film & Theatre
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 2
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "snow.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left John Snow
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Film & Theatre
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 3
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "batman.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Batman
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Film & Theatre
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left America
+          /! Trending List 4
+          .user-list.row.align-center.align-middle
+            /! Trending Profile Image
+            .medium-4.columns.trending-image
+              =image_tag "mila_kunis.png"
+            /! Trending Profile Details
+            .medium-7.columns
+              /! Trending Profile Name
+              .row
+                p.trending-name.text-left Mila Kunis
+              /! Trending Profile Industry
+              .row
+                p.trending-industry.text-left Film & Theatre
+              /! Trending Profile Country
+              .row
+                p.trending-country.text-left Russia
+      /! Trending Icon Section
+      .user-list-icons.row.align-center.align-middle
+        /! Music Icon
+        .column
+          .industry-icons.row.align-middle.align-center
+            a.medium-6.column.text-center href="#"
+              =image_tag "Music.png"
+          /! Film &amp; Theatre Name
+          .industry-name.row.align-middle.align-center
+            p.medium-6.column.text-center href="#" Music
+        /! Arts Icon
+        .column
+          .industry-icons.row.align-middle.align-center
+            a.medium-6.column.text-center href="#"
+              =image_tag "Arts.png"
+          /! Arts Name
+          .industry-name.row.align-middle.align-center
+            p.medium-6.column.text-center href="#" Arts
+        /! Fashion
+        .column
+          .industry-icons.row.align-middle.align-center
+            a.medium-6.column.text-center href="#"
+              =image_tag "Fashion.png"
+          /! Fashion
+          .industry-name.row.align-middle.align-center
+            p.medium-6.column.text-center href="#" Fashion
+        /! Literature Icon
+        .column
+          .industry-icons.row.align-middle.align-center
+            a.medium-6.column.text-center href="#"
+              =image_tag "Literature.png"
+          /! Literature Name
+          .industry-name.row.align-middle.align-center
+            p.medium-6.column.text-center href="#" Literature
+        /! Film &amp; Theatre Icon
+        .column
+          .industry-icons.row.align-middle.align-center
+            a.medium-6.column.text-center href="#"
+              =image_tag "Film-&-Theatre.png"
+          /! Film &amp; Theatre Name
+          .industry-name.row.align-middle.align-center
+            p.medium-6.column.text-center href="#" Film & Theatre
+/! Break Section
+section.break-section
+  /! Trending Heading
+  .row.align-center
+    .break-content.medium-11.columns.text-left
+      .row.align-middle.align-center
+        /! Register as fan section
+        .column.text-center
+          /! Register as fan heading
+          .row.register-fan-heading
+            .column.text-center.break-heading
+              | LIKE WHAT YOU'VE SEEN SO FAR?
+          /! Register as fan text
+          .row.register-fan-text
+            .column.text-center
+              p
+                | Join the <span>Wasanii</span> community Today
+          /! Register as fan button
+          .row.register-fan-button
+            .column.text-center
+              =link_to 'BECOME A FAN', :signup, class: 'button'
+        /! Vertical Line
+        .medium-1.column.text-center
+          .vertical-line
+        /! Register as artist column
+        .column.text-center
+          /! Register as artist heading
+          .row.register-artist-heading
+            .column.text-center.break-heading
+              | JOIN THE MILLIONS OF <span>ARTISTS</span>
+          /! Register as artist text
+          .row.register-artist-text
+            .column.text-center
+              p By creating your profile
+          /! Register as artist button
+          .row.register-artist-button
+            .column.text-center
+              =link_to 'REGISTER', :signup, class: 'button'
+/! New Media Section
+section.new-media
+  /! New media heading
+  .row.align-center
+    .new-media-heading.medium-11.columns.text-left
+      h1 NEW MEDIA
+  /! New media content
+  .row.align-center
+    .new-media-content.medium-11.columns.text-left
+      /! Gallery grid
+      .media-grid
+        .row.align-center
+          .medium-2.column
+            =image_tag "1.jpg"
+          .medium-2.column
+            =image_tag "2.jpg"
+          .medium-2.column
+            =image_tag "3.jpg"
+          .medium-2.column
+            =image_tag "1.jpg"
+          .medium-2.column
+            =image_tag "2.jpg"
+        .row.align-center
+          .medium-2.column
+            =image_tag "3.jpg"
+          .medium-2.column
+            =image_tag "1.jpg"
+          .medium-2.column
+            =image_tag "2.jpg"
+          .medium-2.column
+            =image_tag "3.jpg"
+          .medium-2.column
+            =image_tag "1.jpg"
+/! News and Events Section
+section.news-and-events
+  /! Text
+  .row.align-center
+    .news-and-events-text.small-11.medium-11.columns.text-center
+      p See what our users have been talking about
+  /! Cards
+  .row.align-middle.align-center
+    .news-and-events-text.small-11.medium-11.columns.text-left
+      .row.align-center
+        /! News Container
+        .card-container.column
+          .row.align-center
+            /! News card
+            .card.medium-8.large-10.column
+              /! Card Image
+              .card-image.row
+                =image_tag "j.png"
+              .card-details
+                /! Card Text
+                .card-text.row
+                  .column.text-center
+                    p Welcome to beautiul Nairobi
+                /! User Details
+                .card-user-details.row.align-left.align-middle
+                  /! Profile Image
+                  .card-profile-image.medium-3.columns.text-center
+                    =image_tag "mila_kunis.png"
+                  /! Profile Data
+                  .card-profile-data.columns
+                    /! Profile Name
+                    .card-profile-name.row.align-left
+                      p Mila Kuns
+                    /! Post Type
+                    .card-post-type.row.align-left
+                      p Blog
+        /! Vertical line
+        .medium-1.column
+          .vertical-line
+        /! Events Container
+        .card-container.column
+          .row.align-center
+            /! Events card
+            .card.medium-8.large-10.column
+              /! Events Image
+              .card-image.row
+                =image_tag "Social_Event.jpg"
+              .card-details
+                /! Events Text
+                .card-text.row
+                  .column.text-center
+                    p Join the social event on Friday 31st of October and meet new people
+                /! User Details
+                .card-user-details.row.align-left.align-middle
+                  /! Profile Image
+                  .card-profile-image.medium-3.columns.text-center
+                    =image_tag "mila_kunis.png"
+                  /! Profile Data
+                  .card-profile-data.columns
+                    /! Profile Name
+                    .card-profile-name.row.align-left
+                      p Mila Kunis
+                    /! Post Type
+                    .card-post-type.row.align-left
+                      p Event

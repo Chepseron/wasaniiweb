@@ -1,0 +1,2 @@
+var id = "#fan-section-business-<%= @business.id %>"
+$(id).html("<%= escape_javascript business_fan_link(@business) %>")

@@ -1,0 +1,27 @@
+doctype html
+html.no-js dir="ltr" lang="en"
+  head
+  meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+
+    title == content_for?(:title) ? yield(:title) : "WasaniiWeb"
+
+    = stylesheet_link_tag "admin/admin", "https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900", "http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css"
+    = javascript_include_tag "admin/admin"
+    = csrf_meta_tag
+  body
+    .row
+      .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-4.col-md-offset-4
+        .login-panel.panel.panel-default
+          .panel-heading Log in
+          .panel-body
+            form role="form"
+            = simple_form_for :sessions, url: admin_login_path do |f|
+              fieldset
+                .form-group
+                  = f.input :email, label: false, placeholder: 'Email', input_html:{class: 'form-control'}
+                .form-group
+                  = f.input :password, as: :password, label: false, placeholder: 'Password', input_html:{class: 'form-control'}
+                = f.button :submit, "Login", class: 'a btn btn-primary'
+            = link_to 'main site', :root
+    = render 'layouts/messages'

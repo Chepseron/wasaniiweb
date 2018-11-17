@@ -1,0 +1,24 @@
+# == Schema Information
+#
+# Table name: links
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  url         :string
+#  parent_id   :integer
+#  parent_type :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  url: MyString
+  parent_id: 1
+  parent_type: MyString
+
+two:
+  url: MyString
+  parent_id: 1
+  parent_type: MyString

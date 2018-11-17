@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: business_categories
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+restaurant:
+  name: Restaurant
+
+club:
+  name: Club
+
+park:
+  name: Park
+
+hall:
+  name: Hall
+
+office:
+  name: Office

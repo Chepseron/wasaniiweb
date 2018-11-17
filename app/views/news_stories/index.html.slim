@@ -1,0 +1,27 @@
+h1 Listing news_stories
+
+table
+  thead
+    tr
+      th Name
+      th Content
+      th Parent type
+      th Parent
+      th
+      th
+      th
+
+  tbody
+    - @news_stories.each do |news_story|
+      tr
+        td = news_story.name
+        td = news_story.content
+        td = news_story.parent_type
+        td = news_story.parent_id
+        td = link_to 'Show', news_story
+        td = link_to 'Edit', edit_news_story_path(news_story)
+        td = link_to 'Destroy', news_story, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New News story', new_news_story_path

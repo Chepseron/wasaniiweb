@@ -1,0 +1,64 @@
+# == Schema Information
+#
+# Table name: songs
+#
+#  id                    :integer          not null, primary key
+#  title                 :string
+#  description           :text
+#  lyrics                :text
+#  audio_url             :string
+#  audio_category_id     :integer
+#  video_url             :string
+#  image_uid             :string
+#  release_date          :date
+#  parent_id             :integer
+#  parent_type           :string
+#  aasm_state            :string
+#  slug                  :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  production_company_id :integer
+#
+# Indexes
+#
+#  index_songs_on_slug  (slug)
+#
+
+first_song:
+  title: First Song
+  description: This is the first song I ever did
+  lyrics: My first song oh my first song
+  audio_url: MyString
+  audio_category: sample
+  video_url: MyString
+  image_uid: MyString
+  country: 'KE'
+  release_date: <%= 5.years.ago %>
+  parent: daredevil(Artist)
+  aasm_state: unpublished
+
+second_song:
+  title: Second Song
+  description: This is the second song I ever did
+  lyrics: My second song oh my second song
+  audio_url: MyString
+  audio_category: sample
+  video_url: MyString
+  image_uid: MyString
+  country: 'KE'
+  release_date: <%= 4.years.ago %>
+  parent: daredevil(Artist)
+  aasm_state: rejected
+
+third_song:
+  title: Third Song
+  description: This is the third song I ever did
+  lyrics: My third song oh my third song
+  audio_url: MyString
+  audio_category: sample
+  video_url: MyString
+  image_uid: MyString
+  country: 'KE'
+  release_date: <%= 3.years.ago %>
+  parent: daredevil(Artist)
+  aasm_state: edited

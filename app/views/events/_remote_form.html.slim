@@ -1,0 +1,133 @@
+#entityModal
+  -if @event.new_record?
+    h4#modalTitle
+      | Add an Event
+    hr
+    .row
+      .col-md-12
+        = simple_form_for([@parent, @event], html: {multipart: true}, remote: true, url: get_work_create_path(@parent)) do |f|
+          .form-inputs
+            .form-group
+              .row
+                .col-md-9
+                  = f.input :name, label: false, placeholder: 'Name', input_html:{class: 'form-control'}
+                .col-md-3
+                  = f.association :type, label: false, prompt: "Type of Event", input_html:{class: 'form-control'}
+            .form-group
+              .row
+                .col-md-4
+                  = f.input :date, as: :string, label: false, placeholder: "Start Date of Event", input_html:{class: 'form-control'}
+                .col-md-4
+                  = f.input :enddate, as: :string, label: false, placeholder: "End date of Event", input_html:{class: 'form-control'}
+                .col-md-4
+                  = f.input :time, label: false, placeholder: "Time of Event", input_html:{class: 'form-control'}
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :event_venue_name, url: autocomplete_event_venues_path, as: :autocomplete, placeholder: 'Venue', label: false, input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :charges, label: false, placeholder: "Charges", input_html:{class: 'form-control'}
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :url, label: false, placeholder: "http://URLinkToTheEvent.com", input_html:{class: 'form-control'}
+
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :description, label: false, placeholder: "Description", input_html:{class: 'form-control'}
+
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :image, as: :file, label: false
+                .col-md-6
+                  .row
+                    .col-md-12
+                      = f.input :artist_id_tags, :input_html => {"data-pre" => @event.artists.map(&:attributes).to_json }, label: false
+                    .col-md-12
+                      = f.input :award_id_tags, :input_html => {class: 'form-control', "data-pre" => @event.awards.map(&:attributes).to_json }, label: false
+            .row
+              .col-md-12
+                = render partial: 'shared/add_gallery_photos'
+
+
+          .form-actions
+            = f.button :submit, class: 'btn site-btn-primary pull-right'
+
+  -else
+    h4#modalTitle
+     | Add an Event
+    .row
+      .col-md-12
+        = simple_form_for(@event, html: {multipart: true}, remote: true) do |f|
+          .form-inputs
+            .form-group
+              .row
+                .col-md-9
+                  = f.input :name, label: false, placeholder: 'Name', input_html:{class: 'form-control'}
+                .col-md-3
+                  = f.association :type, label: false, prompt: "Type of Event", input_html:{class: 'form-control'}
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :date, as: :string, label: false, placeholder: "Date of Event", input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :time, label: false, placeholder: "Time of Event", input_html:{class: 'form-control'}
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :event_venue_name, url: autocomplete_event_venues_path, as: :autocomplete, placeholder: 'Venue', label: false, input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :charges, label: false, placeholder: "Charges", input_html:{class: 'form-control'}
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :description, label: false, placeholder: "Description", input_html:{class: 'form-control'}
+
+            .form-group
+              .row
+                .col-md-3
+                  = f.input :image, as: :file, label: false
+                .col-md-3#edit-main-photo
+                  = image_tag @event.image.url if @event.image_stored?
+
+                .col-md-6
+                  .row
+                    .col-md-12
+                      = f.input :artist_id_tags, :input_html => {"data-pre" => @event.artists.map(&:attributes).to_json }, label: false
+                    .col-md-12
+                      = f.input :award_id_tags, :input_html => {class: 'form-control', "data-pre" => @event.awards.map(&:attributes).to_json }, label: false
+
+            .row
+              .col-md-12
+                = render partial: 'shared/add_gallery_photos'
+                .row
+                  -@event.gallery_photos.each do |gp|
+                    .col-md-3.edit-gallery-photo.reduced-padding[id="photo-#{gp.id}"]
+                       =image_tag gp.image.url
+                       = link_to "delete", '#', onclick:"deletePic(#{gp.id});return false;"
+
+          .form-actions
+            = f.button :submit, class: 'btn site-btn-primary pull-right'
+
+javascript:
+  function previewPic(input) {
+
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              $('#edit-main-photo img').attr('src', e.target.result);
+          }
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+
+  $("#event_image").change(function(){
+      previewPic(this);
+  });
+  $( "#event_enddate" ).datepicker({
+      dateFormat: "dd-mm-yy"
+  });

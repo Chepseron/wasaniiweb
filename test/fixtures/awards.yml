@@ -1,0 +1,41 @@
+# == Schema Information
+#
+# Table name: awards
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  business_id :integer
+#  details     :text
+#  image_uid   :string
+#  country     :string
+#  start_year  :integer
+#  industry_id :integer
+#  slug        :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  aasm_state  :string
+#
+# Indexes
+#
+#  index_awards_on_slug  (slug) UNIQUE
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  business_id: 1
+  details: MyText
+  image_uid: MyString
+  country: MyString
+  start_year: MyString
+  industry_id: 1
+
+two:
+  name: MyString
+  business_id: 1
+  details: MyText
+  image_uid: MyString
+  country: MyString
+  start_year: MyString
+  industry_id: 1

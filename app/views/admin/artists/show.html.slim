@@ -1,0 +1,185 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Artist
+  /! /.row
+  .row
+    .col-md-12
+      .row
+        .col-md-12
+          h1= @artist.profile_name
+      .row
+        .col-md-12
+          <b>State:</b> #{@artist.aasm_state.humanize}
+      .row
+        .col-md-12
+          <b>Featured?:</b> #{@artist.featured?} #{link_to 'change', change_featured_status_admin_artist_path(@artist), method: :patch}
+      .row
+        .col-md-12
+          <b>Verified?:</b> #{@artist.verified?} #{link_to @artist.verified? ? 'unverify' : 'verify', verify_admin_artist_path(@artist), method: :patch}
+  /! /.row
+  .row
+    .col-md-3
+      =image_tag artist_image(@artist), id: 'profile-pic'
+    .col-md-9
+      .row
+        .col-md-6 <b>Name:</b> #{@artist.name}
+        .col-md-6 <b>Gender:</b> #{@artist.gender}
+      .row
+        .col-md-6 <b>Birthday:</b> #{@artist.birthday.strftime("#{@artist.birthday.day.ordinalize} %B") if @artist.birthday}
+        .col-md-6 <b>Country:</b> #{ISO3166::Country.find_country_by_alpha2(@artist.country_of_birth).name}
+      .row
+        .col-md-6 <b>Industry:</b> #{@artist.industries.pluck(:name).join(', ')}
+        .col-md-6 <b>Speciality:</b> #{@artist.artist_specialities.pluck(:name).join(', ')}
+      - if @artist.artist_specialities.pluck(:name).include?('Model')
+        .row
+          .col-md-6 <b>Height:</b> #{@artist.height}
+          .col-md-6 <b>Weight:</b> #{@artist.weight}
+        .row
+          .col-md-6 <b>Bust:</b> #{@artist.bust}
+          .col-md-6 <b>Hips:</b> #{@artist.hips}
+      .row
+        .col-md-12
+          h3 Intro:
+          = @artist.introduction.html_safe
+
+  -unless @artist.verified?
+    .row
+      .col-md-1.col-md-offset-2
+        =link_to 'edit', edit_admin_artist_path(@artist), class: 'btn btn-primary'
+      .col-md-2
+        =link_to 'Approve Artist', change_status_admin_artist_path(@artist, {status: 'approve'}), method: :patch, class: 'btn btn-primary'
+      .col-md-2
+        =link_to 'Unpublish Artist', change_status_admin_artist_path(@artist, {status: 'unpublish'}), method: :patch, class: 'btn btn-primary'
+      .col-md-2
+        =link_to 'Invite Page Admin', invite_page_admin_admin_artist_path(@artist), remote: true, class: 'btn btn-primary'
+      -unless @artist.managing_users.empty?
+        .col-md-2
+          =link_to 'Transfer Ownership', request_ownership_transfer_admin_artist_path(@artist), remote: true, class: 'btn btn-primary'
+
+
+  .profile-nav-bar.margin-top-20
+    .section-container
+      hr.hr
+      .row
+        .col-md-12.text-center.prof-nav
+          ul.list-inline
+            li
+              h4=link_to 'Work', '#work-header'
+            li
+              h4=link_to 'News & stories', '#news-stories-header'
+            li
+              h4=link_to 'Gallery', '#gallery-header'
+            li
+              h4=link_to 'Life Events', '#life-event-header'
+      hr.hr
+
+    .work-cards.margin-bottom-20
+      .section-container
+        .row
+          .col-md-12
+            h3 WORK
+
+        .row.margin-bottom-20
+          -@entities.each do |entity|
+            .col-md-3.reduced-padding[id = "#{entity.class.name.downcase}-#{entity.id}"]
+              = render partial: 'admin/artists/artist-work-entity', locals: {entity: entity}
+        hr.hr
+
+
+    .gallery.margin-bottom-20
+      .section-container
+        .row
+          .col-md-12
+            h3 GALLERY
+        #gallery-photos.margin-bottom-20
+          =render partial: 'admin/artists/gallery_photos', locals:{artist: @artist}
+        hr.hr
+
+
+    .life-events.margin-bottom-20
+      .section-container
+        .row
+          .col-md-12
+            h3 LIFE EVENTS
+        .row
+          .col-md-12#life-event-wrapper
+            section#cd-timeline
+              = render partial: 'admin/artists/life_event_tree'
+        hr.hr
+
+
+    .artist-news-blogs-and-events-section.margin-bottom-20
+      .section-container
+        .row
+          .col-md-12
+            h3 NEWS, BLOGS AND EVENTS
+        .row
+          .col-md-9
+            .row#news-events-blogs-cards
+              - @news_events_blogs.each do |card|
+                .col-md-3.reduced-padding[id = "#{card.class.name.downcase}-#{card.id}"]
+                  =render partial: 'admin/artists/news-event-blog-card', locals:{card: card}
+
+          .col-md-3
+            h6 Contacts
+            #contact-details
+              = render 'admin/artists/contact_details'
+
+            h6 Links:
+            #link-details
+              - @artist.links.each do |link|
+                = render 'admin/artists/links_partial', link: link
+        hr.hr
+
+    .life-events.margin-bottom-20
+      .section-container
+        .row
+          .col-md-12
+            .panel.panel-default
+              .panel-heading Suggested Updates
+              .panel-body
+                table.table.sortable
+                  thead
+                    tr
+                      th Content
+                      th Artist
+                      th Closed?
+                      th
+
+                  tbody
+                    - @artist.suggested_updates.each do |suggested_update|
+                      tr
+                        td = suggested_update.content.html_safe
+                        td = entity_name(suggested_update.parent)
+
+                        td = suggested_update.closed?
+                        -unless suggested_update.closed?
+                          td = link_to 'Close', change_status_admin_suggested_update_path(suggested_update), method: :patch
+    .life-events.margin-bottom-20
+      .section-container
+        .row
+          .col-md-12
+            .panel.panel-default
+              .panel-heading Page Admins
+              .panel-body
+                table.table.sortable
+                  thead
+                    tr
+                      th Name
+                      th
+
+
+                  tbody
+                    - @managing_users.each do |user|
+                      tr
+                        td= link_to user.name, user
+                        td
+                          -if user == @artist.parent
+                            | OWNER
+
+#manage-pages-modal

@@ -1,0 +1,104 @@
+=simple_form_for [:admin, @artist] do |f|
+  .row
+    .profile-picture.medium-4.column.text-center.editable
+      .edit-overlay
+        i.fi-camera
+        ' &nbsp; update profile picture
+        = f.input :profile_pic, as: :file, label: '&nbsp;'.html_safe
+        = f.input :retained_profile_pic, as: :hidden
+      =image_tag (@artist.profile_pic_stored? ? @artist.profile_pic.url : 'default-profile-pic.png'), id: 'profile-pic'
+    .profile-details.column
+      .row
+        .profile-full-name.column.text-center.medium-12
+          .row
+            .event-content-disc.margin.medium-12.column
+              .row.align-justify.align-middle
+                .profile-name.column.text-left
+                  p
+                    span
+                      | PROFILE NAME :
+                    = f.input :profile_name, label: false
+              .row
+                .medium-4.column
+                  p
+                    span
+                      | FULL NAME :
+                    = f.input :name, label: false
+
+                .medium-3.medium-offset-1.column
+                  p
+                    span
+                      | GENDER
+                    = f.input :gender, label: false, collection: ['Male','Female','Groups']
+                .medium-3.medium-offset-1.column
+                  p
+                    span
+                      | BIRTH COUNTRY
+                    = f.input :country_of_birth, label: false
+
+              .row
+                .medium-4.column
+                  p
+                    span
+                      | BIRTHDAY :
+                    = f.input :birthday, as: :date, start_year: Date.today.year - 90,
+                        end_year: Date.today.year - 16, order: [:day, :month, :year], html5: true, label: false
+
+                .medium-6.medium-offset-1.column
+                  p
+                    span
+                      | INDUSTRIES
+                    = f.association :industries, as: :check_boxes, label: false
+
+              .row
+
+              .row#artist_specialities
+                  = f.association :artist_specialities, as: :check_boxes, label: false unless @artist.artist_specialities.empty?
+
+              .row
+                #model-details.model-details.small-11.medium-8.column
+                  p Model Details
+                  hr
+                  .row
+                    .medium-2.column
+                      = f.input :height
+                    .medium-2.medium-offset-1.column
+                      = f.input :weight
+                    .medium-2.medium-offset-1.column
+                      = f.input :bust
+                    .medium-2.medium-offset-1.column
+                      = f.input :hips
+              .row
+                .medium-12.column
+                  p style="text-align: left; "
+                    span
+                      | INTRODUCTION
+                    = f.input :introduction, label: false
+
+  .row.align-top
+    .small-4.column.text-left
+    .small-4.small-offset-4.column.text-right
+      / =label_tag :draft do
+        / = check_box_tag :draft
+        / ' Save as draft
+
+      p= f.button :submit, 'Approve/Approve with changes'
+
+javascript:
+  $(document).ready(function(){
+    $('.artist_industries input').on('change', function(){
+      var industries_array = $('.artist_industries').find(":checked").map(function(){return this.value}).toArray();
+      $.get('/load_specialities.js',{"industries[]": industries_array});
+    });
+
+    $('#model-details').hide();
+
+    $('#artist_specialities').on('change', $('label.model').children('input'), function(){
+      if($('label.model').children('input').prop('checked')){
+        $('#model-details').show();
+      }else{
+        $('#model-details').hide();
+      }
+    });
+
+  });

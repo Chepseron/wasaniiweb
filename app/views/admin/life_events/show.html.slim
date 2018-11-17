@@ -1,0 +1,37 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Life Event
+  .container
+    .row
+      .col-md-12
+        h3.text-capitalize= @life_event.title
+    .row
+      .col-md-12.entity-page-entity-image
+        =image_tag @life_event.image.url if @life_event.image_stored?
+    .row
+      .col-md-6
+        .row
+          .col-md-6
+            b Date:&nbsp;
+            = @life_event.date.strftime("#{@life_event.date.day.ordinalize} %B %Y")
+        .row
+          .col-md-6
+            b Category:&nbsp;
+            = @life_event.life_event_category.name
+        .row
+          .col-md-12
+            <b>State</b> #{@life_event.aasm_state.humanize}
+        .row
+          .col-md-2
+            =link_to 'unpublish', change_status_admin_life_event_path(@life_event, params:{status: 'unpublish'}), method: :patch, class: 'btn btn-primary'
+          .col-md-2
+            =link_to 'publish',change_status_admin_life_event_path(@life_event, params:{status: 'publish'}), method: :patch, class: 'btn btn-primary'
+      .col-md-6
+        .row
+          .col-md-12
+            = @life_event.description.html_safe

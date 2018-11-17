@@ -1,0 +1,85 @@
+.col.grid-3
+  .row
+    .b-bottom
+      .card-single-2
+        .image
+          img alt="" src="/assets/drake.png" /
+        .content
+          .heading
+            h2 test heading
+          .s-info
+            .row
+              .b-top-2
+                p this is a tile
+            -unless @artist.nil?
+              .row
+                =link_to 'edit', edit_polymorphic_path(card), remote: true if policy(@artist).update?    
+
+
+-if card.is_a?(Event)
+  .card.medium-5.column.news-event-blog-card[id = "event-#{card.id}"]
+    .card-image.row
+      =image_tag card.image_stored? ? card.image.url : "event.png"
+    .card-details
+      .card-text.row
+        .column.text-center
+          p
+            = link_to card.name[0,50], card
+            br #{card.date.strftime('%d/%b/%y')} | #{card.time}
+      .card-user-details.row.align-left.align-middle
+        .card-profile-image.medium-4.columns.text-center
+          =image_tag artist_image(card.parent)
+        .card-profile-data.columns
+          .card-profile-name.row.align-left
+            p= card.parent.profile_name
+          .card-post-type.row.align-left
+            p
+              | Event
+      .row.align-left style=("color: black; margin-left:74px; font-size:13px;")
+        .row
+          -unless @artist.nil?
+            =link_to 'edit', edit_polymorphic_path(card), remote: true if policy(@artist).update?
+
+-elsif card.is_a?(NewsStory)
+  .card.medium-5.column.news-event-blog-card[id = "newsstory-#{card.id}"]
+    .card-image.row
+      =image_tag card.image_stored? ? card.image.url : "news.png"
+    .card-details
+      .card-text.row
+        .column.text-center
+          p= link_to card.title[0,50], card
+      .card-user-details.row.align-left.align-middle
+        .card-profile-image.medium-4.columns.text-center
+          =image_tag artist_image(card.parent)
+        .card-profile-data.columns
+          .card-profile-name.row.align-left
+            p= card.parent.profile_name
+          .card-post-type.row.align-left
+            p
+              | News
+      .row.align-left style=("color: black; margin-left:74px; font-size:13px;")
+        .row
+          -unless @artist.nil?
+            =link_to 'edit', edit_polymorphic_path(card), remote: true if policy(@artist).update?
+
+-elsif card.is_a?(Blog)
+  .card.medium-5.column.news-event-blog-card[id = "blog-#{card.id}"]
+    .card-image.row
+      =image_tag card.image_stored? ? card.image.url : "blog.png"
+    .card-details
+      .card-text.row
+        .column.text-center
+          p= link_to card.title[0,50], card
+      .card-user-details.row.align-left.align-middle
+        .card-profile-image.medium-4.columns.text-center
+          =image_tag artist_image(card.parent)
+        .card-profile-data.columns
+          .card-profile-name.row.align-left
+            p= card.parent.profile_name
+          .card-post-type.row.align-left
+            p
+              | Blog
+      .row.align-left style=("color: black; margin-left:74px; font-size:13px;")
+        .row
+          -unless @artist.nil?
+            =link_to 'edit', edit_polymorphic_path(card), remote: true if policy(@artist).update?

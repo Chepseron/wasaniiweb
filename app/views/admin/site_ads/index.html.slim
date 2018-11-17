@@ -1,0 +1,52 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="/admin"
+          i.fa.fa-file-movie
+      li.active Site Ads
+  /! /.row
+  .row
+    .col-lg-10
+      h1.page-header Site Ads
+    .col-md-2
+      =link_to 'New Site Ad', :new_admin_site_ad, class: 'btn btn-primary pull-right new-admin-btn'
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          .row
+            .col-md-9 Site Ads
+            .col-md-3
+              .form-group.pull-right
+                input.search.form-control placeholder=("What you looking for?") type="text" /
+              span.counter.pull-right
+
+        .panel-body
+          table.table.sortable
+            thead
+              tr
+                th Name
+                th Position
+                th Image uid
+                th Script
+                th Active
+                th
+                th
+                th
+
+            tbody
+              - @site_ads.each do |site_ad|
+                tr
+                  td = site_ad.name
+                  td = site_ad.site_ad_position.try(:name)
+                  td.site-ad-image-table-image
+                    -if site_ad.image_stored?
+                      = image_tag site_ad.image.url
+                  td = site_ad.script
+                  td= site_ad.active?
+                  td = link_to 'Show', admin_site_ad_path(site_ad)
+                  td = link_to 'Edit', edit_admin_site_ad_path(site_ad)
+
+

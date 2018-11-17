@@ -1,0 +1,1 @@
+json.partial! "award_categories/award_category", award_category: @award_category

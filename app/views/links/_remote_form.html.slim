@@ -1,0 +1,19 @@
+#linksModal
+  h4#modalTitle
+    | Add Link
+  p
+  hr
+  .row
+    .col-md-12
+      = simple_form_for([@parent, @link], html: {multipart: true}, remote: true, url: get_link_create_path(@parent)) do |f|
+
+        .form-inputs
+          .form-group
+            .row
+              .col-md-6
+                = f.input :name, label: false, placeholder: 'Name', input_html:{class: 'form-control'}
+              .col-md-6
+                = f.input :url, label: false, placeholder: 'URL', input_html:{class: 'form-control'}
+
+        .form-actions
+          = f.button :submit, class: 'btn site-btn-primary pull-right'

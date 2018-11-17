@@ -1,0 +1,15 @@
+$("#add-presskit-modal").html("<%= escape_javascript(render :partial => 'presskit') %>");
+$('#entityModal').modal();
+$('.modal-backdrop').remove();
+
+$('.delpresskit').on('click',function(){
+	alert('clicked');
+	$(this).parent('div.deletable').remove();
+});
+
+var doc = new jsPDF();
+var specialElementHandlers = {
+    '#editor': function (element, renderer) {
+        return true;
+    }
+};

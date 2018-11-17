@@ -1,0 +1,24 @@
+#nomineeModal
+  h4#modalTitle
+    | Nominee
+  hr
+  .row
+    .col-md-12
+      h3= @nominee.nominee_category
+  .row
+    .col-md-12
+      = simple_form_for(@nominee, remote: true) do |f|
+        .form-inputs
+          .form-group
+            .row
+              .col-md-12
+                = f.input :nominee_name, url: autocomplete_nominee_path(@parent),
+                as: :autocomplete, label: false, placeholder: 'Enter nominee', input_html:{class: 'form-control'}
+          .form-group
+            .row
+              .col-md-6
+                = f.input :year, as: :select, prompt: 'Enter nomination year', input_html:{class: 'form-control'}, label: false, collection: 5.year.ago.year..1.years.from_now.year
+              .col-md-6
+                = f.association :rank, prompt: 'Enter Ranking (if available)', input_html:{class: 'form-control'}, label: false
+        .form-actions
+          = f.button :submit, class: 'btn site-btn-primary pull-right'

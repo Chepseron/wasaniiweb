@@ -1,0 +1,9 @@
+- @events.each do |event|
+  tr
+    td = event.name
+    td = entity_name(event.parent)
+    td = event.date.strftime("#{event.date.day.ordinalize} %B %Y")
+    td = event.created_at.strftime("#{event.created_at.day.ordinalize} %B %Y")
+    td = event.aasm_state.humanize
+    td #{event.featured?} #{link_to 'change', change_featured_status_admin_event_path(event), method: :patch, remote: true}
+    td = link_to 'Show', polymorphic_path([:admin, event])

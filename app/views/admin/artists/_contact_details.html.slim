@@ -1,0 +1,10 @@
+.row
+  .col-md-12
+    b Phone Number:&nbsp;
+    = @artist.contact_phone_number
+.row
+  .col-md-12
+    b Email:&nbsp;
+    = @artist.contact_email
+.row
+  .col-md-12  =link_to 'edit contacts',edit_artist_path(@artist), :remote => true if policy(@artist).update?

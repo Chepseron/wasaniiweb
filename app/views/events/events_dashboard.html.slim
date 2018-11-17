@@ -1,0 +1,89 @@
+=meta_description @description
+.section-container.specialities.margin-bottom-20
+  .row
+    .col-md-12
+      h3.text-capitalize.no-margin-top Events
+      #locale-links #{link_to 'local', request.path, class: @locale == 'local' ? 'active-link':'' } | #{link_to 'international', request.path + '?locale=international', class: @locale == 'international' ? 'active-link':''}
+  .row
+    .col-md-12.text-center.alphabar
+      =render 'alphabar'
+  .row
+    .col-md-12
+      - Industry.pluck(:name).each do |industry|
+        -unless event_count(industry, @locale) == 0
+          = link_to item_listings_path({type: 'Event', industry: industry, locale: @locale})
+            .col-md-2.speciality-box
+              .image-text #{industry} (#{event_count(industry, @locale)})
+              =image_tag "#{industry.downcase.gsub(',','').gsub(' ', '_')}.jpg"
+  hr.hr
+  - if get_ad("#{controller_name}_ad_1") && get_ad("#{controller_name}_ad_1").has_content?
+    .row.site-ad
+      .col-md-12.no-gutters
+        = get_ad("#{controller_name}_ad_1").get_content
+    hr.hr
+
+
+-unless @featured_events.empty?
+  .featured-section.margin-bottom-20
+    .section-container
+      .row
+        .col-md-12
+          h4.text-uppercase Featured Events
+      .row.margin-bottom-20.dashboard-profile-pics
+        .col-md-4.reduced-padding.featured-profile-primary-pic.large-dashboard-profile-pic
+          =link_to @featured_events.first do
+            = image_tag entity_image(@featured_events.first)
+            .media-image-text
+              h4.text-uppercase= @featured_events.first.name
+              div #{event_date(@featured_events.first)}, #{@featured_events.first.time}
+              div= @featured_events.first.type.name
+              btn.btn view
+              p= @featured_events.first.country
+        .col-md-8.reduced-padding.small-dashboard-profile-pics
+          - unless @featured_events[1..6].nil?
+            - @featured_events[1..6].each do |featured_events|
+              .col-md-3.reduced-padding.featured-profiles-grid
+                =link_to featured_events do
+                  = image_tag entity_image(featured_events)
+                  .media-image-text
+                    h4.text-uppercase= featured_events.name
+                    div #{event_date(@featured_events.first)}, #{@featured_events.first.time}
+                    div= featured_events.type.name
+                    btn.btn view
+                    p= featured_events.country
+      hr.hr
+
+.dashboard-image.margin-bottom-20
+  .row
+    .col-md-12
+      - if get_ad("#{controller_name}_ad_2") && get_ad("#{controller_name}_ad_2").has_content?
+        .row.site-ad
+          .col-md-12.no-gutters
+            = get_ad("#{controller_name}_ad_2").get_content
+
+- unless @events.empty?
+  .dashboard-events
+    .section-container
+      .row
+        .col-md-12
+          h4.text-uppercase #{@industry_name} Trending Events
+
+      .row
+        - @events[0..3].each do |event|
+          .col-md-3
+            =render partial: 'shared/event-card', locals: {event: event}
+.row
+  hr.hr
+h4.text-uppercase #{@industry_name} All Events
+.row
+    - @allevents[0..25].each do |event|
+          .col-md-3
+            =render partial: 'shared/event-card', locals: {event: event}
+            
+strong SHARE THIS PAGE
+= social_share_button_tag("Events on Wasanii.com", :url => "#{request.original_url}", :image => "", desc: "#{@description}", via: "Me") 
+
+javascript:
+  if($('.speciality-box').length ==0){
+    $('.speciality-hr').hide();
+  }

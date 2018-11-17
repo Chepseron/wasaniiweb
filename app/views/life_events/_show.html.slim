@@ -1,0 +1,25 @@
+#showLifeEventModal.reveal[data-reveal]
+  .row
+    .featured-heading.featured-music-heading.medium-12.columns.text-left
+      h1= @life_event.title
+      p
+        | category: #{@life_event.life_event_category.name}
+        br= @life_event.date
+  .row
+    .music-profiles-image
+      =image_tag @life_event.image.url if @life_event.image_stored?
+  .row
+    .events-discription
+      =@life_event.description.html_safe
+  .row
+    .grid1.column
+      - @life_event.gallery_photos.each do |photo|
+        =image_tag photo.image.url, class: 'img column small-3'
+  .row
+    - @life_event.entities.each do |entity|
+      = render partial: 'artists/artist-work-entity', locals: {entity: entity}
+
+  button.close-button[data-close aria-label="Close modal" type="button"]
+    span[aria-hidden="true"]
+      | ×
+

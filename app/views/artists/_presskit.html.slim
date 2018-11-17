@@ -1,0 +1,90 @@
+#entityModal.presskit
+  h4#modalTitle
+    | #{@artist.name}'s Press Kit <button id="export_doc" type="button" class="btn btn-warning btn-sm">Export PDF</button>
+  hr
+  .row
+    .col-md-5
+      .pro-image.deletable
+          <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+          =image_tag artist_image(@artist), id: 'profile-pic'
+    .col-md-7
+      .row
+        .col-md-6.no-gutters.deletable
+          b Full Name:&nbsp;
+          | #{@artist.name}          
+          <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+        .col-md-6.no-gutters.deletable
+          b Country of Birth:&nbsp;
+          | #{ISO3166::Country.find_country_by_alpha2(@artist.country_of_birth).name}
+          <a href='#'  onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+      .row
+        .col-md-6.no-gutters.deletable
+          b Gender:&nbsp;
+          | #{@artist.gender}
+          <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+        .col-md-4.no-gutters.deletable
+          b Date of Birth:&nbsp;
+          | #{@artist.birthday.strftime("#{@artist.birthday.day.ordinalize} %B") if @artist.birthday}
+          <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+      .row
+        .col-md-6.no-gutters.deletable
+          b Industry:&nbsp;
+          | #{@artist.industries.pluck(:name).join(', ')}
+          <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+        .col-md-6.no-gutters.deletable
+          b Speciality:&nbsp;
+          | #{@artist.artist_specialities.pluck(:name).join(', ')}
+          <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+
+      - if @artist.artist_specialities.pluck(:name).include?('Model')
+        .row
+          .col-md-3.no-gutters.deletable
+            b Height :&nbsp;&nbsp;
+            | #{@artist.height}
+            <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+          .col-md-3.no-gutters.deletable
+            b Weight :&nbsp;&nbsp;
+            | #{@artist.weight}
+            <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+          .col-md-3.no-gutters.deletable
+            b Bust :&nbsp;&nbsp;
+            | #{@artist.bust}
+            <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+          .col-md-3.no-gutters.deletable
+            b Hips :&nbsp;&nbsp;
+            | #{@artist.hips}
+            <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+      hr.hr
+      .row
+        .col-md-12.no-gutters.bio.deletable
+          = @artist.introduction.html_safe
+          <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+  .row.margin-bottom-20#entities-wrapper
+        -@entities.each do |entity|
+          .col-md-3.reduced-padding.deletable[id = "#{entity.class.name.downcase}-#{entity.id}"]
+            <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+            = render partial: 'artist-work-entity-presskit', locals: {entity: entity}
+  -if !@artist.gallery_photos.empty? || !current_user.nil? && policy(@artist).update?
+    .gallery.margin-bottom-20
+      .section-container
+        .row
+          .col-md-12
+            h5 GALLERY
+        #gallery-photos.margin-bottom-20
+          =render partial: 'gallery_photos_presskit', locals:{artist: @artist}
+        hr.hr
+
+    .col-md-3.deletable
+        <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+          h5 Contacts
+          #contact-details
+            = render 'contact_details_presskit'
+
+#editor
+
+javascript:
+  $(document).ready(function(){
+    $( "#export_doc" ).click(function() {
+      window.print();
+    });  
+  });

@@ -1,0 +1,12 @@
+- @artists.each do |artist|
+  tr
+    td= artist.profile_name
+    td= artist.parent.name
+    td= ISO3166::Country.find_country_by_alpha2(artist.country_of_birth).name if artist.country_of_birth
+    td= artist.industries.pluck(:name).join(', ')
+    td= artist.created_at.strftime('%m/%d/%Y')
+    td= artist.aasm_state.humanize
+    td= artist.verified?
+    td #{artist.featured?} #{link_to 'change', change_featured_status_admin_artist_path(artist), method: :patch, remote: true}
+    td= link_to 'view', admin_artist_path(artist)
+=will_paginate @artists

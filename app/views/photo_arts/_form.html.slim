@@ -1,0 +1,12 @@
+= simple_form_for [@parent, @photo_art] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :image, as: :file
+    = f.input :date, as: :date, html5: true
+    = f.input :description
+    = f.input :country
+
+  .form-actions
+    = f.button :submit, "Create Photo/Art"

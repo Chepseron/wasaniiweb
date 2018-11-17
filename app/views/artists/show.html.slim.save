@@ -1,0 +1,217 @@
+=title @artist.profile_name
+=meta_description @description
+.section-container
+  .row.profile-details.margin-bottom-20.margin
+    .col-md-3
+      -if policy(@artist).update?
+        .pro-image#image-box.box-border.editable
+          =simple_form_for @artist do |f|
+            .edit-overlay
+              i.fi-camera
+              ' &nbsp; update profile picture
+              = f.input :profile_pic, as: :file, label: '&nbsp;'.html_safe
+              = f.input :retained_profile_pic, as: :hidden
+            =f.submit 'Save Image', id: 'save-btn', class:'button btn site-btn-primary'
+          =image_tag artist_image(@artist), id: 'profile-pic'
+      -else
+        .pro-image
+          =image_tag artist_image(@artist), id: 'profile-pic'
+
+    .col-md-9
+      .row
+        .col-md-12.no-gutters
+          -if @artist.verified?
+            .verification.pull-right
+              =image_tag "verified.svg"
+          h3.no-margin-top.text-uppercase.text-primary= @artist.profile_name
+
+      .row
+        .col-md-6.no-gutters
+          b Full Name:&nbsp;
+          | #{@artist.name}
+        .col-md-6.no-gutters
+          b Country of Birth:&nbsp;
+          | #{ISO3166::Country.find_country_by_alpha2(@artist.country_of_birth).name}
+      .row
+        .col-md-6.no-gutters
+          b Gender:&nbsp;
+          | #{@artist.gender}
+        .col-md-4.no-gutters
+          b Date of Birth:&nbsp;
+          | #{@artist.birthday.strftime("#{@artist.birthday.day.ordinalize} %B") if @artist.birthday}
+
+      .row
+        .col-md-6.no-gutters
+          b Industry:&nbsp;
+          | #{@artist.industries.pluck(:name).join(', ')}
+        .col-md-6.no-gutters
+          b Speciality:&nbsp;
+          | #{@artist.artist_specialities.pluck(:name).join(', ')}
+
+      - if @artist.artist_specialities.pluck(:name).include?('Model')
+        .row
+          .col-md-3.no-gutters
+            b Height :&nbsp;&nbsp;
+            | #{@artist.height}
+          .col-md-3.no-gutters
+            b Weight :&nbsp;&nbsp;
+            | #{@artist.weight}
+          .col-md-3.no-gutters
+            b Bust :&nbsp;&nbsp;
+            | #{@artist.bust}
+          .col-md-3.no-gutters
+            b Hips :&nbsp;&nbsp;
+            | #{@artist.hips}
+      .row
+        .col-md-12.no-gutters
+          = @artist.introduction.html_safe
+
+        -if policy(@artist).update?
+          .col-md-6.no-gutters
+            =link_to presskit_path(:id => @artist.id), remote: true, 'data-toggle' =>  "modal", 'data-target' => '#add-presskit-modal', class: 'btn do
+              <i class="fi-flag large"></i> Make Press Kit</a>
+      .row#profile-edit-links
+        .col-md-1.col-md-offset-6.no-gutters
+          =link_to 'Edit', edit_artist_path(@artist) if policy(@artist).update?
+        .col-md-3.no-gutters
+          -unless @artist.verified?
+            #suggest-update
+              =link_to new_artist_suggested_update_path(@artist), remote: true do
+                i.fa.fa-pencil[aria-hidden="true"]
+                '  Suggest an Update
+        .col-md-2.no-gutters
+          div[id="fan-section-artist-#{@artist.id}"]
+            = artist_fan_link(@artist)
+  hr.hr
+        /.col-md-4
+          - if policy(@artist).publish?
+            =link_to 'publish', publish_artist_path(@artist), data: {:confirm => 'Are you sure you want to publish this artist?'}
+
+-if !@entities.empty? || !current_user.nil? && policy(@artist).update?
+  .work-cards.margin-bottom-20
+    .section-container
+      .row
+        .col-md-12
+          h3 WORK
+
+      - if policy(@artist).update?
+        .row
+          .col-md-12
+            ul.list-inline.add-items-links
+              li
+                =link_to 'add book', '#', class: 'add-entity-select-box btn site-btn-primary', title: 'add a book', :onclick => "findForm(#{@artist.id}, 'entities', 'book')"
+              li
+                =link_to 'add song', '#', class: 'add-entity-select-box btn site-btn-primary', title: 'add a song', :onclick => "findForm(#{@artist.id}, 'entities', 'song')"
+              li
+                =link_to 'add photo/art', '#', class: 'add-entity-select-box btn site-btn-primary', title: 'add an art/photo', :onclick => "findForm(#{@artist.id}, 'entities','photo_art')"
+              li
+                =link_to 'add production', '#', class: 'add-entity-select-box btn site-btn-primary', title: 'add a production', :onclick => "findForm(#{@artist.id}, 'entities', 'production')"
+              li
+                =link_to 'add a collection/album', '#', class: 'add-entity-select-box btn site-btn-primary', title: 'add a collection/album', :onclick => "findForm(#{@artist.id}, 'entities', 'collection_album')"
+      .row.margin-bottom-20#entities-wrapper
+        -@entities.each do |entity|
+          .col-md-3.reduced-padding[id = "#{entity.class.name.downcase}-#{entity.id}"]
+            = render partial: 'artist-work-entity', locals: {entity: entity}
+      hr.hr
+
+-unless @award_nominations.empty?
+  .work-cards.margin-bottom-20
+    .section-container
+      .row
+        .col-md-12
+          h3 AWARDS
+      .row.margin-bottom-20#awards
+        - @award_nominations.each do |an|
+          .col-md-3.media-image
+            =link_to award_url(an.award_category.award,{params:{year: an.year}}) do
+              =image_tag an.award_category.award.image_stored? ? an.award_category.award.image.url : 'default-award-pic.png'
+              .media-image-text
+                h4.text-uppercase= an.award_category.award.name
+                div= an.rank.name
+                div= an.award_category.name
+                div= an.year
+                btn.btn view
+
+-if !@artist.gallery_photos.empty? || !current_user.nil? && policy(@artist).update?
+  .gallery.margin-bottom-20
+    .section-container
+      .row
+        .col-md-12
+          h3 GALLERY
+      - if policy(@artist).update?
+        .row
+          .col-md-12
+            #progress
+              .bar style=("width: 0%;")
+            =simple_form_for([@artist,GalleryPhoto.new]) do |f|
+              = f.input :image, as: :file, label: false, input_html:{multiple: true, name: 'gallery_photo[image]', class: 'input-1 btn btn-default'}
+      #gallery-photos.margin-bottom-20
+        =render partial: 'gallery_photos', locals:{artist: @artist}
+      hr.hr
+
+-if !@artist.life_events.empty? || !current_user.nil? && policy(@artist).update?
+  .life-events.margin-bottom-20
+    .section-container
+      .row
+        .col-md-12
+          h3 LIFE EVENTS
+      - if policy(@artist).update?
+        .row
+          .col-md-12
+            #add-life-event-link.add-entity
+            =link_to 'add life event', new_life_event_artist_path(@artist), class: 'btn site-btn-primary', :remote => true if policy(@artist).update?
+      .row
+        .col-md-12#life-event-wrapper
+          section#cd-timeline
+            = render partial: 'life_event_tree'
+      hr.hr
+
+-if !@news_events_blogs.empty? || !current_user.nil? && policy(@artist).update? || !@artist.links.empty? || !@artist.contact_phone_number.nil? || !@artist.contact_email.nil? || @artist.contact_phone_number.nil? || @artist.contact_email.nil? 
+  .artist-news-blogs-and-events-section.margin-bottom-20
+    .section-container
+      .row
+        .col-md-12
+          h3 NEWS, BLOGS AND EVENTS
+      - if policy(@artist).update?
+        .row
+          .col-md-12
+            ul.add-items-links.list-inline
+              li
+                =link_to 'add news story', new_artist_news_story_path(@artist), class: 'add-news-event-blog-btn btn site-btn-primary', title: 'Add a news story'
+              li.clr
+                =link_to 'add blog', new_artist_blog_path(@artist), class: 'add-news-event-blog-btn btn site-btn-primary', title: 'Add a blog'
+              li.clr
+                =link_to 'add event', '#', class: 'add-news-event-blog-btn btn site-btn-primary', title: 'Add an event', :onclick => "findForm(#{@artist.id}, 'news_event_blog', 'Add an event')"
+             
+      .row
+        .col-md-9
+          .row#news-events-blogs-cards
+            - @news_events_blogs.each do |card|
+              .col-md-4.reduced-padding[id = "#{card.class.name.downcase}-#{card.id}"]
+                =render partial: 'news-event-blog-card', locals:{card: card}
+
+        .col-md-3
+          h5 Contacts
+          #contact-details
+            = render 'contact_details'
+
+          h5 Links:
+          #link-details
+            - @artist.links.each do |link|
+              = render 'links_partial', link: link
+          .row
+            .col-md-12 =link_to 'add links', new_link_artist_path(@artist), :remote => true if policy(@artist).update?
+          
+          h5 SHARE THIS PROFILE
+          = social_share_button_tag(@artist.profile_name, :url => "#{request.original_url}", :image => "#{image_tag artist_image(@artist)}", desc: "#{@description}", via: "Me") 
+
+
+#add-contacts-modal
+#add-links-modal
+#add-news-event-blog-modal
+#add-life-event-modal
+#suggested-update-modal
+#add-work-entity-modal
+
+#add-presskit-modal
+

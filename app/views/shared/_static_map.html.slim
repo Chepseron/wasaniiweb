@@ -1,0 +1,42 @@
+#map-container
+  #map
+
+javascript:
+  var map;
+  var markers = [];
+  function initMap() {
+    var pos = {
+      lat: #{@business.latitude},
+      lng: #{@business.longitude}
+    }
+
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: pos,
+      zoom: 16
+    });
+    addMarker(pos);
+
+  // Adds a marker to the map and push to the array.
+    function addMarker(pos) {
+      markers = [];
+      var marker = new google.maps.Marker({
+        position: pos,
+        map: map,
+      });
+      markers.push(marker);
+      map.setCenter(pos);
+    }
+  }
+
+script async="" defer="" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBDzGXDzjgpAWTUCAOUrrhXXqdwO4si7rw&callback=initMap"
+
+css:
+  #map-container {
+     height: 400px;
+     width: 100%;
+
+   }
+   #map {
+     height: 384px;
+     width: 100%;
+   }

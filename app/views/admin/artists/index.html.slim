@@ -1,0 +1,40 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="/admin"
+          svg.glyph.stroked.home
+            use xlink:href="#stroked-home"
+      li.active Artists
+  /! /.row
+  .row
+    .col-lg-12
+      h1.page-header Artist
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          .row
+            .col-md-9 Artists
+            .col-md-3
+              .form-group.pull-right
+                input.search.form-control placeholder=("What you looking for?") type="text" /
+              span.counter.pull-right
+
+        .panel-body
+          table.table.sortable
+            thead
+              tr
+                th Profile Name
+                th Owner
+                th Country
+                th Industry
+                th Date Created
+                th State
+                th Verified?
+                th Featured?
+                th
+            tbody#artist-table
+              =render 'artist-table'
+

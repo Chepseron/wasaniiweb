@@ -1,0 +1,23 @@
+h1 Listing artist_fans
+
+table
+  thead
+    tr
+      th Artist
+      th User
+      th
+      th
+      th
+
+  tbody
+    - @artist_fans.each do |artist_fan|
+      tr
+        td = artist_fan.artist_id
+        td = artist_fan.user_id
+        td = link_to 'Show', artist_fan
+        td = link_to 'Edit', edit_artist_fan_path(artist_fan)
+        td = link_to 'Destroy', artist_fan, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Artist fan', new_artist_fan_path

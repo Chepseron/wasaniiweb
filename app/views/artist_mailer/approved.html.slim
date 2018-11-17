@@ -1,0 +1,4 @@
+h1 Congratulations! Your submission #{entity_name(@entity)} has been approved
+p Your submission #{entity_name(@entity)} has been approved and is now viewable by the public.
+
+= link_to "view #{entity_name(@entity)}", polymorphic_url([@entity])

@@ -1,0 +1,43 @@
+# == Schema Information
+#
+# Table name: blogs
+#
+#  id          :integer          not null, primary key
+#  title       :string
+#  content     :text
+#  date        :date
+#  parent_id   :integer
+#  parent_type :string
+#  aasm_state  :string
+#  slug        :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  image_uid   :string
+#
+# Indexes
+#
+#  index_blogs_on_slug  (slug)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+born:
+  title: Birthday
+  content: DareDevil is BORN
+  date: <%= 25.years.ago %>
+  aasm_state: unpublished
+  parent: daredevil(Artist)
+
+first_single:
+  title: First Single
+  content: Dare Devil releases first single
+  date: <%= 5.years.ago %>
+  aasm_state: rejected
+  parent: daredevil(Artist)
+
+second_single:
+  title: Second Single
+  content: Dare Devil releases second single
+  date: <%= 4.years.ago %>
+  aasm_state: edited
+  parent: daredevil(Artist)

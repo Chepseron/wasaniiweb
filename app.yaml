@@ -1,0 +1,21 @@
+entrypoint: bundle exec rails server Puma -p 8080
+env: flex
+runtime: ruby
+
+resources:
+  cpu: 4
+  memory_gb: 6
+  disk_size_gb: 50
+
+env_variables:
+  FORMATION: web=4
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: 1234
+  POSTGRES_DATABASE: wasaniiweb
+  POSTGRES_SOCKET_PATH: /cloudsql/wasanii-test:us-central1:wasanii-web
+
+beta_settings:
+  cloud_sql_instances: wasanii-test:us-central1:wasanii-web
+
+manual_scaling:
+  instances: 1

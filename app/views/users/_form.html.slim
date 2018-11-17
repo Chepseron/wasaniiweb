@@ -1,0 +1,42 @@
+= simple_form_for(@user) do |f|
+  .form-inputs
+    .form-group
+      .row
+        .col-md-6
+          =f.input :first_name, label: false, placeholder: 'First Name', input_html:{class: 'form-control'}
+        .col-md-6
+          =f.input :last_name, label: false, placeholder: 'Last Name', input_html:{class: 'form-control'}
+    .form-group
+      .row
+        .col-md-12
+          =f.input :email, label: false, placeholder: 'Email', input_html:{class: 'form-control'}
+    .form-group
+      .row
+        .col-md-6
+          =f.input :password, as: :password, label: false, placeholder: 'Password', input_html:{class: 'form-control'}
+        .col-md-6
+          =f.input :password_confirmation, as: :password, label: false, placeholder: 'Confirm Password', input_html:{class: 'form-control'}
+    .form-group
+      .row
+        .col-md-6
+          = f.input :birthday, as: :string, placeholder: 'Date of Birth', label: false, input_html:{class: 'form-control'}
+        .col-md-6
+          =f.input :country, label: false, include_blank: 'Select a country', input_html:{class: 'form-control'}
+    .form-group
+      .row
+        .col-md-6
+          = f.input :content_provider, as: :radio_buttons, label: false, collection: [['Are you a fan?', false], ['Are you an Artist, Business or Content Provider?', true]], :checked => @user.content_provider?
+        .col-md-6
+          .row
+            .col-md-12= f.input :newsletter, label: 'Subscribe to Newsletter'
+          .row
+            .col-md-12= f.input :privacy_accepted, label: "By clicking the button below, you agree to our #{link_to 'Terms and conditions and Privacy Policy', :privacy}, including cookie use".html_safe
+  .form-actions
+    = f.button :submit, class: 'btn site-btn-primary pull-right'
+
+javascript:
+  $('#user_birthday').datepicker({
+    dateFormat: "dd-mm-yy",
+    maxDate: 0
+  });
+

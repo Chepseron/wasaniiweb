@@ -1,0 +1,1 @@
+json.array! @suggested_updates, partial: 'suggested_updates/suggested_update', as: :suggested_update

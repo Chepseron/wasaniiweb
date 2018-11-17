@@ -1,0 +1,29 @@
+h1 Listing collection_albums
+
+table
+  thead
+    tr
+      th Type
+      th Name
+      th Description
+      th Parent
+      th Parent type
+      th
+      th
+      th
+
+  tbody
+    - @collection_albums.each do |collection_album|
+      tr
+        td = collection_album.type_id
+        td = collection_album.name
+        td = collection_album.description
+        td = collection_album.parent_id
+        td = collection_album.parent_type
+        td = link_to 'Show', collection_album
+        td = link_to 'Edit', edit_collection_album_path(collection_album)
+        td = link_to 'Destroy', collection_album, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Collection album', new_collection_album_path

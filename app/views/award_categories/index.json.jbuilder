@@ -1,0 +1,1 @@
+json.array! @award_categories, partial: 'award_categories/award_category', as: :award_category

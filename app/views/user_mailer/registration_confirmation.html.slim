@@ -1,0 +1,10 @@
+h1
+  | Email confirmation
+
+p
+  | Hi #{@user.first_name}
+
+p
+  | Thanks for registering to confirm your url click the link below
+
+= link_to confirm_email_user_url(@user.email_confirmation_token), confirm_email_user_url(@user.email_confirmation_token)

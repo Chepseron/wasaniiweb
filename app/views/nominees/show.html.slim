@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Award:
+  = @nominee.award_id
+p
+  strong Recipient:
+  = @nominee.recipient_id
+p
+  strong Recipient type:
+  = @nominee.recipient_type
+
+= link_to 'Edit', edit_nominee_path(@nominee)
+'|
+= link_to 'Back', nominees_path

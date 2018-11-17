@@ -1,0 +1,110 @@
+#entityModal
+  - if @production.new_record?
+    h4#modalTitle
+      | Add a Production
+    p
+    hr
+    .row
+      .col-md-12
+        = simple_form_for([@parent, @production], html: {multipart: true}, remote: true, url: get_create_entity_artist_path(@parent)) do |f|
+          .form-inputs
+            .form-group
+              .row
+                .col-md-9
+                  = f.input :title, label: false, placeholder: "Title", input_html:{class: 'form-control'}
+                .col-md-3
+                  = f.input :release_date, as: :string, label: false, placeholder: "Release Date", input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.association :production_category, label: false, prompt: "Production Category", input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :production_company_id_tags, :input_html => {class: 'form-control', "data-pre" => @production.production_companies.map(&:attributes).to_json }, label: false
+          .form-inputs
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :synopsis, input_html: {class: 'tinymce form-control'}, label: false, placeholder: "Synopsis"
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :language_name, url: autocomplete_production_language_path,
+            :as => :autocomplete, label: false, placeholder: "Language", input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :running_time, label: false,
+            placeholder: "Running Time (minutes)", input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :director_id_tags, :input_html => {class: 'form-control', "data-pre" => @production.directors.map(&:attributes).to_json }, label: false
+                .col-md-6
+                  = f.input :cast_id_tags, :input_html => {class: 'form-control', "data-pre" => @production.cast.map(&:attributes).to_json }, label: false
+                .col-md-6
+                  = f.input :trailer_url, label: false, placeholder: "Trailer URL", input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :cover_picture, as: :file, label: false
+                .col-md-6.modal-image-text A cover photo will be automatically selected from the attached video if this optin is left blank
+
+
+          .form-actions
+            = f.button :submit, class: 'btn site-btn-primary pull-right', id: 'submit-form'
+  - else
+    h4#modalTitle
+      | Edit Production
+    p
+    hr
+    .row
+      .col-md-12
+        = simple_form_for(@production, html: {multipart: true}, remote: true) do |f|
+          .form-inputs
+            .form-group
+              .row
+                .col-md-9
+                  = f.input :title, label: false, placeholder: "Title", input_html:{class: 'form-control'}
+                .col-md-3
+                  = f.input :release_date, as: :string, label: false, placeholder: "Release Date", input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.association :production_category, label: false, prompt: "Production Category", input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :production_company_id_tags, :input_html => {class: 'form-control', "data-pre" => @production.production_companies.map(&:attributes).to_json }, label: false
+          .form-inputs
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :synopsis, input_html: {class: 'tinymce form-control'}, label: false, placeholder: "Synopsis"
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :language_name, url: autocomplete_production_language_path,
+            :as => :autocomplete, label: false, placeholder: "Language", input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :running_time, label: false,
+            placeholder: "Running Time (minutes)", input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :director_id_tags, :input_html => {class: 'form-control', "data-pre" => @production.directors.map(&:attributes).to_json }, label: false
+                .col-md-6
+                  = f.input :cast_id_tags, :input_html => {class: 'form-control', "data-pre" => @production.cast.map(&:attributes).to_json }, label: false
+                .col-md-6
+                  = f.input :trailer_url, label: false, placeholder: "Trailer URL", input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :cover_picture, as: :file, label: false
+                .col-md-6.modal-image-text A cover photo will be automatically selected from the attached video if this optin is left blank
+
+          .form-actions
+            = f.button :submit, class: 'btn site-btn-primary pull-right', id: 'submit-form'

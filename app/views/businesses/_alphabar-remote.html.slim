@@ -1,0 +1,7 @@
+ul.list-inline
+  -('a'..'z').to_a.each do |letter|
+    li
+      h5.text-uppercase=link_to letter, business_listings_path({industry: @industry, search_letter: letter, locale: @locale }), remote: true, class: letter == @search_letter ? 'active-link':''
+  li
+    h5.text-uppercase=link_to "all", business_listings_path({industry: @industry, locale: @locale }), remote: true, class: @search_letter.blank? ? 'active-link':''
+

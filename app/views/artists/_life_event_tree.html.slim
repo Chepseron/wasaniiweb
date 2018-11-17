@@ -1,0 +1,22 @@
+.timeline_container
+  .timeline
+    .plus
+- @artist.life_events[0..4].each do |life_event|
+  .cd-timeline-block
+    =link_to life_event do
+      .cd-timeline-img.cd-movie
+      .cd-timeline-content.tl-shadow
+        span.cd-date
+          strong = life_event.date.strftime("#{life_event.date.day.ordinalize} %B %Y") if life_event.date
+        .row
+          .col-md-4.reduced-side-padding
+            =image_tag life_event.image.url, style: 'width:100%' if life_event.image_stored?
+          .col-md-8.no-gutters
+            h5.no-margin-top.no-margin-bottom.text-capitalize= life_event.title
+
+            = ActionView::Base.full_sanitizer.sanitize(life_event.try(:description))[0..100]
+
+    - if policy(@artist).update? && !(controller_name == 'life_events' && action_name == 'show')
+      .row
+        .col-md-12=link_to 'edit', edit_polymorphic_path(life_event), class: 'life-event-edit-link', remote: true
+

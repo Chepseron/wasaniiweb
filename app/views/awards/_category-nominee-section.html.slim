@@ -1,0 +1,20 @@
+  -@award_categories.each do |award_category|
+    - unless award_category.nominees.where(year: @year).where('rank_id != ?', Rank.find_by_name('Unassigned').id).empty?
+      h4= award_category.name
+      .section-container.trending
+        .row
+          .col-md-12.margin-bottom-20
+            - award_category.nominees.where(year: @year).where('rank_id != ?', Rank.find_by_name('Unassigned').id).sort_by{|nominee| nominee.rank_id}.each do |nominee|
+              .col-md-4
+                =link_to nominee.recipient, class: 'linked-list-item' do
+                  .list-panel.border-right
+                    .row
+                      .col-md-3.no-gutters
+                        =image_tag nominee_image(nominee.recipient).nil? ? 'default-profile-pic.png' : nominee_image(nominee.recipient), class: 'img-circle'
+                      .col-md-6.no-gutters
+                        .list-item-text-block.text-left
+                          .h5.list-item-heading= nominee.award_category.name
+                          .list-item-text= nominee.name
+                          .list-item-text= nominee.rank.name
+                          .list-item-text= @year
+        hr.hr

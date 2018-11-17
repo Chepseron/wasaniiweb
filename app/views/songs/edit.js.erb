@@ -1,0 +1,28 @@
+$('#add-work-entity-modal').html("<%= escape_javascript render 'songs/remote_form' %>");
+$('#entityModal').modal();
+
+tinyMCE.init({
+  selector: 'textarea.tinymce',
+  menubar: false,
+  statusbar: false,
+  toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  plugins: ['placeholder, link']
+});
+
+$('#song_release_date').datepicker({
+  dateFormat: "dd-mm-yy",
+  maxDate: "#{Date.today}"
+});
+
+$('#song_featured_artists_id_tags').tokenInput('/artists/token_inputs',{
+  theme: "facebook",
+  placeholder: 'Place holder text...',
+  propertyToSearch: 'profile_name',
+  hintText: 'Search for featured artists'
+});
+
+$('#token-input-song_featured_artists_id_tags').attr("placeholder", "Featured Artists")
+
+$('.modal').on('click','input[type=submit]', function(){
+  NProgress.start();
+});

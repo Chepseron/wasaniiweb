@@ -1,0 +1,10 @@
+= simple_form_for(@nominee) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :award_id
+    = f.input :recipient_id
+    = f.input :recipient_type
+
+  .form-actions
+    = f.button :submit

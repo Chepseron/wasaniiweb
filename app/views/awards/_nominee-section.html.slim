@@ -1,0 +1,13 @@
+- @nominees.each do |nominee|
+  .col-md-4
+    =link_to nominee.recipient, class: 'linked-list-item' do
+      .list-panel.border-right
+        .row
+          .col-md-3.no-gutters
+            =image_tag nominee_image(nominee.recipient).nil? ? 'default-profile-pic.png' : nominee_image(nominee.recipient), class: 'img-circle'
+          .col-md-6.no-gutters
+            .list-item-text-block.text-left
+              .h5.list-item-heading= nominee.award_category.name
+              .list-item-text= nominee.name
+              .list-item-text= nominee.rank.name
+              .list-item-text= @year

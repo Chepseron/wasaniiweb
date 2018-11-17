@@ -1,0 +1,3 @@
+-@work.each do |entity|
+  .col-md-3.reduced-padding[id = "#{entity.class.name.downcase}-#{entity.id}"]
+    = render partial: 'artists/artist-work-entity', locals: {entity: entity}

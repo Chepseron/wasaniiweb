@@ -1,0 +1,9 @@
+= simple_form_for(@business_fan) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :business_id
+    = f.input :user_id
+
+  .form-actions
+    = f.button :submit

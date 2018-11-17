@@ -1,0 +1,28 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Blog
+  .container
+    .row
+      .col-md-12.margin-top-20
+        h3.text-capitalize= @blog.title
+        = @blog.date.strftime("#{@blog.date.day.ordinalize} %B %Y")
+    .row
+      .col-md-12.entity-page-entity-image
+        =image_tag @blog.image.url if @blog.image_stored?
+
+    .row.news-blog-event-content
+      .col-md-12
+        = @blog.content.html_safe
+    .row
+      .col-md-12
+        <b>State</b> #{@blog.aasm_state.humanize}
+    .row
+      .col-md-2
+        =link_to 'unpublish', change_status_admin_blog_path(@blog, params:{status: 'unpublish'}), method: :patch, class: 'btn btn-primary'
+      .col-md-2
+        =link_to 'publish',change_status_admin_blog_path(@blog, params:{status: 'publish'}), method: :patch, class: 'btn btn-primary'

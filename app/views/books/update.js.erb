@@ -1,0 +1,6 @@
+var id = "#<%= @id %>"
+$(id).html("<%= escape_javascript render partial: 'artists/artist-work-entity', locals:{entity: @book} %>")
+$.modal.close();
+$('#add-work-entity-modal').empty();
+
+NProgress.done();

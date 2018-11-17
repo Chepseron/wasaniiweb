@@ -1,0 +1,29 @@
+#contactsModal
+  h4#modalTitle
+    | Contacts
+  hr
+  .row
+    .col-md-12
+      = simple_form_for @business, remote: true do |f|
+        .form-inputs
+          .form-group
+            .row
+              .col-md-6
+                = f.input :physical_location, as: :text, label: false, placeholder: 'Physical Location', input_html:{class: 'form-control'}
+              .col-md-6
+                .form-group
+                  .row
+                    .col-md-12
+                      = f.input :phone_number, label: false, placeholder: 'Phone Number', input_html:{class: 'form-control'}
+                .form-group
+                  .row
+                    .col-md-12
+                      = f.input :email, label: false, placeholder: 'Email', input_html:{class: 'form-control'}
+                .form-group
+                  .row
+                    .col-md-12
+                      = f.input :working_hours, label: false, placeholder: 'Working Hours', input_html:{class: 'form-control'}
+
+        .form-actions
+          = f.button :submit, class: 'btn site-btn-primary pull-right'
+

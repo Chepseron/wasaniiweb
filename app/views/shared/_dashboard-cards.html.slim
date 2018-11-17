@@ -1,0 +1,3 @@
+-unless @work.empty?
+  - @work[0..5].to_a.each do |entity|
+    = render partial: 'shared/work-card', locals: {entity: entity}

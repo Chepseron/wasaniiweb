@@ -1,0 +1,62 @@
+.row
+  .col-md-12
+    = simple_form_for([:admin,@slider_image]) do |f|
+      = f.error_notification
+
+      .form-inputs
+        .form-group
+          .row
+            .col-md-9
+              -if @slider_image.image_stored?
+                =image_tag @slider_image.image.url, width: '480px'
+              = f.input :image, label: false, as: :file
+
+        .row
+          .col-md-12.text-center
+            h4 Enter left and right content
+
+        .form-group
+          .row
+            .col-md-6
+              = f.input :left_content, input_html:{class: 'form-control'}
+
+            .col-md-6
+              = f.input :right_content, input_html:{class: 'form-control'}
+        .row
+          .col-md-12.text-center
+            h4 OR
+
+
+        .form-group
+          .row
+            .col-md-12
+              = f.input :centered_content, input_html:{class: 'form-control'}
+
+
+          .form-group
+            .row
+              .col-md-6
+                = f.input :active, as: :boolean, input_html:{checked: @slider_image.active?}
+
+              .col-md-6
+                = f.input :position, as: :select, collection: Array(1..10)
+
+      .form-actions
+        = f.button :submit, class: 'btn btn-primary'
+
+
+javascript:
+  $(function(){
+    tinyMCE.init({
+      selector: 'textarea',
+      plugins: [
+          'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+          'searchreplace wordcount visualblocks visualchars code fullscreen',
+          'insertdatetime media nonbreaking save table contextmenu directionality',
+          'emoticons template paste textcolor colorpicker textpattern imagetools codesample'
+        ],
+      toolbar1: 'insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar2: 'forecolor backcolor'
+    });
+  });
+

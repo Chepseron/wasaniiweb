@@ -1,0 +1,5 @@
+section.photos#lightgallery
+    - @gallery_photos.each do |gallery_photo|
+      	  <a href='#' onclick="return confirm('Are you sure?')" class="delpresskit"><i class="fi-x-circle large"></i></a>
+      	  =link_to gallery_photo.image.url, :class=>"img" do
+        	=image_tag gallery_photo.image.url, width: '100px !important'

@@ -1,0 +1,23 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Image
+  .container
+    .row
+      .col-md-12.entity-page-entity-image.margin-top-20
+        =image_tag @gallery_photo.image.url
+    .row
+      .col-md-6.no-gutters
+
+        .row
+          .col-md-12
+            <b>State</b> #{@gallery_photo.aasm_state.humanize}
+        .row
+          .col-md-2
+            =link_to 'unpublish', change_status_admin_gallery_photo_path(@gallery_photo, params:{status: 'unpublish'}), method: :patch, class: 'btn btn-primary'
+          .col-md-2
+            =link_to 'publish',change_status_admin_gallery_photo_path(@gallery_photo, params:{status: 'publish'}), method: :patch, class: 'btn btn-primary'

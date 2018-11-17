@@ -1,0 +1,12 @@
+.section-container.specialities.margin-bottom-20
+  .row
+    .col-md-12
+      h3.text-capitalize.no-margin-top Artists | #{@industry_name}
+      #locale-links
+        =render 'shared/artist-locale-links'
+  .row
+    .col-md-12.text-center.alphabar#alphabar
+      = render 'shared/alphabar-remote'
+
+  .row#artist-listing
+    =render 'artist-listing'

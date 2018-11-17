@@ -1,0 +1,2 @@
+var id = "#<%= entity.class.name.downcase %>-<%= entity.id %>"
+$(id).html("<%= escape_javascript render partial: 'admin/artists/artist-work-entity', locals:{entity: entity} %>")

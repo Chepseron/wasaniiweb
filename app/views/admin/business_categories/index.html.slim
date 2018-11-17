@@ -1,0 +1,45 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="/admin"
+          svg.glyph.stroked.home
+            use xlink:href="#stroked-home"
+      li.active Business Categories
+  /! /.row
+  .row
+    .col-md-9
+      h1.page-header Business Categories
+    .col-md-3
+      =link_to 'New Business Category', :new_admin_business_category, class: 'btn btn-primary pull-right new-admin-btn'
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          .row
+            .col-md-9 Business Categories
+            .col-md-3
+              .form-group.pull-right
+                input.search.form-control placeholder=("What you looking for?") type="text" /
+              span.counter.pull-right
+
+        .panel-body
+          table.table.sortable
+            thead
+              tr
+                th Name
+                th
+                th
+
+            tbody
+              - @business_categories.each do |business_category|
+                tr
+                  td = business_category.name
+                  td = link_to 'Show', admin_business_category_path(business_category)
+                  td = link_to 'Edit', edit_admin_business_category_path(business_category)
+
+
+br
+
+

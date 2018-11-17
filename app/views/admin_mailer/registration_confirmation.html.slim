@@ -1,0 +1,9 @@
+h1 Registration Confirmation
+
+p Hi #{@admin.name}
+
+p You have been registered as an admin on Wasanii. Please log in with the link below.
+
+p Your username is #{@admin.email},  Your password is #{@password}
+
+= link_to admin_root_url, admin_root_url

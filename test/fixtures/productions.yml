@@ -1,0 +1,71 @@
+# == Schema Information
+#
+# Table name: productions
+#
+#  id                     :integer          not null, primary key
+#  cover_picture_uid      :string
+#  production_category_id :integer
+#  title                  :string
+#  language_id            :integer
+#  running_time           :integer
+#  release_date           :date
+#  synopsis               :text
+#  director_id            :integer
+#  production_company_id  :integer
+#  trailer_url            :string
+#  parent_id              :integer
+#  parent_type            :string
+#  aasm_state             :string
+#  slug                   :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+# Indexes
+#
+#  index_productions_on_slug  (slug)
+#
+
+first_production:
+  cover_picture_uid: MyString
+  production_category: movie
+  title: MyString
+  country: 'KE'
+  language: english
+  running_time: 120
+  release_date: <%= 1.week.ago %>
+  synopsis: MyText
+  director: mark_steven_johnson
+  production_company: marvel_studios
+  trailer_url: MyString
+  parent: daredevil(Artist)
+  aasm_state: unpublished
+
+second_production:
+  cover_picture_uid: MyString
+  production_category: play
+  title: MyString
+  country: 'KE'
+  language: swahili
+  running_time: 120
+  release_date: <%= 1.year.ago %>
+  synopsis: MyText
+  director: mark_steven_johnson
+  production_company: marvel_studios
+  trailer_url: MyString
+  parent: daredevil(Artist)
+  aasm_state: rejected
+
+third_production:
+  cover_picture_uid: MyString
+  production_category: play
+  title: MyString
+  country: 'KE'
+  language: swahili
+  running_time: 120
+  release_date: <%= 1.year.ago %>
+  synopsis: MyText
+  director: mark_steven_johnson
+  production_company: marvel_studios
+  trailer_url: MyString
+  parent: daredevil(Artist)
+  aasm_state: edited

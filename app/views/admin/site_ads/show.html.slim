@@ -1,0 +1,31 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Site Ad
+  /! /.row
+  .row
+    .col-md-12
+      h1.page-header= @site_ad.name.humanize
+      div= @site_ad.site_ad_position.try(:name)
+      div
+        b Active:
+        = @site_ad.active?
+  /! /.row
+  -if @site_ad.image_stored?
+    .row
+      .col-md-12
+        =image_tag @site_ad.image.url
+  .row
+    .col-md-12
+      = @site_ad.script.html_safe()
+
+
+  = link_to 'Edit', edit_admin_site_ad_path(@site_ad)
+  '|
+  = link_to 'Back', admin_site_ads_path
+  '|
+  = link_to 'New Ad', :new_admin_site_ad

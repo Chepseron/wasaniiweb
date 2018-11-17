@@ -1,0 +1,13 @@
+.row
+  .container
+    .row
+      .col-md-8.border-right
+        h3 Reset Password
+        p Enter your email address below, and we'll email you instructions on how to change your password.
+        = simple_form_for :password_resets, url: password_resets_path, :method => :post do |f|
+          .form-group
+            = f.input :email, label: false, placeholder: 'Email', input_html:{class: 'form-control'}
+          .form-actions
+            = f.button :submit, "Reset Password", class: 'btn site-btn-primary pull-right'
+      .col-md-4
+        =render 'shared/social_login_buttons'

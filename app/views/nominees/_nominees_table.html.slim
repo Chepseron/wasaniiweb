@@ -1,0 +1,14 @@
+- @nominees.each do |year, nominees|
+  h3= year
+  table.table
+    tr.r-back
+      th.cell Nominee
+      th.cell Rank
+    - nominees.each do |nominee|
+      tr.r-back
+        td.cell= nominee.nominee_name
+        td.cell
+          -if nominee.rank.nil?
+            =link_to 'add rank', edit_nominee_path(nominee), remote: true
+          -else
+            =link_to nominee.rank.name, edit_nominee_path(nominee), remote: true, title: 'Change Rank'

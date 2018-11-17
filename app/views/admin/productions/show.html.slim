@@ -1,0 +1,58 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Production
+  .container
+    .row
+      .col-md-12.entity-page-entity-image.margin-top-20
+        - if @video
+          = @video.embed_code.html_safe if @video
+        -else
+          = image_tag @production.cover_picture.url if @production.cover_picture_stored?
+    .row
+      .col-md-6.no-gutters
+        .row
+          .col-md-12
+            h3.no-margin-top.text-uppercase= @production.title
+        .row
+          .col-md-12
+            <b>Artist:</b> #{link_to @production.parent.profile_name, @production.parent}
+        .row
+          .col-md-12
+            <b>Cast:</b> #{@production.cast.pluck(:profile_name).join(', ')}
+        .row
+          .col-md-12
+            <b>Directors:</b> #{@production.directors.pluck(:profile_name).join(', ')}
+        .row
+          .col-md-12
+            <b>Language:</b> #{@production.language.name}
+        .row
+          .col-md-12
+            <b>Running Time:</b> #{@production.running_time}
+        .row
+          .col-md-12
+            <b>Country:</b> #{ISO3166::Country.find_country_by_alpha2(@production.parent.country_of_birth).name}
+        .row
+          .col-md-12
+            <b>Release Date:</b> #{@production.release_date.strftime("#{@production.release_date.day.ordinalize} %B %Y") if @production.release_date}
+        .row
+          .col-md-12
+            <b>Category:</b> #{@production.production_category.name}
+        .row
+          .col-md-12
+            <b>State</b> #{@production.aasm_state.humanize}
+        .row
+          .col-md-3
+            =link_to 'unpublish', change_status_admin_production_path(@production, params:{status: 'unpublish'}), method: :patch, class: 'btn btn-primary'
+          .col-md-3
+            =link_to 'publish',change_status_admin_production_path(@production, params:{status: 'publish'}), method: :patch, class: 'btn btn-primary'
+          .col-md-2
+            =link_to 'edit', edit_admin_production_path(@production), class: 'btn btn-primary'
+
+
+      .col-md-6.no-gutters
+        = @production.synopsis.html_safe

@@ -1,0 +1,5 @@
+$.modal.close();
+$('#add-life-event-modal').empty();
+$('#cd-timeline').html("<%= escape_javascript render 'life_event_tree' %>")
+
+NProgress.done();

@@ -1,0 +1,14 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+	h1 New site Content
+
+	== render 'form'
+
+	= link_to 'Back', admin_sites_path
+javascript:
+  $(document).ready(function(){
+	tinyMCE.init({
+	    selector: 'textarea.tinymce',
+	    menubar: false,
+	    statusbar: false
+	  });
+	});

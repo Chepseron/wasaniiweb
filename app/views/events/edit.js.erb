@@ -1,0 +1,34 @@
+$('#add-work-entity-modal').html("<%= escape_javascript render 'events/remote_form' %>");
+
+$('#entityModal').modal()
+
+tinyMCE.init({
+  selector: 'textarea',
+  menubar: false,
+  statusbar: false,
+  toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  plugins: ['placeholder, link']
+});
+
+$('#event_date').datepicker({
+  dateFormat: "dd-mm-yy"
+});
+
+$('#event_artist_id_tags').tokenInput("/artists/token_inputs",{
+  theme: "facebook",
+  propertyToSearch: 'profile_name',
+  hintText: 'Search for Artists'
+});
+
+$('#event_award_id_tags').tokenInput("/awards/token_inputs",{
+  theme: "facebook",
+  hintText: 'Search for Awards'
+});
+
+$('#token-input-event_award_id_tags').attr("placeholder", "Link Awards")
+
+$('#token-input-event_artist_id_tags').attr("placeholder", "Link Artists")
+
+$('.modal').on('click','input[type=submit]', function(){
+  NProgress.start();
+});

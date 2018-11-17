@@ -1,0 +1,42 @@
+.section-container
+  .row.profile-details.margin-bottom-20.margin
+    .col-md-3
+      - if policy(@user).update?
+        .pro-image#image-box.box-border.editable
+          =simple_form_for([@user], html: {multipart: true}) do |f|
+            .edit-overlay
+              i.fi-camera
+              ' &nbsp; update profile picture
+              =f.input :profile_image, as: :file, label: '&nbsp;'.html_safe
+            =f.submit 'Save Image', id: 'save-btn', class:'button btn site-btn-primary'
+          =image_tag (@user.profile_image_stored? ? @user.profile_image.url : 'default-profile-pic.png'), id: 'profile-pic'
+      - else
+        .pro-image
+          =image_tag (@user.profile_image_stored? ? @user.profile_image.url : 'default-profile-pic.png'), id: 'profile-pic'
+    .col-md-9
+      .row
+        h3.no-margin-top.text-uppercase.text-primary= @user.name
+      .row
+        .col-md-12.no-gutters
+          b Email:&nbsp;
+          = @user.email
+      .row
+        .col-md-12.no-gutters
+          b Birthday:&nbsp;
+          = @user.birthday.strftime("%d-%b-%Y")  unless @user.birthday.nil?
+      .row
+        .col-md-12.no-gutters
+          b Country:&nbsp;
+          = ISO3166::Country.find_country_by_alpha2(@user.country).name
+      -if current_user == @user
+        .row
+          =link_to 'edit', edit_user_path(@user),class: 'btn btn-default'
+          
+
+  .row.profile-details.margin-bottom-20.margin
+    .col-md-12
+      h4 Close Account
+    .col-md-12
+      p Kindly note that this action is final
+    .col-md-12
+      = link_to 'Close Account', deactivate_path(current_user.id), method: :get,class: 'btn btn-danger',data: {confirm: "Are you sure? "}

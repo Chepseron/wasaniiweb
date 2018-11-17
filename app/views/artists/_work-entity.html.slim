@@ -1,0 +1,35 @@
+.card.medium-3.column[id = "#{entity.class.name.downcase}-#{entity.id}"]
+  .card-image.row
+    -if entity.respond_to?(:image)
+      =link_to entity do
+        =image_tag entity.image.url if entity.image_stored?
+    -elsif entity.is_a? Production
+      =link_to entity do
+        =image_tag entity.cover_picture.url if entity.cover_picture_stored?
+    -elsif entity.is_a? Book
+      =link_to entity do
+        =image_tag entity.cover_pic.url if entity.cover_pic_stored?
+  .card-details
+    .card-text.row
+      .column.text-center
+        p
+          - if entity.respond_to?(:description) && !entity.description.nil?
+            =link_to ActionView::Base.full_sanitizer.sanitize(entity.try(:description))[0..100], entity
+          -elsif entity.respond_to?(:summary) && !entity.summary.nil?
+            =link_to ActionView::Base.full_sanitizer.sanitize(entity.try(:summary))[0..100], entity
+          -elsif entity.respond_to?(:synopsis) && !entity.synopsis.nil?
+            =link_to ActionView::Base.full_sanitizer.sanitize(entity.try(:synopsis))[0..100], entity
+    .card-user-details.row.align-left.align-middle
+      .card-profile-image.medium-3.columns.text-center
+        =image_tag entity.parent.profile_pic.url if entity.parent.profile_pic_stored?
+      .card-profile-data.columns
+        .card-profile-name.row.align-left
+          p
+            =link_to entity.parent.profile_name, entity.parent
+        .card-post-type.row.align-left
+          p
+            =link_to entity.title, entity
+      .row.align-left style=("color: black; margin-left:74px; font-size:13px;")
+        .row
+          -unless @artist.nil?
+            =link_to 'edit', edit_polymorphic_path(entity), remote: true if policy(@artist).update?

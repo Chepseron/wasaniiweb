@@ -1,0 +1,25 @@
+# == Schema Information
+#
+# Table name: nominees
+#
+#  id                :integer          not null, primary key
+#  award_category_id :integer
+#  recipient_id      :integer
+#  recipient_type    :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  year              :string
+#  rank_id           :integer          default(4)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  award_id: 1
+  recipient_id: 1
+  recipient_type: MyString
+
+two:
+  award_id: 1
+  recipient_id: 1
+  recipient_type: MyString

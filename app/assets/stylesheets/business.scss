@@ -1,0 +1,22 @@
+.business-listing{
+  h3, h4{
+    a{
+      color: #fe9500;
+      text-transform: capitalize;
+    }
+  }
+  .business-details{
+    padding: 10px 5px;
+  }
+}
+
+.featured-profile-primary-pic, .featured-profiles-grid{
+  img{
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.business-logo{
+  padding: 15px 0;
+}

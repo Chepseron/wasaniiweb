@@ -1,0 +1,25 @@
+=link_to card, class: 'linked-card' do
+  .card.shadow
+    .image-block
+      =image_tag card_image(card)
+    .card-block
+      /! Title
+      .card-text.text-center= card.title
+      .card-text.text-center= card.date.strftime("#{card.date.day.ordinalize} %B %Y")
+      .row
+        .col-md-10.col-md-offset-1
+          hr.title-underline
+      .row.artist-info
+        .col-md-4.no-gutters
+          =image_tag artist_image(card.parent), class: 'img-circle shadow'
+        .col-md-8.no-gutters
+          h5.no-margin-bottom.card-artist.card-title.marquee= card_owner(card).upcase
+          .card-text= card.model_name.human
+          .card-text= card.aasm_state.humanize
+.row
+  .col-md-12.no-padding
+    =link_to 'unpublish', polymorphic_url([:change_status, :admin, card], params:{status: 'unpublish'}), remote: true, method: :patch, class: 'pull-left admin-publish-links'
+    =link_to 'publish', polymorphic_url([:change_status, :admin, card], params:{status: 'publish'}), remote: true, method: :patch, class: 'pull-right admin-publish-links'
+
+
+

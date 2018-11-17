@@ -1,0 +1,66 @@
+
+.medium-9.column.dashboard-content
+  .row.align-center
+    .medium-10.column.feeds-links
+      .sn-links
+        .tn-appbar
+          .tn-content
+            .tn-content-hidable
+              nav
+                ul
+                  li
+                    =link_to 'my feeds', '#'
+                  li
+                    =link_to 'my artists', '#'
+    .medium-10.column.nav-links
+      /  .row
+          .cd-cartegory.column
+            input.border.input[type="text" placeholder="choose cartegory to filter results" name="name"]
+          .cd-cartegory.column
+            input.border.input[type="date" placeholder="choose cartegory to filter results" name="name"]
+          .cd-cartegory.column
+            input.border.input[type="datetime" placeholder="choose data to filter results" name="name"]
+    .Trending.medium-10.column
+      .row.align-center
+        .trending-heading.medium-12.columns.text-left
+          h1
+            | WORK
+        -if @work.empty?
+          | Nothing to see here yet. But come back in a bit...we're still building content
+        -else
+          - @work[0..5].each do |entity|
+            = render partial: 'artists/work-entity', locals: {entity: entity}
+
+        .medium-10.column.text-right.load-more-container
+          a.load-more[href="#"]
+            | LOAD MORE FEEDS
+            =image_tag "plus.svg"
+    .Trending.medium-10.column
+      .row.align-center
+        .trending-heading.medium-12.columns.text-left
+          h1
+            | TRENDING
+      = render 'shared/trending'
+
+    .news-and-events.medium-10.column
+      .row.align-center
+        .trending-heading.news-events.medium-10.columns.text-left
+          h1
+            | NEWS BLOGS & EVENTS
+      .row.align-middle.align-center
+        .news-and-events-text.medium-12.columns.text-left
+          .row.align-center
+            - if @news_blogs_and_events.empty?
+              | No News/Events yet.
+            - else
+              .card-container.column
+                .row.align-center.news-card
+                  - @news_blogs_and_events[0..1].each do |card|
+                    =render partial: 'shared/news-event-blog-card', locals: {card: card}
+              .medium-1.column
+                .vertical-line
+              .card-container.column
+                .row.align-center.news-card.events-card
+                  - @news_blogs_and_events[2..3].to_a.each do |card|
+                    =render partial: 'shared/news-event-blog-card', locals: {card: card}
+

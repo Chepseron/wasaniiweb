@@ -1,0 +1,49 @@
+# == Schema Information
+#
+# Table name: books
+#
+#  id                    :integer          not null, primary key
+#  title                 :string
+#  isbn                  :string
+#  cover_pic_uid         :string
+#  summary               :text
+#  publishing_company_id :integer
+#  publishing_date       :date
+#  parent_id             :integer
+#  parent_type           :string
+#  aasm_state            :string
+#  slug                  :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#
+# Indexes
+#
+#  index_books_on_slug  (slug)
+#
+
+first_book:
+  title: First Book
+  cover_pic_uid: Cover_Pic
+  summary: My First Book was about....
+  publishing_date: <%= 5.years.ago %>
+  country: 'KE'
+  parent: daredevil(Artist)
+  aasm_state: unpublished
+
+second_book:
+  title: Second Book
+  cover_pic_uid: Cover_Pic
+  summary: My Second Book was about....
+  publishing_date: <%= 4.years.ago %>
+  country: 'KE'
+  parent: daredevil(Artist)
+  aasm_state: rejected
+
+third_book:
+  title: Third Book
+  cover_pic_uid: Cover_Pic
+  summary: My Third Book was about....
+  publishing_date: <%= 3.years.ago %>
+  country: 'KE'
+  parent: daredevil(Artist)
+  aasm_state: edited

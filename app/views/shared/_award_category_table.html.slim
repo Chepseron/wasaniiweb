@@ -1,0 +1,7 @@
+table.table
+  tbody
+    - @award_categories.each do |award_category|
+      tr.r-back
+        td.cell= award_category.name
+        td.cell= link_to 'edit', edit_award_category_path(award_category), remote: true
+        td.cell=link_to 'add/update nominees', award_category

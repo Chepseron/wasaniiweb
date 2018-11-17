@@ -1,0 +1,13 @@
+=render 'dashboard-linkbar'
+- if @businesses.empty?
+  .section-container
+    .jumbotron.text-center.no-margin-bottom
+      h5 This section will fill out as you browse the site, follow artists.
+    hr.hr
+- else
+  .liked-businesses-cards.margin-top-20
+    .section-container
+      .row
+        - @businesses.each do |business|
+          .col-md-12
+            =render partial: 'shared/business-listing', locals:{business: business}

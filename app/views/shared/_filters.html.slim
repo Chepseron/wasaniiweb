@@ -1,0 +1,21 @@
+.section-container
+  .dash-filters
+    .row
+      .col-md-4
+        .form-group
+          = collection_select(:filter, :industry_id, Industry.all, :id, :name, {prompt: 'Select category to filter results'}, {class: 'form-control'})
+      .col-md-4
+        .form-group
+          = text_field_tag 'filter[date]', nil, placeholder: 'Select date to filter results', class: 'form-control'
+      .col-md-4
+        .form-group
+          = select_tag "filter[data-type]", options_for_select(['Book', 'PhotoArt', 'Production', 'Song']), class: 'form-control', prompt: "Select a data type to filter results"
+
+
+
+javascript:
+  $(function(){
+    $('#filter_date').datepicker({
+      dateFormat: "dd-mm-yy"
+    });
+  });

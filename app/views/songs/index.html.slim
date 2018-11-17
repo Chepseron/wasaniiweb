@@ -1,0 +1,13 @@
+section.clr
+  .content
+    .container.clr
+      .mid-height.clr
+        article
+          .sect-border
+            .row.clr.pro-header.bottom
+              .col.grid-2
+                .trending
+                  h1= @header
+            .row.clr.pro-header
+            - @songs.each do |song|
+              =render partial: 'shared/search_result', locals:{result: song}

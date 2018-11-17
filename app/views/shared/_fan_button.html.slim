@@ -1,0 +1,11 @@
+- parent.reload
+- if parent.is_a?(Artist)
+  - if parent.artist_fans.collect{|af| af.user}.include?(current_user)
+    =link_to 'FOLLOWING', add_remove_fan_artist_path(parent), class: 'btn site-btn-primary', data: { confirm: "Are you sure you want to stop following #{parent.profile_name}" }
+  -else
+    =link_to 'FOLLOW', add_remove_fan_artist_path(parent), class: 'btn site-btn-primary'
+- if parent.is_a?(Business)
+  - if parent.business_fans.collect{|bf| bf.user}.include?(current_user)
+    =link_to 'FOLLOWING', add_remove_fan_business_path(parent), class: 'btn site-btn-primary', data: { confirm: "Are you sure you want to stop following #{parent.name}" }
+  -else
+    =link_to 'FOLLOW', add_remove_fan_business_path(parent), class: 'btn site-btn-primary'

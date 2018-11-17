@@ -1,0 +1,16 @@
+.row
+  .col-md-12
+    =image_tag gallery_photo.image.url
+.row
+  .col-md-12
+    = entity_name(gallery_photo.parent)
+.row
+  .col-md-12
+    = gallery_photo.aasm_state.humanize
+.row
+  .col-md-12.no-padding
+    = link_to 'show', polymorphic_path([:admin, gallery_photo])
+    | &nbsp;
+    = link_to 'unpublish', polymorphic_url([:change_status, :admin, gallery_photo], params:{status: 'unpublish'}), remote: true, method: :patch
+    | &nbsp;
+    =link_to 'publish', polymorphic_url([:change_status, :admin, gallery_photo], params:{status: 'publish'}), remote: true, method: :patch

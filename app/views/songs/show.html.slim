@@ -1,0 +1,59 @@
+=title @song.title
+=meta_description @description
+.row.single-entity-page
+  .col-md-12
+    .section-container.padding-bottom-20
+      .row
+        .col-md-12.entity-page-entity-image
+          - if @video
+            = @video.embed_code.html_safe if @video
+          -else
+            = image_tag @song.image.url if @song.image_stored?
+      .row
+        .col-md-6.no-gutters
+          .row
+            .col-md-12
+              h3.no-margin-top.text-uppercase= @song.title
+          .row
+            .col-md-12
+              <b>Artist:</b> #{link_to @song.parent.profile_name, @song.parent}
+          .row
+            .col-md-12
+              <b>Audio URL:</b> #{link_to @song.audio_url, @song.audio_url}
+          -if @song.production_company
+            .row
+              .col-md-12
+                <b>Production Company:</b> #{link_to @song.production_company.name, @song.production_company}
+          .row
+            .col-md-12
+              <b>Country:</b> #{ISO3166::Country.find_country_by_alpha2(@song.parent.country_of_birth).name}
+          .row
+            .col-md-12
+              <b>Date Released:</b> #{@song.release_date.strftime("#{@song.release_date.day.ordinalize} %B %Y") if @song.release_date}
+
+        .col-md-6.no-gutters
+          = @song.description.html_safe
+
+    - unless @song.featured_artists.empty?
+      .featured#featured
+        .row
+          .col-md-12
+            h5.text-uppercase Featured Artists
+        .row
+          .col-md-12
+            - @song.featured_artists.each do |artist|
+              .col-md-1-5.reduced-padding
+                =render partial: 'shared/artist-card', locals:{artist: artist}
+        hr.hr
+    =render partial: 'shared/related_items', locals:{relatable_item: @song}
+
+    .row
+      .col-md-12.text-center.margin-top-20
+        .row
+          .col-md-3.col-md-offset-3#fan-button
+            = render partial: 'shared/fan_button', locals: {parent: @song.parent}
+          .col-md-2
+            = link_to 'Back', @song.parent, class: 'btn site-btn-primary'
+
+strong SHARE THIS SONG
+= social_share_button_tag(@song.title, :url => "#{request.original_url}", desc: "#{@description}", via: "Me") 

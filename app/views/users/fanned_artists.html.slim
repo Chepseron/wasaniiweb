@@ -1,0 +1,14 @@
+=render 'dashboard-linkbar'
+
+- if @fanned_artists.empty?
+  .section-container
+    .jumbotron.text-center.no-margin-bottom
+      h5 This section will fill out as you browse the site, follow artists.
+    hr.hr
+- else
+  .liked-artists-cards.margin-top-20
+      .row
+        - @fanned_artists.each do |artist|
+          .col-md-3.reduced-padding
+            =render partial: 'shared/artist-card', locals:{artist: artist}
+

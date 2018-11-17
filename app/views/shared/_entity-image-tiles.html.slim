@@ -1,0 +1,9 @@
+.media-image
+  =link_to entity do
+    =image_tag entity_image(entity), class: 'work-tile-image'
+    .media-image-text
+      h4.text-uppercase= entity.title
+      p= entity.parent.name
+      p= entity.class.name
+      btn.btn view
+

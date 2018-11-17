@@ -1,0 +1,44 @@
+=title @book.title
+.row
+  .col-md-12
+    .section-container.padding-bottom-20
+      .row
+        .col-md-12.entity-page-entity-image
+          =image_tag entity_image(@book)
+      .row
+        .col-md-6.no-gutters
+          .row
+            .col-md-12
+              h3.no-margin-top.text-uppercase= @book.title
+          .row
+            .col-md-12
+              <b>Author:</b> #{link_to @book.parent.profile_name, @book.parent}
+          -if @book.publishing_company
+            .row
+              .col-md-12
+                <b>Publishing Company:</b> #{link_to @book.publishing_company.name, @book.publishing_company}
+          .row
+            .col-md-12
+              <b>Country:</b> #{ISO3166::Country.find_country_by_alpha2(@book.parent.country_of_birth).name}
+          .row
+            .col-md-12
+              <b>Date Published:</b> #{@book.publishing_date.strftime("#{@book.publishing_date.day.ordinalize} %B %Y") if @book.publishing_date}
+
+
+        .col-md-6.no-gutters
+          = @book.summary.html_safe
+
+    =render partial: 'shared/related_items', locals:{relatable_item: @book}
+
+    .row
+      .col-md-12.text-center.margin-top-20
+        .row
+          .col-md-3.col-md-offset-3#fan-button
+            = render partial: 'shared/fan_button', locals: {parent: @book.parent}
+          .col-md-2
+            = link_to 'Back', @book.parent, class: 'btn site-btn-primary'
+
+strong SHARE THIS Book
+= social_share_button_tag(@book.title, :url => "#{request.original_url}", :image => "#{image_tag entity_image(@book)}", desc: "#{@description}", via: "Me")
+
+

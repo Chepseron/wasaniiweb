@@ -1,0 +1,80 @@
+$default-color: #fe9500;
+
+.reduced-padding{
+  padding: 5px !important;
+}
+
+.reduced-side-padding{
+  padding-left: 5px  !important;
+  padding-right: 5px  !important;
+}
+
+.no-top-bottom-padding{
+  padding-bottom: 0 !important;
+  padding-top: 0!important;
+}
+.col-xs-1-5, .col-sm-1-5, .col-md-1-5, .col-lg-1-5{
+	position: relative;
+	min-height: 1px;
+	padding: 0 5px 0;
+}
+
+.col-xs-1-5 {
+	width: 20%;
+	float: left;
+}
+@media (min-width: 768px) {
+	.col-sm-1-5 {
+		width: 20%;
+		float: left;
+	}
+}
+@media (min-width: 992px) {
+	.col-md-1-5 {
+		width: 20%;
+		float: left;
+	}
+}
+@media (min-width: 1200px) {
+	.col-lg-1-5 {
+		width: 20%;
+		float: left;
+	}
+}
+
+.row{
+  margin: 0px !important;
+}
+
+.no-gutters {
+  padding: 0 !important;
+}
+
+h3{
+  font-weight: 700 !important;
+}
+
+.text-white{
+  color: white;
+}
+
+.text-default{
+  color: $default-color;
+}
+
+.user-image:hover{
+  .dropdown-menu{
+    display: block;
+  }
+}
+
+button.close{
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+
+.radio-inline, .checkbox-inline, .radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline{
+  margin: 0 !important;
+  padding-left: 5px !important;
+}

@@ -1,0 +1,53 @@
+=title @photo_art.title
+=meta_description @description
+.row.single-entity-page
+  .col-md-12
+    .section-container.padding-bottom-20
+      .row
+        .col-md-12.entity-page-entity-image
+          =image_tag @photo_art.image.url if @photo_art.image_stored?
+      .row
+        .col-md-6.no-gutters
+          .row
+            .col-md-12
+              h3.no-margin-top.text-uppercase= @photo_art.title
+          .row
+            .col-md-12
+              <b>Artist:</b> #{link_to @photo_art.parent.profile_name, @photo_art.parent}
+          .row
+            .col-md-12
+              <b>Category:</b> Photo/Art
+          .row
+            .col-md-12
+              <b>Country:</b> #{ISO3166::Country.find_country_by_alpha2(@photo_art.parent.country_of_birth).name}
+          .row
+            .col-md-12
+              <b>Date Taken:</b> #{@photo_art.date.strftime("#{@photo_art.date.day.ordinalize} %B %Y") if @photo_art.date}
+
+        .col-md-6.no-gutters
+          = @photo_art.description.html_safe
+
+      - unless @photo_art.gallery_photos.empty?
+        hr.hr
+        .row
+          .col-md-12
+            h5 Gallery
+        .row
+          .col-md-12
+            .row#lightgallery.news-blog-event-page-images
+              - @photo_art.gallery_photos.each do |photo|
+                 =link_to photo.image.url, class: 'col-md-3 reduced-padding' do
+                   =image_tag photo.image.url
+
+
+      - unless @photo_art.parent.events.empty?
+        hr.hr
+        =render partial: 'shared/related_items', locals:{relatable_item: @photo_art}
+
+      .row
+        .col-md-12.text-center.margin-top-20
+          .row
+            .col-md-3.col-md-offset-3#fan-button
+              = render partial: 'shared/fan_button', locals: {parent: @photo_art.parent}
+            .col-md-2
+              = link_to 'Back', @photo_art.parent, class: 'btn site-btn-primary'

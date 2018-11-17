@@ -1,0 +1,24 @@
+-if entity.is_a? Artist
+  li.clr
+    .tr-left
+      .tr-user
+        = link_to entity do
+          =image_tag artist_image(entity)
+    .tr-right
+      .tr-info
+        = link_to entity do
+          h5= entity.profile_name
+        p= entity.industries.pluck(:name).join(', ')
+        p= ISO3166::Country.find_country_by_alpha2(entity.country_of_birth).name
+-else
+  li.clr
+    .tr-left
+      .tr-user
+        = link_to entity.parent do
+          =image_tag entity_image(entity)
+    .tr-right
+      .tr-info
+        = link_to entity do
+          h5= entity.title
+        p= entity.class.name
+        p= ISO3166::Country.find_country_by_alpha2(entity.parent.country_of_birth).name

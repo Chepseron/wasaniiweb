@@ -1,0 +1,37 @@
+- if entity.is_a? Award
+  =link_to entity, class: 'linked-card' do
+    .card.no-border
+      /! Card image
+      .image-block
+        =image_tag entity.image_stored? ? entity.image.url : 'default-award-pic.png'
+      /img.img-fluid alt=("Card image cap") src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg" /
+      /! /.Card image
+      /! Card content
+      .card-block.text-center
+        /! Title
+        .h5.card-title.no-margin-bottom= entity.name
+        .row
+          .col-md-10.col-md-offset-1
+            / hr.title-underline
+/         /! Text
+/         .card-text= entity_date(entity)
+
+-else
+  =link_to entity, class: 'linked-card' do
+    .card.no-border
+      /! Card image
+      .image-block
+        =image_tag entity_image(entity) || 'default-profile-pic'
+      /img.img-fluid alt=("Card image cap") src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg" /
+      /! /.Card image
+      /! Card content
+      .card-block.text-center
+        /! Title
+        .h5.card-title.no-margin-bottom= entity.title
+        .row
+          .col-md-10.col-md-offset-1
+            hr.title-underline
+        /! Text
+        .card-text= entity_date(entity)
+
+

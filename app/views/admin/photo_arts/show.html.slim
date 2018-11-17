@@ -1,0 +1,42 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Photo Art
+  .container
+    .row
+      .col-md-12.entity-page-entity-image.margin-top-20
+        =image_tag @photo_art.image.url if @photo_art.image_stored?
+    .row
+      .col-md-6.no-gutters
+        .row
+          .col-md-12
+            h3.no-margin-top.text-uppercase= @photo_art.title
+        .row
+          .col-md-12
+            <b>Artist:</b> #{link_to @photo_art.parent.profile_name, @photo_art.parent}
+        .row
+          .col-md-12
+            <b>Category:</b> Photo/Art
+        .row
+          .col-md-12
+            <b>Country:</b> #{ISO3166::Country.find_country_by_alpha2(@photo_art.parent.country_of_birth).name}
+        .row
+          .col-md-12
+            <b>Date Taken:</b> #{@photo_art.date.strftime("#{@photo_art.date.day.ordinalize} %B %Y") if @photo_art.date}
+        .row
+          .col-md-12
+            <b>State</b> #{@photo_art.aasm_state.humanize}
+        .row
+          .col-md-2
+            =link_to 'unpublish', change_status_admin_photo_art_path(@photo_art, params:{status: 'unpublish'}), method: :patch, class: 'btn btn-primary'
+          .col-md-2
+            =link_to 'publish',change_status_admin_photo_art_path(@photo_art, params:{status: 'publish'}), method: :patch, class: 'btn btn-primary'
+
+
+
+      .col-md-6.no-gutters
+        = @photo_art.description.html_safe

@@ -1,0 +1,27 @@
+#entrypoint: bundle exec rackup -p 8080
+entrypoint: bundle exec rails server Puma -p 8080
+env: flex
+runtime: ruby
+
+env_variables:
+  SECRET_KEY_BASE: 077c4a92d5fa0f83072097a84778357036bfc370e5963d62db41eafab7faa3a065ac03efe23845e8f588697331e201f2a91d2a89f8ac0b38bc29ec6197eb5e2a
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: 1234
+  POSTGRES_DATABASE: wasaniiweb
+  POSTGRES_SOCKET_PATH: /cloudsql/wasanii-test:us-central1:wasanii-web
+  FORMATION: web=8
+
+beta_settings:
+  cloud_sql_instances: wasanii-test:us-central1:wasanii-web
+
+manual_scaling:
+  instances: 2
+
+resources:
+  cpu: 4
+  memory_gb: 6
+  disk_size_gb: 50
+  volumes:
+  - name: ramdisk1
+    volume_type: tmpfs
+    size_gb: 4

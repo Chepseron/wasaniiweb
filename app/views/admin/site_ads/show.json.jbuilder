@@ -1,0 +1,1 @@
+json.partial! "site_ads/site_ad", site_ad: @site_ad

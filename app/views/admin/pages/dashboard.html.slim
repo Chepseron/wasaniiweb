@@ -1,0 +1,145 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.home
+            use xlink:href="#stroked-home"
+      li.active dashboard
+  /! /.row
+  .row
+    .col-lg-12
+      h1.page-header Dashboard
+  /! /.row
+  .row
+    .col-xs-12.col-md-6.col-lg-3
+      .panel.panel-blue.panel-widget
+        =link_to :admin_users do
+          .row.no-padding
+            .col-sm-3.col-lg-5.widget-left
+              svg.glyph.stroked.male-user
+                use xlink:href="#stroked-male-user"
+            .col-sm-9.col-lg-7.widget-right
+              .large= User.count
+              .text-muted Users
+
+    .col-xs-12.col-md-6.col-lg-3
+      .panel.panel-orange.panel-widget
+        =link_to :admin_artists do
+          .row.no-padding
+            .col-sm-3.col-lg-5.widget-left
+              svg.glyph.stroked.male-user
+                use xlink:href="#stroked-male-user"
+            .col-sm-9.col-lg-7.widget-right
+              .large= Artist.count
+              .text-muted Artists
+
+    .col-xs-12.col-md-6.col-lg-3
+      .panel.panel-red.panel-widget
+        =link_to :admin_businesses do
+          .row.no-padding
+            .col-sm-3.col-lg-5.widget-left
+              svg.glyph.stroked.home
+                use xlink:href="#stroked-home"
+            .col-sm-9.col-lg-7.widget-right
+              .large= Business.count
+              .text-muted Businesses
+
+    .col-xs-12.col-md-6.col-lg-3
+      .panel.panel-teal.panel-widget
+        =link_to :admin_books do
+          .row.no-padding
+            .col-sm-3.col-lg-5.widget-left
+              svg.glyph.stroked.blank.document
+                use xlink:href="#stroked-blank-document"
+            .col-sm-9.col-lg-7.widget-right
+              .large= Book.count
+              .text-muted Books
+
+    .col-xs-12.col-md-6.col-lg-3
+      .panel.panel-gray.panel-widget
+        =link_to :admin_songs do
+          .row.no-padding
+            .col-sm-3.col-lg-5.widget-left
+              svg.glyph.stroked.blank.document
+                use xlink:href="#stroked-blank-document"
+            .col-sm-9.col-lg-7.widget-right
+              .large= Song.count
+              .text-muted Songs
+
+    .col-xs-12.col-md-6.col-lg-3
+      .panel.panel-blue.panel-widget
+        =link_to :admin_photo_arts do
+          .row.no-padding
+            .col-sm-3.col-lg-5.widget-left
+              svg.glyph.stroked.blank.document
+                use xlink:href="#stroked-blank-document"
+            .col-sm-9.col-lg-7.widget-right
+              .large= PhotoArt.count
+              .text-muted Photos/Art
+
+    .col-xs-12.col-md-6.col-lg-3
+      .panel.panel-orange.panel-widget
+        =link_to :admin_productions do
+          .row.no-padding
+            .col-sm-3.col-lg-5.widget-left
+              svg.glyph.stroked.blank.document
+                use xlink:href="#stroked-blank-document"
+            .col-sm-9.col-lg-7.widget-right
+              .large= Production.count
+              .text-muted Productions
+
+    .col-xs-12.col-md-6.col-lg-3
+      .panel.panel-red.panel-widget
+        =link_to :admin_gallery_photos do
+          .row.no-padding
+            .col-sm-3.col-lg-5.widget-left
+              svg.glyph.stroked.blank.document
+                use xlink:href="#stroked-blank-document"
+            .col-sm-9.col-lg-7.widget-right
+              .large= GalleryPhoto.count
+              .text-muted Images
+
+    .col-xs-12.col-md-6.col-lg-3
+      .panel.panel-teal.panel-widget
+        =link_to :admin_life_events do
+          .row.no-padding
+            .col-sm-3.col-lg-5.widget-left
+              svg.glyph.stroked.blank.document
+                use xlink:href="#stroked-blank-document"
+            .col-sm-9.col-lg-7.widget-right
+              .large= LifeEvent.count
+              .text-muted Life Events
+
+    .col-xs-12.col-md-6.col-lg-3
+      .panel.panel-gray.panel-widget
+        =link_to :admin_news_stories do
+          .row.no-padding
+            .col-sm-3.col-lg-5.widget-left
+              svg.glyph.stroked.blank.document
+                use xlink:href="#stroked-blank-document"
+            .col-sm-9.col-lg-7.widget-right
+              .large= NewsStory.count
+              .text-muted News Stories
+
+    .col-xs-12.col-md-6.col-lg-3
+      .panel.panel-blue.panel-widget
+        =link_to :admin_blogs do
+          .row.no-padding
+            .col-sm-3.col-lg-5.widget-left
+              svg.glyph.stroked.blank.document
+                use xlink:href="#stroked-blank-document"
+            .col-sm-9.col-lg-7.widget-right
+              .large= Blog.count
+              .text-muted Blogs
+
+    .col-xs-12.col-md-6.col-lg-3
+      .panel.panel-orange.panel-widget
+        =link_to :admin_events do
+          .row.no-padding
+            .col-sm-3.col-lg-5.widget-left
+              svg.glyph.stroked.blank.document
+                use xlink:href="#stroked-blank-document"
+            .col-sm-9.col-lg-7.widget-right
+              .large= Event.count
+              .text-muted Events

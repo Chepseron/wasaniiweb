@@ -1,0 +1,117 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Business
+  /! /.row
+  .row
+    .col-md-12
+      .row
+        .col-md-9
+          h1= @business.name
+          .row
+            .col-md-12
+              <b>Featured?:</b> #{@business.featured?} #{link_to 'change', change_featured_status_admin_business_path(@business), method: :patch}
+          .row
+            .col-md-12
+              <b>Verified?:</b> #{@business.verified?} #{link_to @business.verified? ? 'unverify' : 'verify', verify_admin_business_path(@business), method: :patch}
+        .col-md-3
+
+
+  /! /.row
+  .row
+    .col-md-3.business_image
+      =image_tag artist_image(@business), id: 'profile-pic'
+    .col-md-9
+      .row
+        .col-md-12.no-gutters
+          b Country:&nbsp;
+          = ISO3166::Country.find_country_by_alpha2(@business.country).name
+      .row
+        .col-md-12.no-gutters
+          b Industry:&nbsp;
+          = @business.industries.pluck(:name).join(',')
+      .row
+        .col-md-12.no-gutters
+          b Business Type:&nbsp;
+          = @business.business_category.name
+
+      -if @business.company_info.present?
+        .row
+          .col-md-12.no-gutters
+            = @business.company_info.html_safe
+      .row
+        .col-md-1
+          = link_to 'Edit', edit_admin_business_path(@business)
+
+        .col-md-2
+          =link_to @business.banned? ? 'reinstate business' : 'ban business', ban_admin_business_path(@business), class: 'btn btn-primary', method: :patch
+        .col-md-3
+          =link_to 'Invite Page Admin', invite_page_admin_admin_business_path(@business), remote: true, class: 'btn btn-primary'
+        -unless @business.managing_users.empty?
+          .col-md-3
+            =link_to 'Transfer Ownership', request_ownership_transfer_admin_business_path(@business), remote: true, class: 'btn btn-primary'
+
+  .featured-section
+    .section-container
+      .row
+        .col-md-12
+          #progress
+            .bar style=("width: 0%;")
+          =simple_form_for([:admin, @business, GalleryPhoto.new], html: {class:'form-inline'}) do |f|
+            = f.input :image, as: :file, label: false, input_html:{multiple: true, name: 'gallery_photo[image]', class: 'col-md-3'}
+            <input type="hidden" value="#{@business.id}" name="biz">
+            = f.submit "Upload", class: "btn btn-warning"
+      - if @business.gallery_photos.present? 
+        #gallery-photos
+          =render partial: 'gallery_photos', locals:{business: @business}
+        hr.hr
+
+  .business-contacts.margin-bottom-20
+    .container
+      .row
+        .col-md-12
+          h3 CONTACTS
+      .row
+        .col-md-7.contacts-map-images
+          = render 'shared/static_map'
+        .col-md-4
+          h6 Contacts
+          #contact-details
+            = render 'businesses/contact_details'
+      hr.hr
+  -unless @news_events_blogs.empty?
+    .business-events-news-blogs.margin-bottom-20#news-stories-header
+      .section-container
+        .row
+          .col-md-12
+            h3 NEWS, BLOGS AND EVENTS
+
+        .row
+          - @news_events_blogs.each do |card|
+            .col-md-3.reduced-padding[id = "#{card.class.name.downcase}-#{card.id}"]
+              =render partial: 'admin/artists/news-event-blog-card', locals:{card: card}
+
+#manage-pages-modal
+
+javascript:
+  $(function(){
+    $('#filter_date').datepicker({
+      dateFormat: "dd-mm-yy"
+    });
+
+    $( "#filter_industry_id, #filter_date, #filter_data-type" ).change(function() {
+      $.ajax({
+        url: "/businesses/#{@business.id}",
+        data: {
+          industry_id: $('#filter_industry_id').val(),
+          date: $('#filter_date').val(),
+          data_type: $('#filter_data-type').val()
+          },
+        dataType: 'script'
+      });
+    });
+  });

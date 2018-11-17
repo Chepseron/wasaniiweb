@@ -1,0 +1,27 @@
+h1 Listing gallery_photos
+
+table
+  thead
+    tr
+      th Image uid
+      th Caption
+      th Parent type
+      th Parent
+      th
+      th
+      th
+
+  tbody
+    - @gallery_photos.each do |gallery_photo|
+      tr
+        td = gallery_photo.image_uid
+        td = gallery_photo.caption
+        td = gallery_photo.parent_type
+        td = gallery_photo.parent_id
+        td = link_to 'Show', gallery_photo
+        td = link_to 'Edit', edit_gallery_photo_path(gallery_photo)
+        td = link_to 'Destroy', gallery_photo, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Photo', new_gallery_photo_path

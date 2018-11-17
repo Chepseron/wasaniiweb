@@ -1,0 +1,73 @@
+#entityModal
+  - if @book.new_record?
+    h4#modalTitle
+      | Add a New Book
+    p
+    hr
+    .row
+      .col-md-12
+        = simple_form_for([@parent, @book], html: {multipart: true}, remote: true, url: create_entity_artist_path(@parent)) do |f|
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :title, label: false, placeholder: 'Title', input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :publishing_date, as: :string, label: false, placeholder: 'Publishing Date', input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :summary, input_html: {class: 'tinymce form-control'}, label: false, placeholder: 'Book Description'
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :isbn, label: false, placeholder: 'ISBN', input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :publishing_company_name, url: autocomplete_publishing_company_name_path,
+                as: :autocomplete, label: false, placeholder: 'Publishing Company', input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :cover_pic, as: :file, label: false
+                .col-md-6.modal-image-text Please select an appropriate book cover image for the book
+          .form-actions
+            = f.button :submit, class: 'btn site-btn-primary pull-right'
+  - else
+    h4#modalTitle
+      | Edit
+    p
+    hr
+    .row
+      .medium-10.columns.form-holder
+        = simple_form_for(@book, html: {multipart: true}, remote: true) do |f|
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :title, label: false, placeholder: 'Title', input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :publishing_date, as: :string, label: false, placeholder: 'Publishing Date', input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :summary, input_html: {class: 'tinymce form-control'}, label: false, placeholder: 'Book Description'
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :isbn, label: false, placeholder: 'ISBN', input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :publishing_company_name, url: autocomplete_publishing_company_name_path,
+                as: :autocomplete, label: false, placeholder: 'Publishing Company', input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :cover_pic, as: :file, label: false
+                .col-md-6.modal-image-text Please select an appropriate book cover image for the book
+          .form-actions
+            = f.button :submit, class: 'btn site-btn-primary pull-right'

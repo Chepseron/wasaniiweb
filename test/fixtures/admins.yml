@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: admins
+#
+#  id              :integer          not null, primary key
+#  name            :string
+#  email           :string
+#  password_digest :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  admin_role_id   :integer
+#  deactivated     :boolean
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+hawkeye:
+  name: Clinton Francis "Clint" Barton
+  email: hawkeye@marvelcomics.com
+  password_digest: <%= BCrypt::Password.create("password") %>

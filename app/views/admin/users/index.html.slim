@@ -1,0 +1,44 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="/admin"
+          svg.glyph.stroked.home
+            use xlink:href="#stroked-home"
+      li.active Users
+  /! /.row
+  .row
+    .col-md-9
+      h1.page-header Users
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          .row
+            .col-md-9 Users
+            .col-md-3
+              .form-group.pull-right
+                input.search.form-control placeholder=("What you looking for?") type="text" /
+              span.counter.pull-right
+
+        .panel-body
+          table.table.sortable
+            thead
+              tr
+                th Name
+                th Email
+                th Country
+                th Newsletter
+                th Banned?
+                th
+            tbody
+              -User.all.each do |user|
+                tr
+                  td= user.name
+                  td= user.email
+                  td= ISO3166::Country.find_country_by_alpha2(user.country).name if user.country
+                  td= user.newsletter?
+                  td= user.banned?
+                  td= link_to 'view', admin_user_path(user)
+

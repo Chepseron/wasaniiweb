@@ -1,0 +1,13 @@
+<%- @line = "<ul>" %>
+<%- @line << entity.errors.full_messages.collect{|message|"<li>"+message+"</li>"}.join('') %>
+<%- @line << "</ul>" %>
+
+swal({
+  title: "Error!",
+  text: "<%= j @line.html_safe %>",
+  type: "error",
+  confirmButtonText: "OK",
+  html: true
+});
+
+NProgress.done();

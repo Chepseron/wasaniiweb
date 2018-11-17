@@ -1,0 +1,72 @@
+.section-container.specialities.margin-bottom-20
+  .row
+    .col-md-12
+      h3.text-capitalize.no-margin-top Media
+      #locale-links #{link_to 'local', request.path, class: @locale == 'local' ? 'active-link':'' } | #{link_to 'international', request.path + '?locale=international', class: @locale == 'international' ? 'active-link':''}
+  .row
+    .col-md-12.text-center.alphabar
+      =render partial: 'alphabar'
+  .row
+    .col-md-12.text-center
+      - if @category_count.present?
+        - @category_count.each do |key, count|
+          - if(count > 0)
+            = link_to media_listings_path({type: key, industry: key, locale: @locale})              
+              .col-md-2.speciality-box
+                =image_tag "/assets/#{key.downcase.gsub(',','').gsub(' ', '_')}.jpg"
+                .image-text.text-center
+                   strong #{key.capitalize} (#{count})
+              
+    hr.hr
+  hr.hr.speciality-hr
+.section-container.specialities.margin-bottom-20
+  .row
+    -if @gallery 
+      .col-md-12
+        h3 Gallery/Photos
+        - @gallery.each do |gallery|
+          .col-md-3
+              =render partial: 'gallery', locals: {media: gallery}
+    -if @songs 
+      .col-md-12
+        h3 Music
+        - @songs.each do |song|
+          .col-md-3
+              = render partial: 'shared/entity-image-tiles', locals:{entity: song}
+    -if @productions
+      .col-md-12
+        h3 Productions
+        - @productions.each do |collection|
+          .col-md-3
+              =render partial: 'production', locals: {media: collection}
+    -if @books
+      .col-md-12
+        h3 Books
+        - @books.each do |collection|
+          .col-md-3
+              =render partial: 'book', locals: {media: collection}
+    -if @photoarts
+      .col-md-12
+        h3 Photo/Arts
+        - @photoarts.each do |photoart|
+          .col-md-3
+              =render partial: 'card', locals: {media: photoart}
+    -if @collections
+      .col-md-12
+        h3 Collections
+        - @collections.each do |collection|
+          .col-md-3
+              =render partial: 'book', locals: {media: collection}
+    -if @stories
+      .col-md-12
+        h3 Stories
+        - @stories.each do |story|
+          .col-md-3
+              =render partial: 'card', locals: {media: story}
+
+    
+
+javascript:
+  if($('.speciality-box').length ==0){
+    $('.speciality-hr').hide();
+  }

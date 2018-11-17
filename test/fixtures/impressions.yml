@@ -1,0 +1,22 @@
+# == Schema Information
+#
+# Table name: impressions
+#
+#  id          :integer          not null, primary key
+#  entity_id   :integer
+#  entity_type :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  entity_id: 1
+  entity_type: MyString
+  impression_count: 1
+
+two:
+  entity_id: 1
+  entity_type: MyString
+  impression_count: 1

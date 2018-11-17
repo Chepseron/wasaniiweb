@@ -1,0 +1,2 @@
+var id = "#fan-section-artist-<%= @artist.id %>"
+$(id).html("<%= escape_javascript artist_fan_link(@artist) %>")

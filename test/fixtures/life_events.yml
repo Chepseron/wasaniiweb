@@ -1,0 +1,51 @@
+# == Schema Information
+#
+# Table name: life_events
+#
+#  id                     :integer          not null, primary key
+#  date                   :date
+#  title                  :string
+#  life_event_category_id :integer
+#  description            :text
+#  parent_id              :integer
+#  parent_type            :string
+#  aasm_state             :string
+#  slug                   :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  duration               :string
+#  image_uid              :string
+#
+# Indexes
+#
+#  index_life_events_on_slug  (slug)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+born:
+  date: <%= 25.years.ago %>
+  life_event_category: life
+  title: Birthday
+  description: On this day I was born
+  aasm_state: unpublished
+  duration: 1 days
+  parent: daredevil(Artist)
+
+first_single:
+  date: <%= 5.years.ago %>
+  life_event_category: career
+  title: First Single
+  description: My first single
+  duration: 1 months
+  aasm_state: rejected
+  parent: daredevil(Artist)
+
+second_single:
+  date: <%= 4.years.ago %>
+  life_event_category: career
+  title: Second Single
+  description: My second single
+  duration: 1 months
+  aasm_state: edited
+  parent: daredevil(Artist)

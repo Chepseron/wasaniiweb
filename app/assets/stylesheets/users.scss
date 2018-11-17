@@ -1,0 +1,36 @@
+// Place all the styles related to the suggested_updates controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+$primary-background-color: #1f1e1d;
+$primary-text-color: #1f1e1d;
+$secondary-text-color: #ccc;
+$default-color: #fe9500;
+
+.dashboard-linkbar{
+  border-bottom: 2px solid $secondary-text-color;
+  margin-top: 25px !important;
+  a{
+    color: $primary-text-color;
+  }
+}
+
+.dash-filters{
+  padding: 20px 0px 0 0;
+//  border-bottom: 2px solid $secondary-text-color;;
+  margin: 0 20px 16px !important;
+  padding: 20px 0px 0 0;
+}
+
+.edit-link{
+  position: absolute;
+  top: -28px;
+  right: 8px;
+}
+
+.border-top{
+  border-top: 2px solid $secondary-text-color;;
+}
+
+.dashboard-work-cards{
+  margin-bottom: 20px;
+}

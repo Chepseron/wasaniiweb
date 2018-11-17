@@ -1,0 +1,23 @@
+.row
+  .event-content-div.columns.margin
+    h1
+      =@user.name
+    .event-content-discription.margin
+      .row
+        p
+          span
+            | email : #{@user.email}
+      .row
+        p
+          span
+            | birthday: #{@user.birthday.strftime("%d-%b-%Y")}
+      .row
+        p
+          span
+            | country : #{ISO3166::Country.find_country_by_alpha2(@user.country).name}
+      .row
+        p
+          span
+            | Role : #{@user.user_role.name}
+      .row
+        =link_to 'edit', edit_admin_user_path(@user)

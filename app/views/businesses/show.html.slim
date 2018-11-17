@@ -1,0 +1,202 @@
+=title @business.name
+=meta_description @description
+.section-container
+  .row.profile-details.margin-bottom-20.margin
+    .col-md-3
+      -if policy(@business).update?
+        .pro-image#image-box.box-border.editable
+          =simple_form_for @business do |f|
+            .edit-overlay
+              i.fi-camera
+              ' &nbsp; update business picture
+              = f.input :logo, as: :file, label: '&nbsp;'.html_safe
+              = f.input :retained_logo, as: :hidden
+            =f.submit 'Save Image', id: 'save-btn', class:'button btn site-btn-primary'
+          =image_tag (@business.logo_stored? ? @business.logo.url : 'default-business-pic.png'), id: 'profile-pic'
+      -else
+        .pro-image
+          =image_tag (@business.logo_stored? ? @business.logo.url : 'default-business-pic.png'), id: 'profile-pic'
+
+    .col-md-9
+      .row
+        .col-md-12.no-gutters
+          -if @business.verified?
+            .verification.pull-right
+              =image_tag "verified.svg"
+          h3.no-margin-top.text-uppercase.text-primary= @business.name
+
+      .row
+        .col-md-12.no-gutters
+          b Country:&nbsp;
+          = ISO3166::Country.find_country_by_alpha2(@business.country).name
+      .row
+        .col-md-12.no-gutters
+          b Industry:&nbsp;
+          = @business.industries.pluck(:name).join(',')
+      .row
+        .col-md-12.no-gutters
+          b Business Type:&nbsp;
+          = @business.business_category.name
+
+      .row
+        .col-md-12.no-gutters
+          = @business.company_info.html_safe?
+
+      .row#profile-edit-links
+        .col-md-1.col-md-offset-8.no-gutters
+          =link_to 'Edit', edit_business_path(@business) if policy(@business).update?
+        .col-md-3.no-gutters
+          div[id="fan-section-business-#{@business.id}"]
+            = business_fan_link(@business)
+
+- if policy(@business).update?
+  .profile-nav-bar
+    .section-container
+      .row
+        .col-md-12.prof-nav
+          ul.list-inline
+            li
+              h4=link_to 'Add an artist', new_business_artist_path(@business), class: 'add-news-event-blog-btn btn site-btn-primary'
+
+      hr.hr
+.featured-section
+  .section-container
+    .row
+      .col-md-12
+        h3 GALLERY
+    - if policy(@business).update?
+      .row
+        .col-md-12
+          #progress
+            .bar style=("width: 0%;")
+          =simple_form_for([@business,GalleryPhoto.new]) do |f|
+            = f.input :image, as: :file, label: false, input_html:{multiple: true, name: 'gallery_photo[image]', class: 'input-1 btn btn-default'}
+
+    - if @business.gallery_photos.present? || !current_user.nil? && policy(@business).update?
+      #gallery-photos
+        =render partial: 'gallery_photos', locals:{business: @business}
+      hr.hr
+
+.business-contacts#contacts
+  .section-container
+    .row
+      .col-md-12
+        h3 CONTACTS
+    .row
+      .col-md-8.contacts-map-images
+        = render 'shared/static_map'
+      .col-md-4
+        h6 Contacts
+        #contact-details
+          = render 'contact_details'
+
+        h6 Links:
+        #link-details
+          - @business.links.each do |link|
+            = render 'links_partial', link: link
+        .row
+          .col-md-12 =link_to 'add links', new_link_business_path(@business), :remote => true if policy(@business).update?
+    hr.hr
+
+-if !@work.empty? || !current_user.nil? && policy(@business).update?
+  .business-works#work-header
+    .section-container
+      .row
+        .col-md-12
+          h3 WORKS
+      - if policy(@business).update?
+        .row
+          .col-md-12
+            ul.list-inline.add-items-links
+              li
+                =link_to 'add production', '#', class: 'add-entity-select-box btn site-btn-primary', title: 'add a production', :onclick => "findBusinessForm(#{@business.id}, 'entities', 'production')"
+      -if !@work.empty?
+        .dash-filters
+          .row
+            .col-md-4
+              .form-group
+                = collection_select(:filter, :industry_id, Industry.all, :id, :name, {prompt: 'Select category to filter results'}, {class: 'form-control'})
+            .col-md-4
+              .form-group
+                = text_field_tag 'filter[date]', nil, placeholder: 'Select date to filter results', class: 'form-control'
+            .col-md-4
+              .form-group
+                = select_tag "filter[data-type]", options_for_select(['Book', 'PhotoArt', 'Production', 'Song', 'Collection Album']), class: 'form-control', prompt: "Select a data type to filter results"
+
+      .row#business-works
+        = render 'works'
+    hr.hr
+
+-if policy(@business).update? || !@business.awards.empty?
+  .business-awards#awards-header
+    .section-container
+      .row
+        .col-md-12
+          h3 AWARDS
+      - if policy(@business).update?
+        .row
+          .col-md-12
+            ul.add-items-links.list-inline
+              li
+                =link_to 'Add an award', new_business_award_path(@business), class: 'add-news-event-blog-btn btn site-btn-primary', title: 'Add a news story'
+      .row#awards
+        - @business.awards.each do |award|
+          .col-md-3
+            =link_to award_url(award,{params:{year: 1.year.ago.year}}) do
+              =image_tag award.image_stored? ? award.image.url : 'default-award-pic.png'
+      hr.hr
+
+-unless @news_events_blogs.empty? && !policy(@business).update?
+  .business-events-news-blogs.margin-bottom-20#news-stories-header
+    .section-container
+      .row
+        .col-md-12
+          h3 NEWS, BLOGS AND EVENTS
+      - if policy(@business).update?
+        .row
+          .col-md-12
+            ul.add-items-links.list-inline
+              li
+                =link_to 'add news story', new_business_news_story_path(@business), class: 'add-news-event-blog-btn btn site-btn-primary', title: 'Add a news story'
+              li.clr
+                =link_to 'add blog', new_business_blog_path(@business), class: 'add-news-event-blog-btn btn site-btn-primary', title: 'Add a blog'
+              li.clr
+                =link_to 'add event', '#', class: 'add-news-event-blog-btn btn site-btn-primary', title: 'Add an event', :onclick => "findBusinessForm(#{@business.id}, 'news_event_blog', 'Add an event')"
+
+      .row#news-events-blogs-cards
+        - @news_events_blogs.each do |card|
+          .col-md-3.reduced-padding[id = "#{card.class.name.downcase}-#{card.id}"]
+            -if card.is_a?(Event)
+              = render partial: 'shared/event-card', locals:{event: card}
+            -else
+              = render partial: 'shared/blog-news-card', locals:{card: card}
+
+strong SHARE THIS BUSINESS
+= social_share_button_tag(@business.name, :url => "#{request.original_url}", desc: "#{@description}", via: "Me") 
+
+
+#add-contacts-modal
+#add-news-event-blog-modal
+#add-work-entity-modal
+#suggested-update-modal
+#add-links-modal
+
+
+javascript:
+  $(function(){
+    $('#filter_date').datepicker({
+      dateFormat: "dd-mm-yy"
+    });
+
+    $( "#filter_industry_id, #filter_date, #filter_data-type" ).change(function() {
+      $.ajax({
+        url: "/businesses/#{@business.id}",
+        data: {
+          industry_id: $('#filter_industry_id').val(),
+          date: $('#filter_date').val(),
+          data_type: $('#filter_data-type').val()
+          },
+        dataType: 'script'
+      });
+    });
+  });

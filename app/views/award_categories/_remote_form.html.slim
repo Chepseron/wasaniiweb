@@ -1,0 +1,15 @@
+#awardCategoryModal
+  h4#modalTitle
+    | Award Category
+  hr
+  .row
+    .col-md-12
+      = simple_form_for(@award_category, remote: true) do |f|
+        .form-inputs
+          .form-group
+            .row
+              .col-md-6
+                = f.input :name, label: false, placeholder: 'Category Name', input_html:{class: 'form-control'}
+
+        .form-actions
+          = f.button :submit, class: 'btn site-btn-primary pull-right'

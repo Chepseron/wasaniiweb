@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Entity:
+  = @impression.entity_id
+p
+  strong Entity type:
+  = @impression.entity_type
+p
+  strong Impression count:
+  = @impression.impression_count
+
+= link_to 'Edit', edit_impression_path(@impression)
+'|
+= link_to 'Back', impressions_path

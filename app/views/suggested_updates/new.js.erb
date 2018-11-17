@@ -1,0 +1,11 @@
+$('#suggested-update-modal').html("<%= escape_javascript render 'form' %>");
+
+tinyMCE.init({
+  selector: 'textarea',
+  menubar: false,
+  statusbar: false,
+  toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  plugins: ['placeholder, link']
+});
+
+$('#SuggestedUpdateModal').modal()

@@ -1,0 +1,73 @@
+# == Schema Information
+#
+# Table name: businesses
+#
+#  id                   :integer          not null, primary key
+#  name                 :string
+#  country              :string
+#  logo_uid             :string
+#  company_info         :text
+#  latitude             :float
+#  longitude            :float
+#  business_category_id :integer
+#  parent_id            :integer
+#  parent_type          :string
+#  verified             :boolean          default(FALSE)
+#  slug                 :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  physical_location    :text
+#  phone_number         :string
+#  email                :string
+#  working_hours        :string
+#  featured             :boolean
+#  banned               :boolean
+#
+# Indexes
+#
+#  index_businesses_on_parent_id    (parent_id)
+#  index_businesses_on_parent_type  (parent_type)
+#  index_businesses_on_slug         (slug) UNIQUE
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+oscorp:
+  name: Oscorp
+  logo_uid: MyString
+  latitude: -1.2920659
+  longitude: 36.82194619999996
+  country: "KE"
+  parent: hawkeye(Admin)
+  business_category: restaurant
+
+shield:
+  name: S.H.I.E.L.D
+  logo_uid: MyString
+  latitude: -1.2920659
+  longitude: 36.82194619999996
+  country: "KE"
+  company_info: "Espionage, law-enforcement, and counter-terrorism agency"
+  parent: spiderman(User)
+  business_category: office
+
+marvel_studios:
+  name: Marvel Studios
+  logo_uid: my_logo_path
+  latitude: -1.2920659
+  longitude: 36.82194619999996
+  country: "KE"
+  company_info: Originally known as Marvel Films from 1993 to 1996,
+    is an American motion picture studio based at The Walt Disney
+    Studios in Burbank, California.
+  business_category: office
+  parent: spiderman(User)
+
+daily_bugle:
+  name: The Daily Bugle
+  logo_uid: MyString
+  latitude: -1.2920659
+  longitude: 36.82194619999996
+  parent: spiderman(User)
+  business_category: office
+

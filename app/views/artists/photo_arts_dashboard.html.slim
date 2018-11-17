@@ -1,0 +1,105 @@
+.container
+  article
+    .row.clr.pro-header.bottom
+      .col.grid-2
+        .trending
+          h1= @header
+      .col.grid-2
+        .business-links
+          p #{link_to 'local', '#'} | #{link_to 'international', '#'}
+
+    = render 'alphabar'
+    .row.clr.bottom
+      .pro-header
+        .col
+          =link_to photo_art_artist_listings_path(params:{speciality: 'photographers'}) do
+
+            .box
+              .image-text Photographers (#{@photographers_count})
+              =image_tag 'photographers.jpg'
+        .col
+          =link_to photo_art_artist_listings_path(params:{speciality: 'painters'}) do
+
+            .box
+              .image-text Painters (#{@painters_count})
+              =image_tag 'painters.jpeg'
+        .col
+          =link_to photo_art_artist_listings_path(params:{speciality: 'sculptors'}) do
+
+            .box
+              .image-text Sculptors (#{@sculptors_count})
+              =image_tag 'sculptors.jpg'
+        .col
+          =link_to photo_art_artist_listings_path(params:{speciality: 'cartoonists'}) do
+
+            .box
+              .image-text Cartoonists (#{@cartoonists_count})
+              =image_tag 'cartoonists.png'
+        .col
+          =link_to photo_art_artist_listings_path(params:{speciality: 'digital-artists'}) do
+
+            .box
+              .image-text Digital Artists (#{@digital_artists_count})
+              =image_tag 'digital-artists.jpg'
+        .col
+          =link_to photo_art_artist_listings_path(params:{speciality: '3D-artists'}) do
+
+            .box
+              .image-text 3D Artists (#{@three_d_artists_count})
+              =image_tag '3D-artists.jpg'
+        .col
+          =link_to '#' do
+
+          .box
+            .image-text Awards (#{@awards_count})
+            =image_tag 'awards.jpg'
+
+    .row.clr
+      .pro-header.bottom
+        .col.grid-1
+          .trending
+            h1
+              | featured photo/art profiles
+        .col.grid-1.clr
+          .business-images-left
+            =link_to @artists.first do
+              = image_tag artist_image(@artists.first)
+          .business-images-right
+            .row.clr
+              - unless @artists[1..6].nil?
+                - @artists[1..6].each do |artist|
+                  .col.grid-3
+                    =link_to artist do
+                      = image_tag artist_image(artist)
+
+    .row.clr
+      .pro-header.bottom
+        .col.grid-1
+          .trending
+            h1
+              | trending photo/art profiles
+        .row.clr
+          .container.tr-top.tr-width
+            .trending-list.clr
+              nav
+                ul
+                  - PhotoArt.trending.each do |photo_art|
+                    .col.grid-3
+                      =render partial: 'shared/entity-list-item', locals: {entity: photo_art}
+    .row
+      .banner-image
+        img src="/assets/background-medium.png" /
+
+    .row.clr
+      .pro-header.bottom
+        .col.grid-1
+          .trending
+            h1 Photo/Art Events
+
+
+
+        .row
+          - Event.trending[0..3].each do |event|
+            .col.grid-4
+              = render partial: 'shared/event-card', locals:{event: event}
+

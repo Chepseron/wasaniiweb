@@ -1,0 +1,23 @@
+=link_to event, class: 'linked-card' do
+  .card.shadow
+    .image-block
+      =image_tag(event.image_stored? ? event.image.url : 'event.png')
+    .card-block
+      /! Title
+      .card-text.text-center= event.name 
+        = event.date.strftime("#{event.date.day.ordinalize} %B %Y")
+      .card-text.text-center= event.time unless event.time.blank?
+      .row
+        .col-md-10.col-md-offset-1
+          hr.title-underline
+
+      .row.artist-info
+        .col-md-4.no-gutters
+          =image_tag artist_image(event.parent), class: 'img-circle shadow'
+        .col-md-8.no-gutters
+          h5.no-margin-bottom.card-artist.card-title= card_owner(event).titleize
+          p.card-text= event.type.name
+- if(policy(event.parent).update?)
+  - if (controller_name == 'artists' && action_name == 'show' ) || (controller_name == 'businesses' && action_name == 'show' ) || (action_name == 'update')
+    .row
+      .col-md-12=link_to 'edit', edit_polymorphic_path(event), remote: true, class: 'edit-link'

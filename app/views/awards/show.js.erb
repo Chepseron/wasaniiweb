@@ -1,0 +1,4 @@
+$('#years a').removeClass('active-link')
+$('#years a:contains("<%= @year %>")').addClass('active-link')
+
+$('#nominee-section').html("<%= escape_javascript render 'nominee-section' %>")

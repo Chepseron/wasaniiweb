@@ -1,0 +1,89 @@
+#entityModal
+  -if @song.new_record?
+    h4#modalTitle
+      | Add a Song
+    p
+    hr
+    .row
+      .col-md-12
+        = simple_form_for([@parent, @song], html: {multipart: true}, remote: true, url: create_entity_artist_path(@parent)) do |f|
+          .form-inputs
+            .form-group
+              .row
+                .col-md-9
+                  = f.input :title, label: false, placeholder: 'Name of Song', input_html:{class: 'form-control'}
+                .col-md-3
+                  = f.input :release_date, as: :string, label: false, placeholder: 'Release Date', input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :description, input_html: {class: 'tinymce form-control'}, label: false, placeholder: 'Song Description'
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :video_url, label: false, placeholder: 'Video URL', input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :audio_url, label: false, placeholder: 'Audio URL', input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :featured_artists_id_tags, :input_html => {class: 'form-control', "data-pre" => @song.featured_artists.map(&:attributes).to_json }, label: false
+                .col-md-6
+                  = f.input :production_company_name, url: autocomplete_production_company_name_path,
+                as: :autocomplete, label: false, placeholder: 'Production Company', input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :image, as: :file, label: false
+                .col-md-6.modal-image-text A cover photo will be automatically selected from the attached video if this optin is left blank
+
+          .form-actions
+            = f.button :submit, class: 'btn site-btn-primary pull-right'
+  -else
+    h4#modalTitle
+      | Edit Song
+    p
+    hr
+    .row
+      .col-md-12
+        = simple_form_for(@song, html: {multipart: true}, remote: true) do |f|
+          .form-inputs
+            .form-group
+              .row
+                .col-md-9
+                  = f.input :title, label: false, placeholder: 'Name of Song', input_html:{class: 'form-control'}
+                .col-md-3
+                  = f.input :release_date, as: :string, label: false, placeholder: 'Release Date', input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :description, input_html: {class: 'tinymce form-control'}, label: false, placeholder: 'Song Description'
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :video_url, label: false, placeholder: 'Video URL', input_html:{class: 'form-control'}
+                .col-md-6
+                  = f.input :audio_url, label: false, placeholder: 'Audio URL', input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :featured_artists_id_tags, :input_html => {class: 'form-control', "data-pre" => @song.featured_artists.map(&:attributes).to_json }, label: false
+                .col-md-6
+                  = f.input :production_company_name, url: autocomplete_production_company_name_path,
+                as: :autocomplete, label: false, placeholder: 'Production Company', input_html:{class: 'form-control'}
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :image, as: :file, label: false
+                .col-md-6.modal-image-text A cover photo will be automatically selected from the attached video if this optin is left blank
+
+          .form-actions
+            = f.button :submit, class: 'btn site-btn-primary pull-right'

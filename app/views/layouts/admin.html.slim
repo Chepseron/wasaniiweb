@@ -1,0 +1,158 @@
+doctype html
+html.no-js dir="ltr" lang="en"
+  head
+  meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+
+    title == content_for?(:title) ? yield(:title) : "WasaniiWeb"
+
+    = stylesheet_link_tag "admin/admin", "https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900", "http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css"
+    = javascript_include_tag "admin/admin"
+    = csrf_meta_tag
+  body
+    nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed data-target="#sidebar-collapse" data-toggle="collapse" type="button"
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand href="/"
+            span> Wasanii
+            | Admin
+          ul.user-menu
+            li.dropdown.pull-right
+              =link_to admin_logout_path, method: :delete do
+                svg.glyph.stroked.cancel
+                  use xlink:href="#stroked-cancel"
+                | Logout
+
+
+      /! /.container-fluid
+    #sidebar-collapse.col-sm-3.col-lg-2.sidebar
+      ul.nav.menu.blackie
+        li
+          =link_to :admin_root do
+            span
+               i.fa.fa-tachometer
+            |  Dashboard
+        li
+          =link_to :admin_users do
+            i.fa.fa-users
+            |  Users
+        li
+          =link_to :admin_artists do
+            i.fa.fa-user
+            |  Artists
+        li
+          =link_to :admin_businesses do
+            i.fa.fa-building
+            |  Businesses
+        li
+          =link_to :admin_books do
+            i.fa.fa-book
+            |  Books
+        li
+          =link_to :admin_songs do
+            i.fa.fa-music
+            |  Songs
+        li
+          =link_to :admin_photo_arts do
+            i.fa.fa-image
+            |  Photo/Art
+        li
+          =link_to :admin_productions do
+            i.fa.fa-file-video-o
+            |  Productions
+        li
+          =link_to :admin_collection_albums do
+            i.fa.fa-files-o
+            |  Collection Albums
+
+        li
+          =link_to :admin_life_events do
+            i.fa.fa-tree
+            |  Life Events
+        li
+          =link_to :admin_gallery_photos do
+            i.fa.fa-files-o
+            |  Gallery Photos
+        li
+          =link_to :admin_news_stories do
+            i.fa.fa-newspaper-o
+            |  News Stories
+        li
+          =link_to :admin_blogs do
+            i.fa.fa-pencil-square
+            |  Blogs
+        li
+          =link_to :admin_events do
+            i.fa.fa-group
+            |  Events
+        li
+          =link_to :admin_awards do
+            i.fa.fa-flash
+            |  Awards
+        li
+          =link_to :admin_suggested_updates do
+            i.fa.fa-edit
+            |  Suggested Updates
+        li
+          =link_to :admin_site_ads do
+            i.fa.fa-file-image-o
+            |  Site Ads
+        li
+          =link_to :admin_slider_images do
+            i.fa.fa-file-image-o
+            |  Slider Images
+        li
+          =link_to :admin_business_categories do
+            i.fa.fa-building
+            |  Business Categories
+
+        -if current_admin.system_administrator?
+          li
+            =link_to :admin_admins do
+              i.fa.fa-exclamation-circle
+              |  Admin
+          li
+            =link_to :admin_sites do
+              i.fa.fa-anchor
+              |  Platform
+        -else
+          li
+            =link_to admin_admin_path(current_admin) do
+              i.fa.fa-exclamation-circle
+              |  My Profile
+      /  li
+          a href="tables.html"
+            svg.glyph.stroked.table
+              use xlink:href="#stroked-table"
+            |  Tables
+        li
+          a href="forms.html"
+            svg.glyph.stroked.pencil
+              use xlink:href="#stroked-pencil"
+            |  Forms
+        li
+          a href="panels.html"
+            svg.glyph.stroked.app-window
+              use xlink:href="#stroked-app-window"
+            |  Alerts &amp; Panels
+        li
+          a href="icons.html"
+            svg.glyph.stroked.star
+              use xlink:href="#stroked-star"
+            |  Icons
+
+
+    = render 'layouts/messages'
+    == yield
+
+javascript:
+  $(function(){
+    $('body').on('click', 'button.close', function(){
+      $.modal.close();
+    });
+  });

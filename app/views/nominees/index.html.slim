@@ -1,0 +1,25 @@
+h1 Listing nominees
+
+table
+  thead
+    tr
+      th Award
+      th Recipient
+      th Recipient type
+      th
+      th
+      th
+
+  tbody
+    - @nominees.each do |nominee|
+      tr
+        td = nominee.award_id
+        td = nominee.recipient_id
+        td = nominee.recipient_type
+        td = link_to 'Show', nominee
+        td = link_to 'Edit', edit_nominee_path(nominee)
+        td = link_to 'Destroy', nominee, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Nominee', new_nominee_path

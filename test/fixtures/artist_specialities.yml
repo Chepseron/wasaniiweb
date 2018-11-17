@@ -1,0 +1,19 @@
+# == Schema Information
+#
+# Table name: artist_specialities
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  industry_id :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+actor:
+  name: Actor
+
+director:
+  name: Director
+
+writer:
+  name: Writer

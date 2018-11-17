@@ -1,0 +1,48 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Song
+  .container
+    .row
+      .col-md-12.entity-page-entity-image.margin-top-20
+        - if @video
+          = @video.embed_code.html_safe if @video
+        -else
+          = image_tag @song.image.url if @song.image_stored?
+    .row
+      .col-md-6.no-gutters
+        .row
+          .col-md-12
+            h3.no-margin-top.text-uppercase= @song.title
+        .row
+          .col-md-12
+            <b>Artist:</b> #{link_to @song.parent.profile_name, @song.parent}
+        .row
+          .col-md-12
+            <b>Audio URL:</b> #{link_to @song.audio_url, @song.audio_url}
+        -if @song.production_company
+          .row
+            .col-md-12
+              <b>Production Company:</b> #{link_to @song.production_company.name, @song.production_company}
+        .row
+          .col-md-12
+            <b>Country:</b> #{ISO3166::Country.find_country_by_alpha2(@song.parent.country_of_birth).name}
+        .row
+          .col-md-12
+            <b>Date Released:</b> #{@song.release_date.strftime("#{@song.release_date.day.ordinalize} %B %Y") if @song.release_date}
+        .row
+          .col-md-12
+            <b>State</b> #{@song.aasm_state.humanize}
+        .row
+          .col-md-2
+            =link_to 'unpublish', change_status_admin_song_path(@song, params:{status: 'unpublish'}), method: :patch, class: 'btn btn-primary'
+          .col-md-2
+            =link_to 'publish',change_status_admin_song_path(@song, params:{status: 'publish'}), method: :patch, class: 'btn btn-primary'
+
+
+      .col-md-6.no-gutters
+        = @song.description.html_safe

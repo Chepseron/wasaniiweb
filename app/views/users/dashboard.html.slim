@@ -1,0 +1,70 @@
+=render 'dashboard-linkbar'
+-if @work.empty?
+  .section-container
+    .jumbotron.text-center.no-margin-bottom
+      h5 This section will fill out as you browse the site, follow artists and businesses.
+    hr.hr
+-else
+  .section-container
+    .dash-filters
+      .row
+        .col-md-4
+          .form-group
+            = collection_select(:filter, :industry_id, Industry.all, :id, :name, {prompt: 'Select category to filter results'}, {class: 'form-control'})
+        .col-md-4
+          .form-group
+            = text_field_tag 'filter[date]', nil, placeholder: 'Select date to filter results', class: 'form-control'
+        .col-md-4
+          .form-group
+            = select_tag "filter[data-type]", options_for_select(['Book', 'PhotoArt', 'Production', 'Song', 'Collection Album']), class: 'form-control', prompt: "Select a data type to filter results"
+      hr.hr
+
+  .section-container
+    .dashboard-work-cards
+      .row#dashboard-cards
+        =render 'shared/dashboard-cards'
+      hr.hr
+
+/ .row
+  .sect-bottom
+    nav
+      ul
+        li.load
+          a href="#"  load more feeds...
+.section-container#dashboard-trending-section
+  =render 'shared/dashboard-trending_section'
+
+-unless @news_and_blogs.empty? && @events.empty?
+  .news-blogs-events
+    .section-container
+      .section-container.border-top
+        h3.text-uppercase news, blogs & events
+        .row
+          .col-md-6.border-right
+            - @news_and_blogs[0..1].each do |card|
+              .col-md-6.reduced-padding
+                =render partial: 'shared/blog-news-card', locals: {card: card}
+          .col-md-6
+            - @events[0..1].each do |event|
+              .col-md-6.reduced-padding
+                =render partial: 'shared/event-card', locals: {event: event}
+
+
+javascript:
+  $(function(){
+    $('#filter_date').datepicker({
+      dateFormat: "dd-mm-yy"
+    });
+
+    $( "#filter_industry_id, #filter_date, #filter_data-type" ).change(function() {
+      $.ajax({
+        url: "/users/#{current_user.id}/dashboard",
+        data: {
+          industry_id: $('#filter_industry_id').val(),
+          date: $('#filter_date').val(),
+          data_type: $('#filter_data-type').val()
+          },
+        dataType: 'script'
+      });
+    });
+  });

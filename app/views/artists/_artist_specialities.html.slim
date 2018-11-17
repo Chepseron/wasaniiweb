@@ -1,0 +1,11 @@
+.row
+   .col-md-12 Artist Specialities
+.row
+  .col-md-12
+    -if @artists_specialities && !@artists_specialities.empty?
+      = collection_check_boxes(:artist, :artist_speciality_ids, @artists_specialities, :id, :name) do |b|
+        .checkbox.checkbox-inline
+          = b.label class: b.text.gsub(' ','-').downcase do
+           = b.check_box + b.text
+    -else
+      ' Please pick an industry above to load specialitites

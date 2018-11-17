@@ -1,0 +1,30 @@
+# == Schema Information
+#
+# Table name: life_event_categories
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+life:
+  name: Life
+
+career:
+  name: Career
+
+history:
+  name: History
+
+hobby:
+  name: Hobby
+
+first_single:
+  name: First Single
+
+first_performance:
+  name: First Performance
+
+interesting_movie:
+  name: Interesting Movie

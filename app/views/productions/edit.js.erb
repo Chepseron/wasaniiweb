@@ -1,0 +1,38 @@
+$('#add-work-entity-modal').html("<%= escape_javascript render 'productions/remote_form' %>");
+$('#entityModal').modal();
+
+tinyMCE.init({
+  selector: 'textarea.tinymce'
+});
+
+$('#production_release_date').datepicker({
+  dateFormat: "dd-mm-yy",
+  maxDate: "#{Date.today}"
+});
+
+$('#production_production_company_id_tags').tokenInput('/businesses/token_inputs',{
+  theme: "facebook",
+  placeholder: 'Place holder text...',
+  hintText: 'Search for production company'
+});
+
+$('#production_director_id_tags').tokenInput('/artists/token_inputs',{
+  theme: "facebook",
+  placeholder: 'Place holder text...',
+  propertyToSearch: 'profile_name',
+  hintText: 'Search for director'
+});
+
+$('#production_cast_id_tags').tokenInput('/artists/token_inputs',{
+  theme: "facebook",
+  placeholder: 'Place holder text...',
+  propertyToSearch: 'profile_name',
+  hintText: 'Search for cast members'
+});
+
+$('#token-input-production_director_id_tags').attr("placeholder", "Directors")
+$('#token-input-production_cast_id_tags').attr("placeholder", "Cast")
+
+$('.modal').on('click','input[type=submit]', function(){
+  NProgress.start();
+});

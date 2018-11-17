@@ -1,0 +1,4 @@
+-if card.is_a?(Event)
+  = render partial: 'admin/shared/event-card', locals:{event: card}
+-else
+  = render partial: 'admin/shared/blog-news-card', locals:{card: card}

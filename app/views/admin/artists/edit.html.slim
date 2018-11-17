@@ -1,0 +1,58 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Artist
+  .row
+    .col-md-12
+      .row
+        .col-md-12
+          h1= @artist.profile_name
+  /! /.row
+  .row
+    .col-md-3
+      =image_tag artist_image(@artist), id: 'profile-pic'
+    .col-md-9
+      = simple_form_for([:admin, @artist]) do |f|
+        .form-group
+          .row
+            .col-md-4= f.input :profile_name, label: false
+            .col-md-4= f.input :name, label: false
+            .col-md-4= f.input :gender, label: false, collection: ['Male','Female','Group'], prompt: 'Gender', input_html:{class: 'form-control'}
+        .form-group
+          .row
+            .col-md-6= f.input :birthday, label: false
+            .col-md-6= f.input :country_of_birth, label: false
+          .row
+            .col-md-6= f.association :industries, label: false, as: :check_boxes
+            .col-md-6= f.association :artist_specialities, label: false, as: :check_boxes
+        - if @artist.artist_specialities.pluck(:name).include?('Model')
+          .form-group
+            .row
+              .col-md-6 <b>Height:</b> #{@artist.height}
+              .col-md-6 <b>Weight:</b> #{@artist.weight}
+          .form-group
+            .row
+              .col-md-6 <b>Bust:</b> #{@artist.bust}
+            .col-md-6 <b>Hips:</b> #{@artist.hips}
+        .form-group
+          .row
+            .col-md-12= f.input :introduction, label: false
+        .row
+          .col-md-12
+            = f.button :submit, 'Approve/Approve with changes', class: 'btn btn-primary'
+
+
+javascript:
+  $(function(){
+    tinyMCE.init({
+      selector: 'textarea',
+      menubar: false,
+      // statusbar: false,
+      toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+      plugins: ['placeholder, link, wordcount']
+    });
+  });

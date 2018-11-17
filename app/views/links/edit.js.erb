@@ -1,0 +1,7 @@
+$('#add-links-modal').html("<%= escape_javascript render 'links/remote_form' %>");
+
+$('#linksModal').modal()
+
+$('.modal').on('click','input[type=submit]', function(){
+  NProgress.start();
+});

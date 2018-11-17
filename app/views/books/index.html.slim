@@ -1,0 +1,31 @@
+h1 Listing books
+
+table
+  thead
+    tr
+      th Title
+      th Cover pic uid
+      th Summary
+      th Parent
+      th Parent type
+      th Country
+      th
+      th
+      th
+
+  tbody
+    - @books.each do |book|
+      tr
+        td = book.title
+        td = book.cover_pic_uid
+        td = book.summary
+        td = book.parent_id
+        td = book.parent_type
+        td = book.country
+        td = link_to 'Show', book
+        td = link_to 'Edit', edit_book_path(book)
+        td = link_to 'Destroy', book, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Book', new_book_path

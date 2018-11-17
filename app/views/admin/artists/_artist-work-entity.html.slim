@@ -1,0 +1,22 @@
+=link_to polymorphic_path([:admin, entity]), class: 'linked-card' do
+  .card.no-border
+    /! Card image
+    .image-block
+      =image_tag entity_image(entity) || 'default-profile-pic'
+    /img.img-fluid alt=("Card image cap") src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg" /
+    /! /.Card image
+    /! Card content
+    .card-block.text-center
+      /! Title
+      .h5.card-title.no-margin-bottom= entity.title
+      .row
+        .col-md-10.col-md-offset-1
+          hr.title-underline
+      /! Text
+      .card-text= entity_date(entity)
+      .card-text= entity.aasm_state.humanize
+
+.row
+  .col-md-12.no-padding
+    =link_to 'unpublish', polymorphic_url([:change_status, :admin, entity], params:{status: 'unpublish'}), remote: true, method: :patch, class: 'pull-left admin-publish-links'
+    =link_to 'publish', polymorphic_url([:change_status, :admin, entity], params:{status: 'publish'}), remote: true, method: :patch, class: 'pull-right admin-publish-links'

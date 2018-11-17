@@ -1,0 +1,25 @@
+h1 Listing suggested_updates
+
+table
+  thead
+    tr
+      th Content
+      th Parent
+      th Parent type
+      th
+      th
+      th
+
+  tbody
+    - @suggested_updates.each do |suggested_update|
+      tr
+        td = suggested_update.content
+        td = suggested_update.parent_id
+        td = suggested_update.parent_type
+        td = link_to 'Show', suggested_update
+        td = link_to 'Edit', edit_suggested_update_path(suggested_update)
+        td = link_to 'Destroy', suggested_update, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Suggested update', new_suggested_update_path

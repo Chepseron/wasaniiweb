@@ -1,0 +1,15 @@
+= simple_form_for [@parent, @book] do |f|
+
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :isbn
+    = f.input :cover_pic, as: :file
+    = f.input :summary, input_html: {class: 'tinymce'}
+    = f.input :publishing_company_name, url: autocomplete_publishing_company_name_path, as: :autocomplete
+    = f.input :publishing_date, as: :date, order: [:day, :month, :year], html5: true
+
+
+  .form-actions
+    = f.button :submit

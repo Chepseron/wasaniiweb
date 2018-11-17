@@ -1,0 +1,7 @@
+ul.list-inline
+  -('a'..'z').to_a.each do |letter|
+    li
+      h5.text-uppercase=link_to letter, media_listings_path(params:{type: @type, search_letter: letter, locale: @locale}), class: letter == @search_letter ? 'active-link':''
+
+  li
+    h5.text-uppercase=link_to "all", media_listings_path(params:{type: @type, locale: @locale}), class: @search_letter.blank? ? 'active-link':''

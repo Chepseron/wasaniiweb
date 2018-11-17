@@ -1,0 +1,18 @@
+.section-container
+  .row.profile-details.margin-bottom-20.margin
+    .col-md-3
+      =image_tag (@award.image_stored? ? @award.image.url : 'default-award-pic.png'), id: 'profile-pic'
+    .col-md-9
+      .row
+        .col-md-12
+          h3.no-margin-top.text-uppercase.text-primary= @award.name
+          =link_to 'Add a Category', new_award_category_path(@award), remote: true
+      .row#award_category_table
+        =render 'shared/award_category_table'
+      .row
+        = link_to 'Back', @award
+
+
+#add-award-category
+#edit-award-category
+#add-nominee

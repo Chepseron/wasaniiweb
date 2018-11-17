@@ -1,0 +1,88 @@
+=title @event.name
+=meta_description @description
+.padding-bottom-20
+  .row
+    .col-md-12
+      h3.text-capitalize.no-margin-top.no-margin-bottom= @event.name
+  .row
+    .col-md-4
+      b Category:&nbsp;
+      = @event.type.name
+    .col-md-4
+      b Venue:&nbsp;
+      = link_to @event.venue.name, @event.venue
+    .col-md-4
+      b Start Date:&nbsp;
+      = @event.date.strftime("#{@event.date.day.ordinalize} %B %Y")
+      
+  .row
+    .col-md-4
+      b Time:
+      = @event.time
+    .col-md-4
+      b Charges:
+      = @event.charges
+    -unless @event.awards.empty?
+      .col-md-4
+        b Awards:
+        ul
+          - @event.awards.each do |award|
+            li= link_to award.name, award
+    .col-md-4
+      - if !@event.enddate.nil?
+         b End Date:&nbsp;
+         = @event.enddate.strftime("#{@event.enddate.day.ordinalize} %B %Y")
+  .row.event-image
+    .col-md-12
+      =image_tag @event.image.url if @event.image_stored?
+  .row
+    .col-md-12
+      h4 Summary
+      = @event.description.html_safe
+      - if((@event.parent.is_a?(Artist) && policy(@event.parent).update?) || (@event.parent.is_a?(Business) && policy(@event.parent).update?))
+        =link_to 'edit', edit_polymorphic_path(@event), class: 'pull-right'
+  hr.hr
+  - unless @event.gallery_photos.empty?
+    .row
+      .col-md-12
+        h5 Gallery
+    .row.news-blog-event-page-images
+      .col-md-12#lightgallery
+        - @event.gallery_photos.each do |photo|
+           =link_to photo.image.url, class: 'col-md-3 reduced-padding' do
+             =image_tag photo.image.url
+    hr.hr
+
+  h5 Related Profiles
+  .row
+    .col-md-12.small-dashboard-profile-pics
+      - @artists.each do |artist|
+        .col-md-3.reduced-padding.featured-profiles-grid
+          =link_to artist do
+            = image_tag artist_image(artist)
+            .media-image-text
+              h4.text-uppercase= artist.profile_name
+              p= artist.industries.pluck(:name).join(', ')
+              btn.btn view
+              p= ISO3166::Country.find_country_by_alpha2(artist.country_of_birth).name
+  hr.hr
+
+  - unless @event.parent.events.collect{|event| event if event != @event}.compact.empty?
+    .row
+      .col-md-12
+        h5 Related Events
+    .row
+      - @event.parent.events.collect{|event| event if event != @event}.compact.each do |event|
+        .col-md-3.reduced-padding
+          = render partial: 'shared/event-card', locals:{event: event}
+    hr.hr
+
+  .row
+    .col-md-12.text-center.margin-top-20
+      .row
+        .col-md-3.col-md-offset-3#fan-button
+          = render partial: 'shared/fan_button', locals: {parent: @event.parent}
+        .col-md-2
+          = link_to 'Back', @event.parent, class: 'btn site-btn-primary'
+strong SHARE THIS EVENT
+= social_share_button_tag(@event.name, :url => "#{request.original_url}", :image => "", desc: "#{@description}", via: "wasanii")

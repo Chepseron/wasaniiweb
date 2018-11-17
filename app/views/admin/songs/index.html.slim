@@ -1,0 +1,42 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="/admin"
+          i.fa.fa-music
+      li.active Songs
+  /! /.row
+  .row
+    .col-lg-12
+      h1.page-header Songs
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          .row
+            .col-md-9 Songs
+            .col-md-3
+              .form-group.pull-right
+                input.search.form-control placeholder=("What you looking for?") type="text" /
+              span.counter.pull-right
+
+        .panel-body
+          table.table.sortable
+            thead
+              tr
+                th Title
+                th Artist
+                th State
+                th Created At
+                th
+
+            tbody
+              - @songs.each do |song|
+                tr
+                  td = song.title
+                  td = song.parent.profile_name
+                  td = song.aasm_state.humanize
+                  td = song.created_at.strftime("#{song.created_at.day.ordinalize} %B %Y")
+                  td = link_to 'Show', polymorphic_path([:admin, song])
+

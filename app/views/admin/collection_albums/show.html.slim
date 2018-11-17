@@ -1,0 +1,43 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="#"
+          svg.glyph.stroked.male-user
+            use xlink:href="#stroked-male-user"
+      li.active Book
+  .container
+    .row
+      .col-md-12.entity-page-entity-image.margin-top-20
+        =image_tag entity_image(@collection_album)
+    .row
+      .col-md-6.no-gutters
+        .row
+          .col-md-12
+            h3.no-margin-top.text-uppercase= @collection_album.title
+        .row
+          .col-md-12
+            <b>Owner:</b> #{link_to @collection_album.parent.profile_name, @collection_album.parent}
+        .row
+          .col-md-12
+            <b>Country:</b> #{ISO3166::Country.find_country_by_alpha2(@collection_album.parent.country_of_birth).name}
+        .row
+          .col-md-12
+            <b>Date Created:</b> #{@collection_album.album_date.strftime("#{@collection_album.album_date.day.ordinalize} %B %Y") if @collection_album.album_date }
+        .row
+          .col-md-12
+            <b>State</b> #{@collection_album.aasm_state.humanize}
+        .row
+          .col-md-2
+            =link_to 'unpublish', change_status_admin_collection_album_path(@collection_album, params:{status: 'unpublish'}), method: :patch, class: 'btn btn-primary'
+          .col-md-2
+            =link_to 'publish',change_status_admin_collection_album_path(@collection_album, params:{status: 'publish'}), method: :patch, class: 'btn btn-primary'
+
+      .col-md-6.no-gutters
+        = @collection_album.description.html_safe
+  .row
+    .col-md-12
+      .row#collection-entities
+        - @collection_album.collection_entities.each do |entity|
+          .col-md-3
+            = render partial: 'shared/entity-image-tiles', locals: {entity: entity.entity}

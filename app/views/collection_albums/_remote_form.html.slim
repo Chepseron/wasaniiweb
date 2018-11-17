@@ -1,0 +1,87 @@
+#entityModal.reveal[data-reveal]
+  -if @collection_album.new_record?
+    h4#modalTitle
+      | Add a New Collection
+    p
+    hr
+    .row
+      .col-md-12
+        = simple_form_for([@parent, @collection_album], html: {multipart: true}, remote: true, url: create_entity_artist_path(@parent)) do |f|
+          .form-inputs
+            .form-group
+              .row
+                .col-md-9
+                  = f.input :title, label: false, placeholder: 'Title', input_html:{class: 'form-control'}
+                .col-md-3
+                  = f.input :album_date, as: :string, label: false, placeholder: 'Date', input_html:{class: 'form-control'}
+
+          .form-inputs
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :description, label: false, placeholder: 'Description', input_html:{class: 'form-control'}
+          section#entities
+            h5 Add entities to this collection/album
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :book_id_tags, :input_html => {class: 'form-control', "data-pre" => @collection_album.books.map(&:attributes).to_json }, label: 'Books', label: false
+                .col-md-6
+                  = f.input :song_id_tags, :input_html => {class: 'form-control', "data-pre" => @collection_album.songs.map(&:attributes).to_json }, label: 'Songs', label: false
+              .row
+                .col-md-6
+                  = f.input :photo_art_id_tags, :input_html => {class: 'form-control', "data-pre" => @collection_album.photo_arts.map(&:attributes).to_json }, label: 'Photos/Art', label: false
+                .col-md-6
+                  = f.input :production_id_tags, :input_html => {class: 'form-control', "data-pre" => @collection_album.productions.map(&:attributes).to_json }, label: 'Productions', label: false
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :cover_pic, as: :file, label: false
+                .col-md-6.modal-image-text Select an appropriate cover photo for this album
+          .form-actions
+            = f.button :submit, class: 'btn site-btn-primary pull-right'
+  -else
+    h4#modalTitle
+      | Edit Collection
+    p
+    hr
+    .row
+      .col-md-12
+        = simple_form_for(@collection_album, html: {multipart: true}, remote: true) do |f|
+          .form-inputs
+            .form-group
+              .row
+                .col-md-9
+                  = f.input :title, label: false, placeholder: 'Title', input_html:{class: 'form-control'}
+                .col-md-3
+                  = f.input :album_date, as: :string, label: false, placeholder: 'Date', input_html:{class: 'form-control'}
+
+          .form-inputs
+            .form-group
+              .row
+                .col-md-12
+                  = f.input :description, label: false, placeholder: 'Description', input_html:{class: 'form-control'}
+          section#entities
+            h5 Add entities to this collection/album
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :book_id_tags, :input_html => {class: 'form-control', "data-pre" => @collection_album.books.map(&:attributes).to_json }, label: 'Books', label: false
+                .col-md-6
+                  = f.input :song_id_tags, :input_html => {class: 'form-control', "data-pre" => @collection_album.songs.map(&:attributes).to_json }, label: 'Songs', label: false
+              .row
+                .col-md-6
+                  = f.input :photo_art_id_tags, :input_html => {class: 'form-control', "data-pre" => @collection_album.photo_arts.map(&:attributes).to_json }, label: 'Photos/Art', label: false
+                .col-md-6
+                  = f.input :production_id_tags, :input_html => {class: 'form-control', "data-pre" => @collection_album.productions.map(&:attributes).to_json }, label: 'Productions', label: false
+          .form-inputs
+            .form-group
+              .row
+                .col-md-6
+                  = f.input :cover_pic, as: :file, label: false
+                .col-md-6.modal-image-text Select an appropriate cover photo for this album
+          .form-actions
+            = f.button :submit, class: 'btn site-btn-primary pull-right'

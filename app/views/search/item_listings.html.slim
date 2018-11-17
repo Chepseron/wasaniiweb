@@ -1,0 +1,12 @@
+.section-container.specialities.margin-bottom-20
+  .row
+    .col-md-12
+      <h3 class="text-capitalize no-margin-top"> #{@type} | #{@industry}  </h3>
+      #locale-links
+        =render 'shared/items-locale-links'
+  .row
+    .col-md-12.text-center.alphabar#alphabar
+      = render 'alphabar-remote'
+
+  .row#item-listing
+    = render partial: 'item-listings'

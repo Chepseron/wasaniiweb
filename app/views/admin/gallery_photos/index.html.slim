@@ -1,0 +1,61 @@
+.col-sm-9.col-sm-offset-3.col-lg-10.col-lg-offset-2.main
+  .row
+    ol.breadcrumb
+      li
+        a href="/admin"
+          i.fa.fa-book
+      li.active Gallery Photos
+  /! /.row
+  .row
+    .col-lg-12
+      h1.page-header Gallery Photos
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          .row
+            .col-md-9 Gallery Photos
+            .col-md-3
+              .form-group.pull-right
+                input.image-search.form-control placeholder=("What you looking for?") type="text" /
+              span.counter.pull-right
+
+
+        .panel-body
+          .row#gallery-photos
+            - @gallery_photos.each do |gallery_photo|
+              .col-md-2[id = "gallery-photo-#{gallery_photo.id}" visible='true']
+                =render partial: 'gallery_photo', locals: {gallery_photo: gallery_photo}
+
+
+javascript:
+  $(function(){
+    $(".image-search").keyup(function () {
+      var searchTerm = $(".image-search").val();
+      var listItem = $('#gallery-photos').children('.col-md-2');
+      var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+
+      $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
+          return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+        }
+      });
+
+      $("#gallery-photos .col-md-2").not(":containsi('" + searchSplit + "')").each(function(e){
+        $(this).attr('visible','false');
+      });
+
+      $("#gallery-photos .col-md-2:containsi('" + searchSplit + "')").each(function(e){
+        $(this).attr('visible','true');
+      });
+
+     var jobCount = $('#gallery-photos .col-md-2[visible="true"]').length;
+     $('.counter').text(jobCount + ' items');
+
+     if(jobCount == '0') {
+       $('.no-result').show();
+     }else {
+       $('.no-result').hide();
+     }
+    });
+  });

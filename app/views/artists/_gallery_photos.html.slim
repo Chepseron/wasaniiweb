@@ -1,0 +1,7 @@
+.row
+  section.col-md-12.photos#lightgallery
+    - @gallery_photos.each do |gallery_photo|
+      =link_to gallery_photo.image.url, :class=>"img" do
+        =image_tag gallery_photo.image.url
+        -if policy(gallery_photo.parent).delete?
+            <a href='deletephoto/#{gallery_photo.id}' onclick="return confirm('Are you sure?')"><i class="fi-x-circle large"></i></a>

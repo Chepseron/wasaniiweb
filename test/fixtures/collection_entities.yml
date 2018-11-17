@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: collection_entities
+#
+#  collection_album_id :integer
+#  entity_id           :integer
+#  entity_type         :string
+#
+# Indexes
+#
+#  index_collection_entities_on_collection_album_id_and_entity_id  (collection_album_id,entity_id)
+#  index_collection_entities_on_entity_id_and_collection_album_id  (entity_id,collection_album_id)
+#
+
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  collection_album_id: 1
+  entity_id: 1
+  entity_type: MyString
+
+two:
+  collection_album_id: 1
+  entity_id: 1
+  entity_type: MyString

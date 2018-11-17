@@ -1,0 +1,17 @@
+<%- flash.each do |name, msg| %>
+  <%- if msg.is_a?(String) %>
+    var n = noty({
+      layout: 'topRight',
+      text: "<%= msg %>",
+      type: "<%= name.to_s %>",
+      theme: 'relax',
+      timeout: 3000,
+      animation: {
+        open: 'animated bounceInRight',
+        close: 'animated bounceOutRight',
+        easing: 'swing',
+        speed: 300
+      }
+    });
+  <% end %>
+<% end %>

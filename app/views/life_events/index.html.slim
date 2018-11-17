@@ -1,0 +1,31 @@
+h1 Listing life_events
+
+table
+  thead
+    tr
+      th Date happened
+      th Category
+      th Description
+      th Duration
+      th Parent
+      th Parent type
+      th
+      th
+      th
+
+  tbody
+    - @life_events.each do |life_event|
+      tr
+        td = life_event.date
+        td = life_event.life_event_category_id
+        td = life_event.description
+        td = life_event.duration
+        td = life_event.parent_id
+        td = life_event.parent_type
+        td = link_to 'Show', life_event
+        td = link_to 'Edit', edit_life_event_path(life_event)
+        td = link_to 'Destroy', life_event, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+

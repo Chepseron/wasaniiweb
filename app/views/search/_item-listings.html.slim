@@ -1,0 +1,53 @@
+.col-md-12
+  -if @results.empty?
+    h4 No results found
+  -else
+  - @results.each do |result|
+    -if result.class.name == "Event"
+      .row.border-bottom.padding-bottom-20.business-listing
+        .col-md-2.business-logo
+          =link_to result do
+            =image_tag entity_image(result)
+        .col-md-7.border-right
+          .row
+            .col-md-10
+              h4= link_to result.name, result
+          .row
+            .col-md-12= truncate_html(result.description.html_safe, length: 150, omission: "#{link_to '...(continued)', result}")
+        .col-md-3.business-details
+          .row
+            .col-md-12
+              .example
+                strong Country:&nbsp;
+                = result.country
+              .example
+                strong Industry:&nbsp;
+                = result.type.name
+              .example
+                strong Type:&nbsp;
+                = result.class.name
+
+    -else
+      .row.border-bottom.padding-bottom-20.business-listing
+        .col-md-2.business-logo
+          =link_to result do
+            =image_tag entity_image(result)
+        .col-md-7.border-right
+          .row
+            .col-md-10
+              h3= link_to result.title, result
+          .row
+            .col-md-12= truncate_html(result.content.html_safe, length: 150, omission: "#{link_to '...(continued)', result}")
+        .col-md-3.business-details
+          .row
+            .col-md-12
+              .example
+                strong Country:&nbsp;
+                = result.country
+              .example
+                strong Author:&nbsp;
+                = entity_name(result.parent)
+              .example
+                strong Type:&nbsp;
+                = result.class.name
+

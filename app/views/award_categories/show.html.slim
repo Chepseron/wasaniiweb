@@ -1,0 +1,18 @@
+.section-container
+  .row.profile-details.margin-bottom-20.margin
+    .col-md-3
+      =image_tag (@award.image_stored? ? @award.image.url : 'default-award-pic.png'), id: 'profile-pic'
+    .col-md-9
+      .row
+        .col-md-12
+          h3.no-margin-top.text-uppercase.text-primary= @award.name
+          h4.no-margin-top.text-uppercase.text-primary= @award_category.name
+          = link_to 'add nominee', new_nominee_path(@award_category), remote: true
+      .row#nominees_table
+        =render 'nominees/nominees_table'
+      .row
+        = link_to 'Back', award_categories_path(@award_category.award.slug)
+
+
+#nominee-rank
+#add-nominee

@@ -1,0 +1,9 @@
+h1 Edited Submission
+
+p A enitity has been edited and submitted for review. Please click below to view
+P Changes include:
+ul
+  -@changes.each do |change|
+    li= change
+
+=link_to polymorphic_url([:admin, @entity]), polymorphic_url([:admin, @entity])

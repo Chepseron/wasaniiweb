@@ -1,0 +1,6 @@
+var entity_id = "<%= @entity.class.name.downcase %>-<%= @entity.id %>"
+$.modal.close();
+$('#add-news-event-blog-modal').empty();
+$('#news-events-blogs-cards').append("<div id="+ entity_id +" class='col-md-3 reduced-padding'><%= escape_javascript render partial: 'artists/news-event-blog-card', locals:{card: @entity} %></div>")
+
+NProgress.done();

@@ -1,0 +1,11 @@
+$('#add-contacts-modal').html("<%= escape_javascript render 'businesses/contact_form' %>");
+
+$('#contactsModal').modal();
+
+javascript:
+  tinyMCE.init({
+    selector: 'textarea',
+    menubar: false,
+    statusbar: false,
+    toolbar: false
+  });

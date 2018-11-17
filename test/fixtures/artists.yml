@@ -1,0 +1,139 @@
+# == Schema Information
+#
+# Table name: artists
+#
+#  id                   :integer          not null, primary key
+#  profile_name         :string
+#  name                 :string
+#  contact_phone_number :string
+#  contact_email        :string
+#  gender               :string
+#  birthday             :date
+#  country_of_birth     :string
+#  profile_pic_uid      :string
+#  introduction         :text
+#  parent_id            :integer
+#  parent_type          :string
+#  verified             :boolean          default(FALSE)
+#  aasm_state           :string
+#  slug                 :string
+#  height               :string
+#  weight               :string
+#  bust                 :string
+#  hips                 :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  featured             :boolean
+#
+# Indexes
+#
+#  index_artists_on_parent_id    (parent_id)
+#  index_artists_on_parent_type  (parent_type)
+#  index_artists_on_slug         (slug) UNIQUE
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+daredevil:
+  profile_name: Daredevil
+  name: Matthew Michael Murdock
+  gender: male
+  birthday: 1988-06-14
+  country_of_birth: KE
+  profile_pic_uid: MyString
+  introduction: "Abandoned by his mother, Matt Murdock was raised by his father, boxer
+  \"Battling Jack\" Murdock, in Hell's Kitchen. Realizing that rules were needed to prevent
+  people from behaving badly, young Matt decided to study law; however, when he saved a man
+  from an oncoming truck, it spilled a radioactive cargo that rendered Matt blind while
+  enhancing his remaining senses. Under the harsh tutelage of blind martial arts master Stick,
+  Matt mastered his heightened senses and became a formidable fighter."
+  parent: spiderman(User)
+  verified: true
+  aasm_state: approved
+  contact_phone_number: +254722555123
+  contact_email: daredevil@marvelcomics.com
+  industries: [film]
+  artist_specialities: [actor]
+
+
+mark_steven_johnson:
+  profile_name: Mark Steven Johnson
+  name: Mark Steven Johnson
+  gender: male
+  birthday: 1988-06-14
+  country_of_birth: KE
+  profile_pic_uid: MyString
+  introduction: Johnson was born in Hastings, Minnesota
+    and graduated from California State University, Long Beach.
+    He has written and directed the two comic book based films
+    Daredevil and Ghost Rider[4] as well as the film Simon Birch.
+    His early writing credits are for the film Grumpy Old Men and
+    its sequel Grumpier Old Men.[1] Most recently he produced the
+    critically pannedGrudge Match for Warner Bros. which was released
+    on Christmas 2013.
+  parent: spiderman(User)
+  verified: false
+  aasm_state: new_profile
+  contact_phone_number: +254722555124
+  contact_email: mark@steven_johnson.com
+  industries: [film]
+  artist_specialities: [director]
+
+peyton_tucker_reed:
+  profile_name: Peyton Tucker Reed
+  name: Peyton Tucker Reed
+  gender: male
+  birthday: 1988-06-14
+  country_of_birth: KE
+  profile_pic_uid: MyString
+  introduction: An American television and film director.
+    He is best known for directing the comedy films Yes Man,
+    Bring It On, and The Break-Up, as well as the superhero film Ant-Man.
+  parent: spiderman(User)
+  verified: false
+  aasm_state: new_profile
+  contact_phone_number: +254722555124
+  contact_email: peyton@tucker_reed.com
+  industries: [film]
+  artist_specialities: [director]
+
+peyton_tucker_reed_II:
+  profile_name: Peyton Tucker Reed II
+  name: Peyton Tucker Reed II
+  gender: male
+  birthday: 1988-06-14
+  country_of_birth: KE
+  profile_pic_uid: MyString
+  introduction: An American television and film director.
+    He is best known for directing the comedy films Yes Man,
+    Bring It On, and The Break-Up, as well as the superhero film Ant-Man.
+  parent: spiderman(User)
+  verified: false
+  aasm_state: new_profile
+  contact_phone_number: +254722555124
+  contact_email: peyton@tucker_reed.com
+  industries: [film]
+  artist_specialities: [director]
+
+mystique:
+  profile_name: Mystique
+  name: Unrevealed
+  gender: female
+  birthday: 1988-06-14
+  country_of_birth: KE
+  profile_pic_uid: MyString
+  introduction: Mystique can psionically shift the atoms of
+    her body to duplicate any humanoid of either sex, wearing
+    any kind of clothing. She can precisely duplicate another
+    person’s retina pattern, finger, palm and skin-pore patterns,
+    and vocal cords. She can increase her volume, but not her mass.
+    Mystique’s power grants her age retardation, increased healing,
+    and immunity to drugs and poisons.
+  parent: spiderman(User)
+  verified: false
+  aasm_state: rejected
+  contact_phone_number: +254722555124
+  contact_email: mystique@marvel.com
+  industries: [film]
+  artist_specialities: [actor]
+

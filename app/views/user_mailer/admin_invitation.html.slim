@@ -1,0 +1,9 @@
+  h1
+  | You have been invited to be an admin for #{@name}'s page. To accept, please click the link below.
+
+  br
+
+  = link_to accept_admin_invitation_user_url(@user.invitation_token), accept_admin_invitation_user_url(@user.invitation_token)
+
+  p
+    | If you would not like to accept this invitation, please ignore the link.

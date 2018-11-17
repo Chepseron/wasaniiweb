@@ -1,0 +1,73 @@
+#entityModal
+  -if @blog.new_record?
+    h4#modalTitle
+      | Add a Blog
+    .row
+      .medium-10.columns.form-holder
+        = simple_form_for([@parent, @blog], html: {multipart: true}, remote: true, url: get_work_create_path(@parent)) do |f|
+
+          .form-inputs
+            .row.clr
+              .col.grid-1
+                = f.input :title, label: false, placeholder: 'Title', input_html:{class: 'input-1'}
+            .row.clr
+              .col.grid-1
+                = f.input :image, as: :file, input_html:{class: 'input-1'}
+            .row.clr
+              .col.grid-1
+                = f.input :date, as: :string, label: false, placeholder: 'Date', input_html:{class: 'input-1'}
+            .row.clr
+              .col.grid-1
+                = f.input :content, label: false, placeholder: 'Content', input_html:{class: 'input-1'}
+            .row.clr
+              .col.grid-1
+                = f.input :artist_id_tags, :input_html => {class: 'input-1', "data-pre" => @blog.artists.map(&:attributes).to_json }, label: 'Select the artists linked to this blog:'
+            .row.clr
+              .col.grid-1
+                = f.input :business_id_tags, :input_html => {class: 'input-1', "data-pre" => @blog.businesses.map(&:attributes).to_json }, label: 'Select the businesses linked to this blog:'
+            .row.clr
+              .col.grid-1
+                = f.input :event_id_tags, :input_html => {class: 'input-1', "data-pre" => @blog.events.map(&:attributes).to_json }, label: 'Select the events linked to this blog:'
+
+            .row.clr
+              .col.grid-1
+                = render partial: 'shared/add_gallery_photos'
+
+          .form-actions
+            = f.button :submit, class: 'btn'
+  -else
+    h4#modalTitle
+      | Edit Blog
+    .row
+      .medium-10.columns.form-holder
+        = simple_form_for(@blog, html: {multipart: true}, remote: true) do |f|
+
+          .form-inputs
+            .row.clr
+              .col.grid-1
+                = f.input :title, label: false, placeholder: 'Title', input_html:{class: 'input-1'}
+            .row.clr
+              .col.grid-1
+                = f.input :image, as: :file, input_html:{class: 'input-1'}
+            .row.clr
+              .col.grid-1
+                = f.input :date, as: :string, label: false, placeholder: 'Date', input_html:{class: 'input-1'}
+            .row.clr
+              .col.grid-1
+                = f.input :content, label: false, placeholder: 'Content', input_html:{class: 'input-1'}
+            .row.clr
+              .col.grid-1
+                = f.input :artist_id_tags, :input_html => {class: 'input-1', "data-pre" => @blog.artists.map(&:attributes).to_json }, label: 'Select the artists linked to this blog:'
+            .row.clr
+              .col.grid-1
+                = f.input :business_id_tags, :input_html => {class: 'input-1', "data-pre" => @blog.businesses.map(&:attributes).to_json }, label: 'Select the businesses linked to this blog:'
+            .row.clr
+              .col.grid-1
+                = f.input :event_id_tags, :input_html => {class: 'input-1', "data-pre" => @blog.events.map(&:attributes).to_json }, label: 'Select the events linked to this blog:'
+
+            .row.clr
+              .col.grid-1
+                = render partial: 'shared/add_gallery_photos'
+
+          .form-actions
+            = f.button :submit, class: 'btn'

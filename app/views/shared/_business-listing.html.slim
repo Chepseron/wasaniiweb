@@ -1,0 +1,36 @@
+- @businesses.each do |business|
+  .row.border-bottom.padding-bottom-20.business-listing
+    .col-md-2.business-logo
+      = link_to business do
+        =image_tag artist_image(business)
+    .col-md-7.border-right
+      .row
+        .col-md-10
+          h4= link_to business.name, business
+
+        -if business.verified?
+          .col-md-2
+            .verification.margin-top-20
+              =image_tag "verified.svg"
+      -if business.company_info?
+        .row
+          .col-md-12= truncate_html(business.company_info.html_safe, length: 150, omission: "#{link_to '...(continued)', business}")
+      .row
+        .col-md-5.col-md-offset-7
+          .pull-right[id="fan-section-business-#{business.id}"]
+            = business_fan_link(business)
+    .col-md-3.business-details
+      .row
+        .col-md-12
+          .example
+            strong Country:&nbsp;
+            | #{ISO3166::Country.find_country_by_alpha2(business.country).name}
+          .example
+            strong Industry:&nbsp;
+            | #{business.industries.pluck(:name).join(', ')}
+          .example
+            strong Type:&nbsp;
+            | #{business.business_category.name}
+
+= will_paginate @businesses 
+

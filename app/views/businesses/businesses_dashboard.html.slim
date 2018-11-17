@@ -1,0 +1,50 @@
+.section-container.specialities.margin-bottom-20
+  .row
+    .col-md-12
+      h3.text-capitalize.no-margin-top Business
+      #locale-links #{link_to 'local', request.path, class: @locale == 'local' ? 'active-link':'' } | #{link_to 'international', request.path + '?locale=international', class: @locale == 'international' ? 'active-link':''}
+  .row
+    .col-md-12.text-center.alphabar
+      =render 'alphabar'
+  .row.margin-bottom-20
+    .col-md-12
+      - Industry.all.each do |industry|
+        =link_to business_listings_path(params:{industry: industry, locale: @locale}) do
+          .col-md-2.speciality-box
+            .image-text #{industry.name} (#{business_speciality_count(industry, @locale)})
+            =image_tag "#{industry.name.downcase.gsub(' ', '_').gsub(',','')}.jpg"
+  hr.hr
+  - if get_ad("#{controller_name}_ad_1") && get_ad("#{controller_name}_ad_1").has_content?
+    .row.site-ad
+      .col-md-12.no-gutters
+        = get_ad("#{controller_name}_ad_1").get_content
+    hr.hr
+
+  -unless @featured_businesses.empty?
+    .row
+      .col-md-12
+        h4 Featured Businesses
+    .row.margin-bottom-20
+      .col-md-4.reduced-padding.featured-profile-primary-pic.large-dashboard-profile-pic
+        =link_to @businesses.first do
+          = image_tag artist_image(@businesses.first) if @businesses.first
+          .media-image-text
+            h4.text-uppercase= @businesses.first.name
+            p= @businesses.first.industries.pluck(:name).join(', ')
+            btn.btn view
+            p= ISO3166::Country.find_country_by_alpha2(@businesses.first.country).name
+      .col-md-8.reduced-padding.small-dashboard-profile-pics
+        - unless @businesses[1..6].nil?
+          - @businesses[1..6].each do |business|
+            .col-md-3.reduced-padding.featured-profiles-grid
+              = image_tag artist_image(business)
+              .media-image-text
+                h4.text-uppercase= business.name
+                p= business.industries.pluck(:name).join(', ')
+                btn.btn view
+                
+    hr.hr
+
+  .row.clr.pro-header#business-listing
+    #business-listing
+      =render 'shared/business-listing'

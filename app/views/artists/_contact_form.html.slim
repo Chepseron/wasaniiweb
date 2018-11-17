@@ -1,0 +1,17 @@
+#contactsModal
+  h4#modalTitle
+    | Contacts
+  hr
+  .row
+    .col-md-12
+      = simple_form_for @artist, remote: true do |f|
+        .form-inputs
+          .form-group
+            .row
+              .col-md-6
+                = f.input :contact_phone_number, label: false, placeholder: 'Contact Phone Number', input_html:{class: 'form-control'}
+              .col-md-6
+                = f.input :contact_email, label: false, placeholder: 'Contact Email', input_html:{class: 'form-control'}
+
+        .form-actions
+          = f.button :submit, class: 'btn site-btn-primary pull-right'

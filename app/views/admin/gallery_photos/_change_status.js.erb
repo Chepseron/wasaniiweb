@@ -1,0 +1,3 @@
+var id = "#gallery-photo-<%= @gallery_photo.id %>"
+$(id).html("<%= escape_javascript render partial: 'gallery_photo', locals:{gallery_photo: @gallery_photo} %>")
+

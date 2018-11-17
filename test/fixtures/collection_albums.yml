@@ -1,0 +1,36 @@
+# == Schema Information
+#
+# Table name: collection_albums
+#
+#  id                 :integer          not null, primary key
+#  title              :string
+#  description        :text
+#  visible            :boolean
+#  parent_id          :integer
+#  parent_type        :string
+#  collection_type_id :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  cover_pic_uid      :string
+#  album_date         :date
+#  slug               :string
+#  aasm_state         :string
+#
+# Indexes
+#
+#  index_collection_albums_on_slug  (slug)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  collection_type_id: 1
+  name: MyString
+  description: MyText
+  parent: daredevil(Artist)
+
+two:
+  collection_type_id: 1
+  name: MyString
+  description: MyText
+  parent: daredevil(Artist)

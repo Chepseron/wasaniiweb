@@ -1,0 +1,1 @@
+| #{link_to 'local', request.path + "?locale=local&industry=#{@industry_id}&search_letter=#{@search_letter}", class: @locale == 'local' ? 'active-link':'' } | #{link_to 'international', request.path + "?locale=international&industry=#{@industry_id}&search_letter=#{@search_letter}", class: @locale == 'international' ? 'active-link':''}

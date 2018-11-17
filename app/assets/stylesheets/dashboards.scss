@@ -1,0 +1,28 @@
+$border-color: #D3D3D3;
+
+@media (min-width: 992px) {
+  .featured-profile-primary-pic{
+    img{
+      height: 315px;
+    }
+  }
+  .featured-profiles-grid{
+    img{
+      height: 150px;
+    }
+  }
+}
+
+.dashboard-trending-section, .dashboard-events, .dashboard-image{
+  .list-panel.border-right{
+    margin-right: 0 !important;
+  }
+}
+
+.random-image{
+  margin-top: 20px;
+  img{
+    width: 100%;
+    max-height: 400px;
+  }
+}

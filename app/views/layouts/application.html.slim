@@ -1,0 +1,118 @@
+doctype html
+html.no-js[lang="en" dir="ltr"]
+  head
+    meta[charset="utf-8"]
+    meta[http-equiv="x-ua-compatible" content="ie=edge"]
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+    = favicon_link_tag "favicon.png"
+
+    title == content_for?(:title) ? yield(:title) : "Wasanii"
+    meta name="description" content= yield(:meta_description) 
+
+    = stylesheet_link_tag "application", "https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900", "http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css"
+
+    = javascript_include_tag "application"
+    = stylesheet_link_tag "application", media: "all"
+    = csrf_meta_tag
+  body
+    nav.navbar.navbar-wrapper.navbar-default
+      .container
+        /! Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle.collapsed aria-expanded="false" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button"
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          =link_to :root, class: 'navbar-brand' do
+            =image_tag 'logo.png'
+        /! Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            - if current_user.nil?
+              li= link_to 'login', :login, class: 'btn btn-md homepage-btn-primary login-btn'
+            - else
+              li.home =link_to dashboard_user_path(current_user) do
+                  =image_tag 'home.svg'
+              li.user-image
+                =link_to '#' do
+                  =image_tag current_user.profile_image_stored? ? current_user.profile_image.url : 'default-profile-pic.png', class: "dropdown-toggle", 'data-toggle':"dropdown", role:"button", 'aria-haspopup':"true"
+                  span.caret
+                ul.dropdown-menu
+                  li= link_to 'My Profile', user_path(current_user)
+                  - if current_user.content_provider?
+                    li= link_to 'Add an artist', new_user_artist_path(current_user)
+                    li= link_to 'Add a business', new_user_business_path(current_user)
+                    li= link_to 'View created items', entity_management_user_path(current_user)
+                  li= link_to 'Logout', :logout, method: :delete
+
+          =simple_form_for :search, method: 'get', url: search_path, html:{class: 'navbar-form navbar-right', id: 'search-box'} do |f|
+            .form-group
+              =f.input :term, placeholder: "Search", input_html: {class: 'form-control'}, label: false
+            = f.button :button, class: 'btn btn-default', id: 'search-btn' do
+              i.fa.fa-search aria-hidden="true"
+
+          ul.nav.navbar-nav.navbar-right.text-capitalize#menu-items
+            li=link_to 'music', :music_dashboard
+            li=link_to 'film', :productions_dashboard
+            li=link_to 'fashion', :fashion_dashboard
+            li=link_to 'literature', :literature_dashboard
+            li=link_to 'arts', :photo_arts_dashboard            
+            li=link_to 'media', :media_dashboard
+            li=link_to 'business', :businesses_dashboard
+            li=link_to 'events', :events_dashboard
+            
+
+    = render 'layouts/messages'
+    section#full-page
+      .content.margin-top-20
+        .container
+          - if dont_render_sidebar
+            == yield
+          - else
+            .row
+              .col-md-9.no-gutters.border-right.presskit
+                == yield
+                
+              .col-md-3.hide-print
+                = render 'shared/sidebar'
+
+
+
+
+    footer.footer-info
+      = render 'shared/footer'
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+javascript:
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-100981112-1', 'auto');
+  ga('send', 'pageview');
+
+= javascript_tag do
+  |  window.opener.location = '
+  = @page
+  | '; window.close();
+
+javascript:
+  $(function(){
+    $("#lightgallery").lightGallery({
+      download: false,
+      getCaptionFromTitleOrAlt: false,
+      thumbMargin: 20,
+      thumbnail:true,
+      selector: '.img'
+    });
+
+    $('body').on('click', 'button.close', function(){
+      $.modal.close();
+    });
+
+    $('body').on('click','#search-btn', function(){
+      NProgress.start();
+    });
+  });
+
